@@ -5,7 +5,7 @@ Members and Gator Links
 Nancy Chen - Nchen94
 David Cheng - ufapdavid
 Monica Gandhi
-Joan Caneus
+Joan Caneus -jcaneus1
 Sarah Talty
 Elliot Schoenfeld
 
