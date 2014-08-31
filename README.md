@@ -1,9 +1,9 @@
-CEN3031Project
-==============
+CEN3031 Project
+===============
 
 Members and Gator Links
 Nancy Chen - Nchen94
-David Cheng
+David Cheng - ufapdavid
 Monica Gandhi
 Joan Caneus
 Sarah Talty
