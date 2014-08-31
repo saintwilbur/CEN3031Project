@@ -13,7 +13,7 @@ Member 4-> Name: Joan Caneus -GatorLink: jcaneus1
 
 Member 5-> Name: Sarah Talty -GatorLink: 
 
-Member 6-> Name: Elliot Schoenfeld -GatorLink: 
+Member 6-> Name: Elliot Schoenfeld -GatorLink: e.schoenfeld
 
 
 No current project
