@@ -11,7 +11,7 @@ Member 3-> Name: Monica Gandhi -GatorLink:
 
 Member 4-> Name: Joan Caneus -GatorLink: jcaneus1
 
-Member 5-> Name: Sarah Talty -GatorLink: 
+Member 5-> Name: Sarah Talty -GatorLink: sltalty
 
 Member 6-> Name: Elliot Schoenfeld -GatorLink: e.schoenfeld
 
