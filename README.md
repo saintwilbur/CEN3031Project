@@ -16,4 +16,4 @@ Member 5-> Name: Sarah Talty -GatorLink: sltalty
 Member 6-> Name: Elliot Schoenfeld -GatorLink: e.schoenfeld
 
 
-No current project
+We have a project. 
