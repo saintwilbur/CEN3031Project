@@ -16,4 +16,4 @@ Member 5-> Name: Sarah Talty -GatorLink: sltalty
 Member 6-> Name: Elliot Schoenfeld -GatorLink: e.schoenfeld
 
 
-We have a project. 
+Our project is called Hummingbird and it is a system for reporting medical testing.
