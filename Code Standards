@@ -1,0 +1,56 @@
+Whitespace:
+	Whitespace around assignment operators (e.g. = += *= )
+	No whitespace around comparators (e.g. < > != )
+	spaces around parameter listings
+	function name(pName1, pName2)
+	{
+	}
+
+Brackets:
+	-Put brackets on new line
+
+	for(int i = 0; i<10; i++)
+	{
+		//code here
+	}
+
+Comments:
+	-Single line "//"
+	-Multiple lines
+	-All comments above relevant code
+	-All comments on same indent as relevant code
+	-No space between comment and relevant code
+	-For functions include @param and @return descriptions
+
+
+		/**
+		 * $transition service provides a consistent interface to trigger CSS 3 transitions and to be informed when they co
+		 * @param  {DOMElement} element  The DOMElement that will be animated.
+		 * @param  {string|object|function} trigger  The thing that will cause the transition to start:
+		 *   - As a string, it represents the css class to be added to the element.
+		 *   - As an object, it represents a hash of style attributes to be applied to the element.
+		 *   - As a function, it represents a function to be called that will cause the transition to occur.
+		 * @return {Promise}  A promise that is resolved when the transition finishes.
+		 */
+		function nameHere(pName1, pName2)
+		{
+			//Single line comment
+			for(...)
+			{
+			}
+		}
+
+Nested Elements:
+	-Single tab indent
+
+Naming conventions:
+	-camelCase
+	-start with lowercase
+
+Github Commits
+	-Comment: "Implemented User Story <story number here>"
+
+Javascript:
+
+	Anonymous functions
+		-don't put function name
