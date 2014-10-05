@@ -5,6 +5,10 @@ body
 }.content {
 	margin-top: 50px;
 }
+.jumbotron
+{
+	background-color: transparent;
+}
 .undecorated-link:hover {
 	text-decoration: none;
 }
