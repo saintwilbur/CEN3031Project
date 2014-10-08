@@ -10,7 +10,23 @@ var mongoose = require('mongoose'),
  * Address Schema
  */
 var AddressSchema = new Schema({
-	//stuff
+	streetNumber: {
+		type: Number
+	},
+	streetName:{
+		type: String
+	},
+	//apt/suite
+	city:{
+		type:String
+	},
+	state:{
+		//change to state picker
+		type:String
+	},
+	zipcode:{
+		type:Number
+	}
 });
 
 mongoose.model('Address', AddressSchema);
