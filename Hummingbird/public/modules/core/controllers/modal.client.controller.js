@@ -2,8 +2,6 @@
 
 angular.module('core').controller('ModalController', function ($scope, $modal, $log) {
 
-  $scope.items = ['item1', 'item2', 'item3'];
-
   $scope.open = function (size, tmplt) {
 
     var modalInstance = $modal.open({
