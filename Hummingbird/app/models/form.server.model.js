@@ -10,8 +10,12 @@ var mongoose = require('mongoose'),
  * Form Schema
  */
 var FormSchema = new Schema({
-	// Form model fields   
-	// ...
+	name: {
+		type: String,
+		trim: true,
+		default: 'Test'
+	}
+	//other fields
 });
 
 mongoose.model('Form', FormSchema);

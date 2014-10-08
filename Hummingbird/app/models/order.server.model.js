@@ -25,7 +25,8 @@ var OrderSchema = new Schema({
 	status: {
 		type: String,
 		trim: true,
-		default: 'pending'
+		default: 'pending',
+		require: 'Status field is required'
 	},
 	result: {
 		type: Schema.ObjectId,

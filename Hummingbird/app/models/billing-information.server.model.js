@@ -10,8 +10,17 @@ var mongoose = require('mongoose'),
  * BillingInformation Schema
  */
 var BillingInformationSchema = new Schema({
-	// BillingInformation model fields   
-	// ...
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+	address: {
+		type: Schema.ObjectId,
+		ref: 'Address'
+	},
+	cardInfomation:{
+		//???
+	}
 });
 
 mongoose.model('BillingInformation', BillingInformationSchema);

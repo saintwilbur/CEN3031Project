@@ -10,8 +10,35 @@ var mongoose = require('mongoose'),
  * Messaging Schema
  */
 var MessagingSchema = new Schema({
-	// Messaging model fields   
-	// ...
+	created: {
+		type: Date,
+		default: Date.now
+	},
+	firstName: {
+		type: String,
+		trim: true,
+		default: ''
+	},
+	lastName: {
+		type: String,
+		trim: true,
+		default: ''
+	},
+	email: {
+		type: String,
+		trim: true,
+		default: ''
+	},
+	subject: {
+		type: String,
+		trim: true,
+		default: ''
+	},
+	message: {
+		type: String,
+		trim: true,
+		default: ''
+	}
 });
 
 mongoose.model('Messaging', MessagingSchema);
