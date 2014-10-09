@@ -32,8 +32,12 @@ describe('Address Model Unit Tests:', function() {
 
 		user.save(function() { 
 			address = new Address({
-				// Add model fields
-				// ...
+				streetNumber: '1864',
+	            streetName: 'Stadium Rd',
+				//apt/suite
+				city: 'Gainesville',
+				state: 'Florida',
+				zipcode: '32608'
 			});
 
 			done();

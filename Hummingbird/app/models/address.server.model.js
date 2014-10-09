@@ -13,18 +13,18 @@ var AddressSchema = new Schema({
 	streetNumber: {
 		type: Number
 	},
-	streetName:{
+	streetName: {
 		type: String
 	},
 	//apt/suite
-	city:{
+	city: {
 		type:String
 	},
-	state:{
+	state: {
 		//change to state picker
 		type:String
 	},
-	zipcode:{
+	zipcode: {
 		type:Number
 	}
 });
