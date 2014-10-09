@@ -6,12 +6,13 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
+	Address = mongoose.model('Address'),
 	BillingInformation = mongoose.model('BillingInformation');
 
 /**
  * Globals
  */
-var user, billingInformation;
+var user, address, billingInformation;
 
 /**
  * Unit tests
@@ -30,10 +31,19 @@ describe('Billing information Model Unit Tests:', function() {
 			gender: 'male'
 		});
 
+		address = new Address({
+				streetNumber: '1864',
+	            streetName: 'Stadium Rd',
+				//apt/suite
+				city: 'Gainesville',
+				state: 'Florida',
+				zipcode: '32608'
+		});
+
 		user.save(function() { 
 			billingInformation = new BillingInformation({
-				// Add model fields
-				// ...
+				user: user,
+				address: address
 			});
 
 			done();

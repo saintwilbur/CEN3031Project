@@ -11,7 +11,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var user, inventory;
+var user, inventory, inventory2;
 
 /**
  * Unit tests
@@ -32,8 +32,16 @@ describe('Inventory Model Unit Tests:', function() {
 
 		user.save(function() { 
 			inventory = new Inventory({
-				// Add model fields
-				// ...
+				itemId: '123456789',
+				name: 'Test kit',
+				count: '10',
+				price: '1000'
+			});
+			inventory2 = new Inventory({
+				itemId: '123456789',
+				name: 'Test kit',
+				count: '10',
+				price: '1000'
 			});
 
 			done();
@@ -44,6 +52,22 @@ describe('Inventory Model Unit Tests:', function() {
 		it('should be able to save without problems', function(done) {
 			return inventory.save(function(err) {
 				should.not.exist(err);
+				done();
+			});
+		});
+
+		it('should fail to save an existing item again', function(done) {
+			inventory.save();
+			return inventory2.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save without item ID', function(done) {
+			inventory.itemId = '';
+			return inventory.save(function(err) {
+				should.exist(err);
 				done();
 			});
 		});

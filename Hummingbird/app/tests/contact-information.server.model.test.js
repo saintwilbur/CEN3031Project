@@ -6,12 +6,13 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
+	Address = mongoose.model('Address'),
 	ContactInformation = mongoose.model('ContactInformation');
 
 /**
  * Globals
  */
-var user, contactInformation;
+var user, address, contactInformation;
 
 /**
  * Unit tests
@@ -44,8 +45,7 @@ describe('Contact information Model Unit Tests:', function() {
 				user: user,
 				cellNumber: '3211231234',
 				homeNumber: '1234567890',
-				primaryAddress: address,
-				secondaryAddress: ''
+				primaryAddress: address
 			});
 
 			done();
