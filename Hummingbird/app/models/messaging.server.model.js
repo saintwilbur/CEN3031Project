@@ -6,6 +6,10 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
+var validateLocalStrategyProperty = function(property) {
+	return (property.length);
+};
+
 /**
  * Messaging Schema
  */
@@ -17,27 +21,32 @@ var MessagingSchema = new Schema({
 	firstName: {
 		type: String,
 		trim: true,
-		default: ''
+		default: '',
+		required: 'Please fill in your first name'
 	},
 	lastName: {
 		type: String,
 		trim: true,
-		default: ''
+		default: '',
+		required: 'Please fill in a last name'
 	},
 	email: {
 		type: String,
 		trim: true,
-		default: ''
+		default: '',
+		required: 'Please fill in a email'
 	},
 	subject: {
 		type: String,
-		trim: true,
-		default: ''
+		trim: true,		
+		default: '',
+		required: 'Please fill in a subject'
 	},
 	message: {
 		type: String,
 		trim: true,
-		default: ''
+		default: '',
+		validate: [validateLocalStrategyProperty, 'Please fill in a message']
 	}
 });
 
