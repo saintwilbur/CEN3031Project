@@ -10,12 +10,8 @@ var mongoose = require('mongoose'),
  * ContactInformation Schema
  */
 var ContactInformationSchema = new Schema({
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
-	},
 	cellNumber: {
-		type: Number		
+		type: Number	
 	},
 	homeNumber:{
 		type: Number

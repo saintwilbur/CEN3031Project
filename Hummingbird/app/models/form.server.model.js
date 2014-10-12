@@ -14,7 +14,8 @@ var FormSchema = new Schema({
 		type: String,
 		trim: true,
 		default: 'Test'
-	}
+	},
+	fieldTest: []
 	//other fields
 });
 
