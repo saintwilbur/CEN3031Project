@@ -32,8 +32,7 @@ describe('Form Model Unit Tests:', function() {
 
 		user.save(function() { 
 			form = new Form({
-				// Add model fields
-				// ...
+				name: 'Test Form'
 			});
 
 			done();

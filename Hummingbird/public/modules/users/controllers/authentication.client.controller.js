@@ -19,6 +19,15 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			});
 		};
 
+            $scope.checked = false;
+            $scope.toggle = function() {
+                $scope.checked = true;
+            };
+            $scope.noVerification = function(){
+		$scope.checked = false;
+	    };
+
+
 		$scope.signin = function() {
 			$http.post('/auth/signin', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
