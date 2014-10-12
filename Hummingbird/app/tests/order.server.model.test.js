@@ -7,7 +7,7 @@ var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Order = mongoose.model('Order'),
-	Inventory = mongoose.model('Inventory'),
+	//Inventory = mongoose.model('Inventory'),
 	Address = mongoose.model('Address'),
 	BillingInformation = mongoose.model('BillingInformation'),
 	Result = mongoose.model('Result'),
@@ -34,14 +34,14 @@ describe('Order Model Unit Tests:', function() {
 			dateOfBirth: '1992-06-14',
 			gender: 'male'
 		});
-
-		inventory = new Inventory({
-				itemId: '123456789',
-				name: 'Test kit',
-				count: '10',
-				price: '1000'
-			});
-
+		/**
+		*inventory = new Inventory({
+		*		itemId: '123456789',
+		*		name: 'Test kit',
+		*		count: '10',
+		*		price: '1000'
+		*	});
+		*/
 		address = new Address({
 				streetNumber: '1864',
 	            streetName: 'Stadium Rd',
@@ -69,7 +69,7 @@ describe('Order Model Unit Tests:', function() {
 			order = new Order({
 				orderId: '12345',
 				user: user,
-				item: inventory,
+				item: 'General',
 				billingInformation: billingInformation,
 				result: result,
 				form: form
@@ -83,6 +83,14 @@ describe('Order Model Unit Tests:', function() {
 		it('should be able to save without problems', function(done) {
 			return order.save(function(err) {
 				should.not.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save without item', function(done) {
+			order.item = '';
+			return order.save(function(err) {
+				should.exist(err);
 				done();
 			});
 		});

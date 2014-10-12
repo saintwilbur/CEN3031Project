@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
+	User = mongoose.model('User'),
 	Order = mongoose.model('Order'),
     _ = require('lodash');
 
@@ -58,7 +59,7 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) 
 {
-	Order.find({status: 'pending'}).sort('-created').exec(function(err, order){
+	Order.find().sort('-created').exec(function(err, order){
 		if (order.user.id !== req.user.id)
 		{
 			return res.status(403).send({
