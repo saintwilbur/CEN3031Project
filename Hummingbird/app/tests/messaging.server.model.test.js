@@ -32,8 +32,11 @@ describe('Messaging Model Unit Tests:', function() {
 
 		user.save(function() { 
 			messaging = new Messaging({
-				// Add model fields
-				// ...
+				firstName: 'Full',
+				lastName: 'Name',
+				email: 'test@test.com',
+				subject: 'Test Message',
+				message: 'This is just a test'
 			});
 
 			done();
@@ -44,6 +47,38 @@ describe('Messaging Model Unit Tests:', function() {
 		it('should be able to save without problems', function(done) {
 			return messaging.save(function(err) {
 				should.not.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save without first name', function(done) {
+			messaging.firstName = '';
+			return messaging.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save without last name', function(done) {
+			messaging.lastName = '';
+			return messaging.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save without email', function(done) {
+			messaging.email = '';
+			return messaging.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save without subject', function(done) {
+			messaging.subject = '';
+			return messaging.save(function(err) {
+				should.exist(err);
 				done();
 			});
 		});

@@ -6,12 +6,17 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	Order = mongoose.model('Order');
+	Order = mongoose.model('Order'),
+	Inventory = mongoose.model('Inventory'),
+	Address = mongoose.model('Address'),
+	BillingInformation = mongoose.model('BillingInformation'),
+	Result = mongoose.model('Result'),
+	Form = mongoose.model('Form');
 
 /**
  * Globals
  */
-var user, order;
+var user, inventory, address, billingInformation, result, form, order;
 
 /**
  * Unit tests
@@ -29,6 +34,10 @@ describe('Order Model Unit Tests:', function() {
 			dateOfBirth: '1992-06-14',
 			gender: 'male'
 		});
+
+		inventory = new Inventory({
+			
+		})
 
 		user.save(function() { 
 			order = new Order({
