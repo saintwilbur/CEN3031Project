@@ -1,0 +1,35 @@
+<section ng-controller="PendingController">
+	<div class="row">
+	  <div class="col-md-11">
+    <table class="table table-hover table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th class="col-md-3">ID</th>
+          <th class="col-md-7">Name</th>
+          <th class="col-md-1">Location</th>
+          <th class="col-md-1">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="orders in order">
+          <td>{{accessors.getId(order)}}</td>
+          <td>{{order.name}}</td>
+          <td>
+		<a href= "https://www.fedex.com/fedextrack/WTRK/index.html?action=track&action=track&trackNumbers=11111&fdx=1490" target="_blank">Track</a>
+			  {{order.location}}
+		  
+		  </td>
+          <td>{{order.active}}</td>
+        </tr>
+      </tbody>
+    </table>
+</table>
+</div>
+	  <div class="col-md-1">
+		  	<br>
+		  	<div ng-repeat ="orders in order">
+		  		<a class="navbar-btn btn-sm btn-danger pull-right upalittle" ng-controller="ModalController" ng-click="open('md', 					'/modules/forms/contact.html')">Cancel</a>
+			</div>
+		  </div>
+</section>
+
