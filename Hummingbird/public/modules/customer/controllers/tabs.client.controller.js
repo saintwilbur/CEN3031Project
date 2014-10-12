@@ -2,9 +2,9 @@
 
 angular.module('customer').controller('TabsDemoCtrl', function ($scope) {
   $scope.tabs = [
-    { title:'New Order', content:'/modules/forms/contact.html' },
+    { title:'New Order', content:'/modules/customer/views/new-order.client.view.html' },
     { title:'Pending Orders', content:'' },
-    { title:'Order History', content:'/modules/customer/views/history.client.view.html' },
+    { title:'Order History', content:'' },
     { title:'Medical Background', content:'' }
   ];
   var test = true;
@@ -12,6 +12,7 @@ angular.module('customer').controller('TabsDemoCtrl', function ($scope) {
   $scope.alertMe = function() {
     setTimeout(function() {
       alert('You\'ve selected the alert tab!');
+      authentication.user.displayName;
     });
   };
 });
