@@ -15,8 +15,8 @@ var OrderSchema = new Schema({
 		ref: 'User'
 	},
 	item: {
-		type: Schema.ObjectId,
-		ref: 'Inventory'
+		type: String,
+		required: 'Test type required'
 	},
 	billingInformation: {
 		type: Schema.ObjectId,
