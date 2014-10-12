@@ -1,86 +1,93 @@
 <section data-ng-controller="NewOrderCtrl">
-	<form class="form-horizontal" ng-submit="test()">
-		<fieldset>
-		<!-- Form Name -->
-		<legend>Billing Information</legend>
+	<form class="form-horizontal">
+<fieldset>
+ <!-- Form Name -->
+<legend>Sample Test</legend>
 
-		<!-- Text input-->
-		<div class="form-group">
-		  <label class="col-md-2 control-label" for="textinput">First Name</label>  
-		  <div class="col-md-2">
-		  <input id="textinput" name="textinput" type="text" placeholder="moncia" class="form-control input-md">
-		    
-		  </div>
-		</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-2 control-label" for="textinput">Text Input</label>  
+  <div class="col-md-2">
+  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text">
+  
+  </div>
+</div>
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-2 control-label" for="selectbasic">Select Basic</label>
+  <div class="col-md-2">
+    <select id="selectbasic" name="selectbasic" class="form-control">
+      <option value="1">Option one</option>
+      <option value="2">Option two</option>
+    </select>
+  </div>
+</div>
+<!-- Multiple Radios -->
+<div class="form-group">
+  <label class="col-md-2 control-label" for="radios">Multiple Radios</label>
+  <div class="col-md-2">
+  <div class="radio">
+    <label for="radios-0">
+      <input name="radios" id="radios-0" value="1" checked="checked" type="radio">
+      Option one
+    </label>
+  </div>
+  <div class="radio">
+    <label for="radios-1">
+      <input name="radios" id="radios-1" value="2" type="radio">
+      Option two
+    </label>
+  </div>
+  </div>
+</div>
+<!-- Form Name -->
+<legend>Billing Information</legend>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-2 control-label" for="textinput">First Name</label>  
+  <div class="col-md-2">
+  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text">
+    
+  </div>
+</div>
 
-		<!-- Text input-->
-		<div class="form-group">
-		  <label class="col-md-2 control-label" for="textinput">Last Name</label>  
-		  <div class="col-md-2">
-		  <input id="textinput" name="textinput" type="text" placeholder="smith" class="form-control input-md">
-		    
-		  </div>
-		</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-2 control-label" for="textinput">Last Name</label>  
+  <div class="col-md-2">
+  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text">
+    
+  </div>
+</div>
 
-		<!-- Text input-->
-		<div class="form-group">
-		  <label class="col-md-2 control-label" for="textinput">Email Address</label>  
-		  <div class="col-md-3">
-		  <input id="textinput" name="textinput" type="text" placeholder="beyyaar@gujjumail.com" class="form-control input-md">
-		    
-		  </div>
-		</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-2 control-label" for="textinput">Email Address</label>  
+  <div class="col-md-2">
+  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text">
+    
+  </div>
+</div>
 
-		<!-- Text input-->
-		<div class="form-group">
-		  <label class="col-md-2 control-label" for="textinput">Confirm Email Address</label>  
-		  <div class="col-md-3">
-		  <input id="textinput" name="textinput" type="text" placeholder="beyyaar@gujjumail.com" class="form-control input-md">
-		    
-		  </div>
-		</div>
-		<!-- Multiple Checkboxes -->
-		<div class="form-group">
-		  <label class="col-md-2 control-label" for="checkboxes">Select Test</label>
-		  <div class="col-md-2">
-		  <div class="checkbox">
-		    <label for="checkboxes-0">
-		      <input name="checkboxes" id="checkboxes-0" value="1" type="checkbox">
-		      HIV/AIDS
-		    </label>
-		  </div>
-		  <div class="checkbox">
-		    <label for="checkboxes-1">
-		      <input name="checkboxes" id="checkboxes-1" value="2" type="checkbox">
-		      HPV
-		    </label>
-		  </div>
-		  <div class="checkbox">
-		    <label for="checkboxes-2">
-		      <input name="checkboxes" id="checkboxes-2" value="3" type="checkbox">
-		      HERPES
-		    </label>
-		  </div>
-		  <div class="checkbox">
-		    <label for="checkboxes-3">
-		      <input name="checkboxes" id="checkboxes-3" value="4" type="checkbox">
-		      SYPHILIS
-		    </label>
-		  </div>
-		   
-		  <!-- Button -->
-		<div class="form-group">
-		  <label class="col-md-0 control-label" for="singlebutton"></label>
-		  <div class="col-md-0">
-		    <button type = "submit" name="singlebutton" class="btn btn-success">confirm</button>
-		  </div>
-		</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-2 control-label" for="textinput">Confirm Email Address</label>  
+  <div class="col-md-2">
+  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text">
+    
+  </div>
+</div>
 
-		</div>
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-2 control-label" for="singlebutton"></label>
+  <div class="col-md-2">
+    <button id="singlebutton" name="singlebutton" class="btn btn-success">submit</button>
+  </div>
+</div>
 
-		</fieldset>
-	</form>
-
+</fieldset>
+</form>
    
     
 </section>
