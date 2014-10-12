@@ -33,8 +33,10 @@ describe('Medical history Model Unit Tests:', function() {
 
 		user.save(function() { 
 			medicalHistory = new MedicalHistory({
-				// Add model fields
-				// ...
+				user: user,
+				field1: 'Test',
+				field2: '1',
+				field3: '12345'
 			});
 
 			done();
