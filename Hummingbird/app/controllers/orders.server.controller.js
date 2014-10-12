@@ -5,7 +5,6 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
-	User = mongoose.model('User'),
 	Order = mongoose.model('Order'),
     _ = require('lodash');
 
