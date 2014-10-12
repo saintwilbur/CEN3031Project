@@ -22,9 +22,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
             $scope.checked = false;
             $scope.toggle = function() {
                 $scope.checked = true;
+                console.log('hello');
             };
             $scope.noVerification = function(){
 		$scope.checked = false;
+		console.log('world');
 	    };
 
 

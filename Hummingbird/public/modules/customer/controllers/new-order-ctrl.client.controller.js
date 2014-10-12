@@ -8,6 +8,6 @@ angular.module('customer').controller('NewOrderCtrl', ['$scope', 'Authentication
 		$scope.test = function()
 		{
 			console.log('Testing: ', $scope.authentication.user);
-		}
+		};
 	}
 ]);

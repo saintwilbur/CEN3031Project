@@ -12,7 +12,6 @@ angular.module('customer').controller('TabsDemoCtrl', function ($scope) {
   $scope.alertMe = function() {
     setTimeout(function() {
       alert('You\'ve selected the alert tab!');
-      authentication.user.displayName;
     });
   };
 });
