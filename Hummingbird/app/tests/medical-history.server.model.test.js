@@ -19,12 +19,16 @@ var user, medicalHistory;
 describe('Medical history Model Unit Tests:', function() {
 	beforeEach(function(done) {
 		user = new User({
+			userId: '12345',
 			firstName: 'Full',
 			lastName: 'Name',
 			displayName: 'Full Name',
 			email: 'test@test.com',
 			username: 'username',
-			password: 'password'
+			password: 'password',
+			provider: 'local',
+			dateOfBirth: '1992-06-14',
+			gender: 'male'
 		});
 
 		user.save(function() { 

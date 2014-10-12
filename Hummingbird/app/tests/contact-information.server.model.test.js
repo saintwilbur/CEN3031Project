@@ -20,6 +20,7 @@ var user, address, contactInformation;
 describe('Contact information Model Unit Tests:', function() {
 	beforeEach(function(done) {
 		user = new User({
+			userId: '12345',
 			firstName: 'Full',
 			lastName: 'Name',
 			displayName: 'Full Name',

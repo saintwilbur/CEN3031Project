@@ -18,6 +18,7 @@ var user, user2;
 describe('User Model Unit Tests:', function() {
 	before(function(done) {
 		user = new User({
+			userId: '12345',
 			firstName: 'Full',
 			lastName: 'Name',
 			displayName: 'Full Name',
@@ -29,6 +30,7 @@ describe('User Model Unit Tests:', function() {
 			gender: 'male'
 		});
 		user2 = new User({
+			userId: '12345',
 			firstName: 'Full',
 			lastName: 'Name',
 			displayName: 'Full Name',
@@ -65,6 +67,14 @@ describe('User Model Unit Tests:', function() {
 
 		it('should be able to show an error when try to save without first name', function(done) {
 			user.firstName = '';
+			return user.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save without user ID', function(done) {
+			user.userId = '';
 			return user.save(function(err) {
 				should.exist(err);
 				done();

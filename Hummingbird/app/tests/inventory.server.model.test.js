@@ -19,6 +19,7 @@ var user, inventory, inventory2;
 describe('Inventory Model Unit Tests:', function() {
 	beforeEach(function(done) {
 		user = new User({
+			userId: '12345',
 			firstName: 'Full',
 			lastName: 'Name',
 			displayName: 'Full Name',
