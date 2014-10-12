@@ -43,7 +43,7 @@ describe('Contact information Model Unit Tests:', function() {
 
 		user.save(function() { 
 			contactInformation = new ContactInformation({
-				user: user,
+				//user: user,
 				cellNumber: '3211231234',
 				homeNumber: '1234567890',
 				primaryAddress: address
