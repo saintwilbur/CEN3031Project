@@ -36,13 +36,42 @@ describe('Order Model Unit Tests:', function() {
 		});
 
 		inventory = new Inventory({
-			
-		});
+				itemId: '123456789',
+				name: 'Test kit',
+				count: '10',
+				price: '1000'
+			});
+
+		address = new Address({
+				streetNumber: '1864',
+	            streetName: 'Stadium Rd',
+				//apt/suite
+				city: 'Gainesville',
+				state: 'Florida',
+				zipcode: '32608'
+			});
+
+		billingInformation = new BillingInformation({
+				user: user,
+				address: address
+			});
+
+		result = new Result({
+				user: user,
+				item: inventory
+			});
+
+		form = new Form({
+				name: 'Test Form'
+			});
 
 		user.save(function() { 
 			order = new Order({
-				// Add model fields
-				// ...
+				user: user,
+				item: inventory,
+				billingInformation: billingInformation,
+				result: result,
+				form: form
 			});
 
 			done();

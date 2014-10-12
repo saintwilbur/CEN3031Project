@@ -30,8 +30,7 @@ var OrderSchema = new Schema({
 	status: {
 		type: String,
 		trim: true,
-		default: 'pending',
-		require: 'Status field is required'
+		default: 'pending'
 	},
 	result: {
 		type: Schema.ObjectId,
