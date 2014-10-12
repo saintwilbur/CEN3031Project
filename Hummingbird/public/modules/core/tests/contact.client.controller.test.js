@@ -1,10 +1,10 @@
 'use strict';
 
 (function() {
-	// Tabs Controller Spec
-	describe('Tabs Controller Tests', function() {
+	// Contact Controller Spec
+	describe('Contact Controller Tests', function() {
 		// Initialize global variables
-		var TabsController,
+		var ContactController,
 			scope,
 			$httpBackend,
 			$stateParams,
@@ -44,8 +44,8 @@
 			$httpBackend = _$httpBackend_;
 			$location = _$location_;
 
-			// Initialize the Tabs controller.
-			TabsController = $controller('TabsController', {
+			// Initialize the Contact controller.
+			ContactController = $controller('ContactController', {
 				$scope: scope
 			});
 		}));

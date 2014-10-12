@@ -25,11 +25,11 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
 			<li ui-route="/signup" ng-class="{active: $uiRoute}">
-				<a href="/#!/signup">Sign Up</a>
+				<a href ng-controller="ModalController as modCtrl" ng-click="open('md', '/modules/users/views/authentication/signup.client.view.html')">Create Account</a>
 			</li>
 			<li class="divider-vertical"></li>
 			<li ui-route="/signin" ng-class="{active: $uiRoute}">
-				<a href ng-controller="ModalController" ng-click="open('sm', '/modules/users/views/authentication/signin.client.view.html')">Sign In</a>
+				<a href ng-controller="ModalController" ng-click="open('sm', '/modules/users/views/authentication/signin.client.view.html')">Login</a>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">

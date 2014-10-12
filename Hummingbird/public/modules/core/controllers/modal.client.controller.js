@@ -37,4 +37,9 @@ angular.module('core').controller('ModalInstanceController', function ($scope, $
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+
+  $scope.$on('closeModal', function (event) {
+      $scope.ok();
+  });
+
 });

@@ -27,7 +27,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$location.path('/customerdashboard');
 
 				//Close Login modal
-				$scope.ok();
+				$scope.$emit('closeModal');
+				
 			}).error(function(response) {
 				$scope.error = response.message;
 
