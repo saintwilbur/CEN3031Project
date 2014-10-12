@@ -20,6 +20,7 @@ var user, address, contactInformation;
 describe('Contact information Model Unit Tests:', function() {
 	beforeEach(function(done) {
 		user = new User({
+			userId: '12345',
 			firstName: 'Full',
 			lastName: 'Name',
 			displayName: 'Full Name',
@@ -42,7 +43,7 @@ describe('Contact information Model Unit Tests:', function() {
 
 		user.save(function() { 
 			contactInformation = new ContactInformation({
-				user: user,
+				//user: user,
 				cellNumber: '3211231234',
 				homeNumber: '1234567890',
 				primaryAddress: address

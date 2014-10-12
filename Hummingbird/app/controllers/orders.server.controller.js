@@ -62,8 +62,19 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) 
 {
+<<<<<<< HEAD
 	Order.find({status: 'pending', user: req.user}).sort('-created').exec(function(err, order){
 		if (err) 
+=======
+	Order.find().sort('-created').exec(function(err, order){
+		if (order.user.id !== req.user.id)
+		{
+			return res.status(403).send({
+				message: 'User is not autorized'
+			});
+		}
+		else if (err) 
+>>>>>>> c16539ef91423e85017ed021e449473f133755b2
 		{
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
