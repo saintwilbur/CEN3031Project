@@ -11,21 +11,26 @@ var mongoose = require('mongoose'),
  */
 var AddressSchema = new Schema({
 	streetNumber: {
-		type: Number
+		type: Number,
+		required: ''
 	},
 	streetName: {
-		type: String
+		type: String,
+		required: ''
 	},
 	//apt/suite
 	city: {
-		type:String
+		type:String,
+		required: ''
 	},
 	state: {
 		//change to state picker
-		type:String
+		type:String,
+		required: ''
 	},
 	zipcode: {
-		type:Number
+		type:Number,
+		required: ''
 	}
 });
 

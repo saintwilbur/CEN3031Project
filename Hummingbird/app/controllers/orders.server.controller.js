@@ -6,6 +6,8 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Order = mongoose.model('Order'),
+	Forms = mongoose.model('Form'),
+	BillingInformation = mongoose.model('BillingInformation'), 
     _ = require('lodash');
 
 /**
@@ -13,6 +15,8 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) 
 {
+	var form = new Forms(req.body.forms);
+	var billingInformation = new BillingInformation(req.body.billing);
 	var order = new Order(req.body);
 	order.user = req.user;
 
@@ -58,14 +62,8 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) 
 {
-	Order.find({status: 'pending'}).sort('-created').exec(function(err, order){
-		if (order.user.id !== req.user.id)
-		{
-			return res.status(403).send({
-				message: 'User is not autorized'
-			});
-		}
-		else if (err) 
+	Order.find({status: 'pending', user: req.user}).sort('-created').exec(function(err, order){
+		if (err) 
 		{
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
