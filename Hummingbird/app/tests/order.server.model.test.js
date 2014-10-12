@@ -67,6 +67,7 @@ describe('Order Model Unit Tests:', function() {
 
 		user.save(function() { 
 			order = new Order({
+				orderId: '12345',
 				user: user,
 				item: inventory,
 				billingInformation: billingInformation,
