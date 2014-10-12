@@ -37,7 +37,7 @@ describe('Order Model Unit Tests:', function() {
 
 		inventory = new Inventory({
 			
-		})
+		});
 
 		user.save(function() { 
 			order = new Order({
