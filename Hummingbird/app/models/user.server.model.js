@@ -27,8 +27,8 @@ var validateLocalStrategyPassword = function(password) {
 var UserSchema = new Schema({
 	userId: {
 		type: Number,
-		unique: '',
-		required: 'Order needs Id number'
+		unique: ''//,
+		//required: 'User needs Id number'
 	},
 	firstName: {
 		type: String,
@@ -103,7 +103,7 @@ var UserSchema = new Schema({
 			type: String,
 			enum: ['male', 'female']
 		}],
-		required: ''
+		default: 'male'
 	},
 	contact: {
 		type: Schema.ObjectId,

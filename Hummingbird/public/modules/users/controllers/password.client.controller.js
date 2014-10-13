@@ -40,5 +40,10 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
 				$scope.error = response.message;
 			});
 		};
+
+		$scope.cancelPasswordReset = function()
+		{
+			$scope.$emit('closeModal');
+		};
 	}
 ]);

@@ -1,5 +1,7 @@
 <section data-ng-controller="NewOrderCtrl">
-	<form class="form-horizontal">
+  <h2>New Order</h2>
+  <br>
+	<form name="sampleTest"class="form-horizontal" ng-submit="submitOrder()">
 <fieldset>
  <!-- Form Name -->
 <legend>Sample Test</legend>
@@ -8,7 +10,7 @@
 <div class="form-group">
   <label class="col-md-2 control-label" for="textinput">Text Input</label>  
   <div class="col-md-2">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text">
+  <input id="textinput" name="textinput" data-ng-model="formData.field1" placeholder="placeholder" class="form-control input-md" type="text">
   
   </div>
 </div>
@@ -16,7 +18,7 @@
 <div class="form-group">
   <label class="col-md-2 control-label" for="selectbasic">Select Basic</label>
   <div class="col-md-2">
-    <select id="selectbasic" name="selectbasic" class="form-control">
+    <select id="selectbasic" name="selectbasic" class="form-control" data-ng-model="formData.field2">
       <option value="1">Option one</option>
       <option value="2">Option two</option>
     </select>
@@ -28,13 +30,13 @@
   <div class="col-md-2">
   <div class="radio">
     <label for="radios-0">
-      <input name="radios" id="radios-0" value="1" checked="checked" type="radio">
+      <input name="radios" id="radios-0" value="1" checked="checked" type="radio" data-ng-model="formData.field3" >
       Option one
     </label>
   </div>
   <div class="radio">
     <label for="radios-1">
-      <input name="radios" id="radios-1" value="2" type="radio">
+      <input name="radios" id="radios-1" value="2" type="radio" data-ng-model="formData.field3">
       Option two
     </label>
   </div>
@@ -44,45 +46,37 @@
 <legend>Billing Information</legend>
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-2 control-label" for="textinput">First Name</label>  
+  <label class="col-md-2 control-label" for="textinput">Card Holder Name</label>  
   <div class="col-md-2">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text">
+  <input id="textinput" name="textinput" placeholder="Card Holder Name" class="form-control input-md" type="text" data-ng-model="billing.field1" >
     
   </div>
 </div>
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-2 control-label" for="textinput">Last Name</label>  
-  <div class="col-md-2">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text">
+  <label class="col-md-2 control-label" for="textinput ">Card Number</label>  
+  <div class="col-md-3">
+  <input id="textinput" name="textinput1" placeholder="Card Number" class="form-control input-md" type="text" data-ng-model="billing.field2">
     
   </div>
 </div>
-
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-2 control-label" for="textinput">Email Address</label>  
-  <div class="col-md-2">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text">
-    
-  </div>
+  <label class="col-md-2 control-label" for="textinput">Address</label>  
+  <div class="col-md-4">
+  <input id="textinput" name="textinput2" placeholder="Address Line 1" class="form-control input-md" type="text" data-ng-model="billing.field4"><br>
+  <input id="textinput" name="textinput3" placeholder="Address Line 2" class="form-control input-md" type="text" data-ng-model="billing.field5">
+</div>
 </div>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-2 control-label" for="textinput">Confirm Email Address</label>  
-  <div class="col-md-2">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text">
-    
-  </div>
 </div>
 
 <!-- Button -->
 <div class="form-group">
   <label class="col-md-2 control-label" for="singlebutton"></label>
   <div class="col-md-2">
-    <button id="singlebutton" name="singlebutton" class="btn btn-success">submit</button>
+    <button  type="submit" id="singlebutton" name="singlebutton" class="btn btn-success">submit</button>
   </div>
 </div>
 

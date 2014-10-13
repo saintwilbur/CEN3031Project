@@ -17,18 +17,18 @@
 			   	   	<div class = "form-group">
 					    <label>Date of Birth</label>
 					    <p class="input-group">
-				              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" placeholder="Date of Birth" />
-				              <span class="input-group-btn">
-				                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-				              </span>
-					     </p>
+              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="credentials.dateOfBirth" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
 					     
 					</div>
 				</div>
 				<div class="form-group">
-			   <label for="lastName">Gender </label></br>
-			   <input type="radio" ng-model="color" ng-value="specialValue"> M 
-			   <input type="radio" ng-model="color" value="blue">F
+			   <label for="gender">Gender </label></br>
+			   <input type="radio" data-ng-model="credentials.gender" name="gender" value="male"> M 
+			   <input type="radio" data-ng-model="credentials.gender" name="gender" v alue="female">F
 			</div>
 			  <!-- </form> -->
 		
@@ -45,17 +45,17 @@
 					<label for="password">Password</label>
 					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
 				</div>
-				<div class="form-group">
+			<!--	<div class="form-group">
 					<label for="retypePassword">Retype Password</label>
-					<input type="password" id="retypePassword" name="retypePassword" class="form-control" data-ng-model="credentials.retypePassword" placeholder="retypePassword">
-				</div>
+					<input type="password" id="retypePassword" name="retypePassword" class="form-control" data-ng-model="credentials.retypePassword" placeholder="Re-Type Password">
+				</div>!-->
 				<!-- ***************************************************************************** -->
 				<div class="form-group">
-				<label for="role">Role</label>
-				<select name="role" class="form-control">
-				  <option value="Customer" ng-click = "noVerification()" >Customer</option>
-				  <option value="Lab"  ng-click = "toggle()" disabled>Lab</option>
-				  <option value="Admin" ng-click = "toggle()" disabled>Admin</option>
+				<label for="roles">Role</label>
+				<select name="roles" class="form-control">
+				  <option data-ng-model="credentials.roles" value="Customer" ng-click = "noVerification()" >Customer</option>
+				  <option  ng-model="credentials.roles" value="Lab"  ng-click = "toggle()" disabled>Lab</option>
+				  <option  ng-model="credentials.roles" value="Admin" ng-click = "toggle()" disabled>Admin</option>
 				</select>
 				 <div ng-show="checked">
 				    <div class="form-group">

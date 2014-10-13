@@ -1,26 +1,23 @@
-<section ng-controller="PendingController">
-	<div ng-show = "hasPending">
+<section ng-controller="PendingController" data-ng-init="getPendingOrders()">
+  <h2>Pending Orders</h2>
+	<div ng-show = "orders.length !== 0">
 	<div class="row">
 	  <div class="col-md-11">
     <table class="table table-hover table-condensed table-bordered">
       <thead>
         <tr>
           <th class="col-md-3">ID</th>
-          <th class="col-md-7">Name</th>
-          <th class="col-md-1">Location</th>
-          <th class="col-md-1">Status</th>
+          <th class="col-md-3">Test Type</th>
+          <th class="col-md-3">Location</th>
+          <th class="col-md-3">Created</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="orders in order">
-          <td>{{orders._id}}</td>
-          <td>{{orders.name}}</td>
-          <td>
-		<a href= "https://www.fedex.com/fedextrack/WTRK/index.html?action=track&action=track&trackNumbers=11111&fdx=1490" target="_blank">Track</a>
-			  {{orders.location}}
-		  
-		  </td>
-          <td>{{orders.active}}</td>
+        <tr ng-repeat="order in orders">
+          <td>{{order.orderId}}</td>
+          <td>{{order.item}}</td>
+          <td>{{order.tracking}}</td>
+          <td>{{order.created}}</td>
         </tr>
       </tbody>
     </table>
@@ -35,8 +32,8 @@
 </div>
 </div>
 
-<div ng-hide = "hasPending">
-	<h3>No Pending Orders</h3>
+<div ng-hide = "orders.length !== 0">
+	<p>No pending orders.</p>
 </div>
 </section>
 

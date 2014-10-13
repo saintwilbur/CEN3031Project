@@ -18,7 +18,8 @@ exports.create = function(req, res)
 	var form = new Forms(req.body.forms);
 	var billingInformation = new BillingInformation(req.body.billing);
 	var order = new Order(req.body);
-	order.user = req.user;
+	order.orderId = Math.floor((Math.random() * 100000000000) + 1000000);
+
 
 	order.save(function(err) {
 		if (err) 

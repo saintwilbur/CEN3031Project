@@ -21,7 +21,7 @@ var OrderSchema = new Schema({
 	},
 	item: {
 		type: String,
-		required: 'Test type required'
+		required: 'Order item required'
 	},
 	billingInformation: {
 		type: Schema.ObjectId,
@@ -36,7 +36,10 @@ var OrderSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'Result'
 	},
-	tracking: {},
+	tracking: {
+		type: String,
+		default: 'XXXXXXXXXX'
+	},
 	form: {
 		type: Schema.ObjectId,
 		ref: 'Form'
