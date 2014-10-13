@@ -2,16 +2,9 @@
 
 var app1 = angular.module('customer');
 
-app1.run( function($rootScope) {
-  $rootScope.accessors = {
-    getId: function(row) {
-      return row._id;
-    }
-  };
-});
-
 app1.controller('PendingController', function($scope, OrderService) {
   $scope.order = OrderService.getData();
+  $scope.hasPending =  OrderService.getData().length !== 0;    
 });
 
 

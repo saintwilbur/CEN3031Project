@@ -1,4 +1,5 @@
 <section ng-controller="PendingController">
+	<div ng-show = "hasPending">
 	<div class="row">
 	  <div class="col-md-11">
     <table class="table table-hover table-condensed table-bordered">
@@ -12,18 +13,17 @@
       </thead>
       <tbody>
         <tr ng-repeat="orders in order">
-          <td>{{accessors.getId(order)}}</td>
-          <td>{{order.name}}</td>
+          <td>{{orders._id}}</td>
+          <td>{{orders.name}}</td>
           <td>
 		<a href= "https://www.fedex.com/fedextrack/WTRK/index.html?action=track&action=track&trackNumbers=11111&fdx=1490" target="_blank">Track</a>
-			  {{order.location}}
+			  {{orders.location}}
 		  
 		  </td>
-          <td>{{order.active}}</td>
+          <td>{{orders.active}}</td>
         </tr>
       </tbody>
     </table>
-</table>
 </div>
 	  <div class="col-md-1">
 		  	<br>
@@ -31,5 +31,12 @@
 		  		<a class="navbar-btn btn-sm btn-danger pull-right upalittle" ng-controller="ModalController" ng-click="open('md', 					'/modules/forms/contact.html')">Cancel</a>
 			</div>
 		  </div>
+
+</div>
+</div>
+
+<div ng-hide = "hasPending">
+	<h3>No Pending Orders</h3>
+</div>
 </section>
 
