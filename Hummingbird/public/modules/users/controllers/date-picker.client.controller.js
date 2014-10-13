@@ -31,7 +31,7 @@ angular.module('users').controller('DatePickerController', ['$scope',
   };
 
   $scope.dateOptions = {
-    formatYear: 'yy',
+    formatYear: 'yyyy',
     startingDay: 1
   };
 
