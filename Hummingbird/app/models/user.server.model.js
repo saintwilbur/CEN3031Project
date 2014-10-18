@@ -104,11 +104,13 @@ var UserSchema = new Schema({
 			enum: ['male', 'female']
 		}],
 		default: 'male'
-	},
-	contact: {
-		type: Schema.ObjectId,
-		ref: 'ContactInformation'
 	}
+	/**
+	 *contact: {
+	 *	type: Schema.ObjectId,
+	 *	ref: 'ContactInformation'
+	 *}
+	 */
 });
 
 /**

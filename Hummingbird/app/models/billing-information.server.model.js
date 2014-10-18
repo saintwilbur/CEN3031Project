@@ -10,17 +10,35 @@ var mongoose = require('mongoose'),
  * BillingInformation Schema
  */
 var BillingInformationSchema = new Schema({
-	user: {
+	order: {
 		type: Schema.ObjectId,
-		ref: 'User'
+		ref: 'Order'
 	},
 	address: {
-		type: Schema.ObjectId,
-		ref: 'Address'
+		streetNumber: {
+			type: Number,
+			required: ''
+		},
+		streetName: {
+			type: String,
+			required: ''
+		},
+		//apt/suite
+		city: {
+			type:String,
+			required: ''
+		},
+		state: {
+			//change to state picker
+			type:String,
+			required: ''
+		},
+		zipcode: {
+			type:Number,
+			required: ''
+		}
 	},
-	cardInfomation:{
-		//???
-	}
+	cardInformation: {}
 });
 
 mongoose.model('BillingInformation', BillingInformationSchema);

@@ -14,9 +14,9 @@ var ResultSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	item: {
+	object: {
 		type: Schema.ObjectId,
-		ref: 'Inventory'
+		ref: 'Object'
 	},
 	result: {
 		type: String,

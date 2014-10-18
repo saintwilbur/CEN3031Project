@@ -19,18 +19,14 @@ var OrderSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	item: {
-		type: String,
-		required: 'Order item required'
-	},
-	billingInformation: {
-		type: Schema.ObjectId,
-		ref: 'BillingInformation'
-	},
 	status: {
 		type: String,
 		trim: true,
 		default: 'pending'
+	},
+	created: {
+		type: Date,
+		default: Date.now
 	},
 	result: {
 		type: Schema.ObjectId,
@@ -40,14 +36,27 @@ var OrderSchema = new Schema({
 		type: String,
 		default: 'XXXXXXXXXX'
 	},
-	form: {
-		type: Schema.ObjectId,
-		ref: 'Form'
+	field1: {
+		type: String
 	},
-	created: {
-		type: Date,
-		default: Date.now
+	field2: {
+		type: String
+	},
+	billingInformation: {
+		type: Schema.ObjectId,
+		ref: 'BillingInformation'
 	}
+	/**	
+	 *item: {
+	 *	type: String,
+	 *	required: 'Order item required'
+	 *},
+	 *form: {
+	 *	type: Schema.ObjectId,
+	 *	ref: 'Form'
+	 *},
+	 */
+
 });
 
 mongoose.model('Order', OrderSchema);
