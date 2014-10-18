@@ -19,6 +19,9 @@ var OrderSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
+	item: {
+		type: String
+	},
 	status: {
 		type: String,
 		trim: true,

@@ -13,16 +13,15 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) 
 {
-	var medicalHis = new MedicalHistory(req.body);
-	medicalHis.user = req.user;
+	var medicalHistory = new MedicalHistory(req.body);
 
-	medicalHis.save(function(err) {
+	medicalHistory.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(medicalHis);
+			res.jsonp(medicalHistory);
 		}
 	});
 };
@@ -52,5 +51,15 @@ exports.delete = function(req, res) {
  * List of Medical histories
  */
 exports.list = function(req, res) {
-
+	MedicalHistory.find({user: req.user}).exec(function(err, medicalHistory){
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(medicalHistory);
+		}
+	});
 };

@@ -64,11 +64,11 @@
 				}
 			};
 			var test = [];
-			$httpBackend.when('POST', '/order/new').respond(200, send)
+			$httpBackend.when('POST', '/order/new').respond(200, send);
 			scope.send=send;
 			scope.submitOrder();
 			$httpBackend.flush();
-			console.log(scope.user)
+			console.log(scope.user);
 			expect(scope.user).toEqual('1234567');
 			// Test scope value
 			//expect(scope.user).toEqual(send.user);

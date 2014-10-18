@@ -19,10 +19,10 @@ var MedicalHistorySchema = new Schema({
 		type: String
 	},
 	field2: {
-		type: Boolean
+		type: String
 	},
 	field3: {
-		type: Number
+		type: String
 	}
 });
 

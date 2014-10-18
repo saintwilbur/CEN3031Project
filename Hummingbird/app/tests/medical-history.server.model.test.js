@@ -35,8 +35,8 @@ describe('Medical history Model Unit Tests:', function() {
 			medicalHistory = new MedicalHistory({
 				user: user,
 				field1: 'Test',
-				field2: '1',
-				field3: '12345'
+				field2: 'test2',
+				field3: 'test3'
 			});
 
 			done();
