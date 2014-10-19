@@ -6,13 +6,13 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	Address = mongoose.model('Address'),
+	Order = mongoose.model('Order'),
 	BillingInformation = mongoose.model('BillingInformation');
 
 /**
  * Globals
  */
-var user, address, billingInformation;
+var user, result, order, billingInformation;
 
 /**
  * Unit tests
@@ -32,19 +32,24 @@ describe('Billing information Model Unit Tests:', function() {
 			gender: 'male'
 		});
 
-		address = new Address({
-				streetNumber: '1864',
-	            streetName: 'Stadium Rd',
-				//apt/suite
-				city: 'Gainesville',
-				state: 'Florida',
-				zipcode: '32608'
-		});
+		order = new Order({
+			orderId: '12345',
+			user: user,
+			item: 'General',
+			result: result,
+			billingInformation: billingInformation
+		})
 
 		user.save(function() { 
 			billingInformation = new BillingInformation({
-				user: user,
-				address: address
+				order: order,
+				address: {
+					streetNumber: '1864',
+					streetName: 'Stadium',
+					city: 'Gainesville',
+					state: 'Florida',
+					zipcode: '32608'
+				}
 			});
 
 			done();

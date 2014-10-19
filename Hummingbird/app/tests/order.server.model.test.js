@@ -8,15 +8,13 @@ var should = require('should'),
 	User = mongoose.model('User'),
 	Order = mongoose.model('Order'),
 	//Inventory = mongoose.model('Inventory'),
-	Address = mongoose.model('Address'),
-	BillingInformation = mongoose.model('BillingInformation'),
 	Result = mongoose.model('Result'),
-	Form = mongoose.model('Form');
+	BillingInformation = mongoose.model('BillingInformation');
 
 /**
  * Globals
  */
-var user, inventory, address, billingInformation, result, form, order;
+var user, inventory, result, billingInformation, order;
 
 /**
  * Unit tests
@@ -35,6 +33,7 @@ describe('Order Model Unit Tests:', function() {
 			dateOfBirth: '1992-06-14',
 			gender: 'male'
 		});
+
 		/**
 		*inventory = new Inventory({
 		*		itemId: '123456789',
@@ -43,37 +42,30 @@ describe('Order Model Unit Tests:', function() {
 		*		price: '1000'
 		*	});
 		*/
-		address = new Address({
-				streetNumber: '1864',
-	            streetName: 'Stadium Rd',
-				//apt/suite
-				city: 'Gainesville',
-				state: 'Florida',
-				zipcode: '32608'
+
+		result = new Result({
+				user: user,
+				object: inventory
 			});
 
 		billingInformation = new BillingInformation({
 				user: user,
-				address: address
-			});
-
-		result = new Result({
-				user: user,
-				item: inventory
-			});
-
-		form = new Form({
-				name: 'Test Form'
-			});
+				address: {
+					streetNumber: '1864',
+					streetName: 'Stadium',
+					city: 'Gainesville',
+					state: 'Florida',
+					zipcode: '32608'
+				}
+			});		
 
 		user.save(function() { 
 			order = new Order({
 				orderId: '12345',
 				user: user,
 				item: 'General',
-				billingInformation: billingInformation,
 				result: result,
-				form: form
+				billingInformation: billingInformation
 			});
 
 			done();
@@ -84,14 +76,6 @@ describe('Order Model Unit Tests:', function() {
 		it('should be able to save without problems', function(done) {
 			return order.save(function(err) {
 				should.not.exist(err);
-				done();
-			});
-		});
-
-		it('should be able to show an error when try to save without item', function(done) {
-			order.item = '';
-			return order.save(function(err) {
-				should.exist(err);
 				done();
 			});
 		});

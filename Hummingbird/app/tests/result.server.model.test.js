@@ -42,7 +42,7 @@ describe('Result Model Unit Tests:', function() {
 		user.save(function() { 
 			result = new Result({
 				user: user,
-				item: inventory
+				object: inventory
 			});
 
 			done();
