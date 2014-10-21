@@ -14,14 +14,24 @@ var ResultSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	object: {
+	order: {
 		type: Schema.ObjectId,
-		ref: 'Object'
+		ref: 'Order'
 	},
 	result: {
 		type: String,
 		trim: true,
 		default: 'No result yet'
+	},
+	submittedBy: {
+		type: String
+	},
+	verifiedBy: {
+		type: String
+	},
+	created: {
+		type: Date,
+		default: Date.now
 	}
 });
 

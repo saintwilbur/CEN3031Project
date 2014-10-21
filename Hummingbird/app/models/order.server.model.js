@@ -44,10 +44,6 @@ var OrderSchema = new Schema({
 	},
 	field2: {
 		type: String
-	},
-	billingInformation: {
-		type: Schema.ObjectId,
-		ref: 'BillingInformation'
 	}
 	/**	
 	 *item: {
