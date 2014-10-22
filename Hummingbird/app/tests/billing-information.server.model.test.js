@@ -38,7 +38,7 @@ describe('Billing information Model Unit Tests:', function() {
 			item: 'General',
 			result: result,
 			billingInformation: billingInformation
-		})
+		});
 
 		user.save(function() { 
 			billingInformation = new BillingInformation({
