@@ -18,12 +18,12 @@ exports.create = function(req, res)
 {
 	//var form = new Forms(req.body.forms);
 	//var billingInformation = new BillingInformation(req.body.billing);
-	var result = new Result({
-		user: req.user
-	});
+	var results = new Result();
+	results.user = req.user;
 	var order = new Order(req.body);
 	order.orderId = Math.floor((Math.random() * 100000000000) + 1000000);
-	order.result = result;
+	order.result = results;
+
 
 	order.save(function(err) {
 		if (err) 

@@ -26,7 +26,7 @@ var validateLocalStrategyPassword = function(password) {
  */
 var UserSchema = new Schema({
 	userId: {
-		type: Number,
+		type: String,
 		unique: ''//,
 		//required: 'User needs Id number'
 	},
@@ -121,7 +121,7 @@ UserSchema.pre('save', function(next) {
 		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
 		this.password = this.hashPassword(this.password);
 	}
-
+	this.userId = this.getUUID();
 	next();
 });
 
@@ -141,6 +141,17 @@ UserSchema.methods.hashPassword = function(password) {
  */
 UserSchema.methods.authenticate = function(password) {
 	return this.password === this.hashPassword(password);
+};
+
+UserSchema.methods.getUUID = function() {
+	var d = new Date().getTime();
+	var uuid = 'xxxxxxx-xxxxx-xxxxxxx'.replace(/[x]/g, 
+		function(c) {
+			var r = (d + Math.random()*16)%16 | 0;
+			d = Math.floor(d/16);
+			return (c==='x' ? r : (r&0x7|0x8)).toString(16);
+		});
+	return uuid;
 };
 
 /**

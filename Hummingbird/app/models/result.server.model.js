@@ -14,10 +14,6 @@ var ResultSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	order: {
-		type: Schema.ObjectId,
-		ref: 'Order'
-	},
 	result: {
 		type: String,
 		trim: true,
