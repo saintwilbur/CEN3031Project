@@ -10,10 +10,12 @@ var mongoose = require('mongoose'),
  * Result Schema
  */
 var ResultSchema = new Schema({
+	resultId: {
+	},
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
-	},
+	},	
 	result: {
 		type: String,
 		trim: true,
@@ -28,6 +30,10 @@ var ResultSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
+	},
+	status: {
+		type: String,
+		default: 'In progress'
 	}
 });
 

@@ -143,6 +143,10 @@ UserSchema.methods.authenticate = function(password) {
 	return this.password === this.hashPassword(password);
 };
 
+/*
+ * Create instance method for getting UUID for userId
+ */
+
 UserSchema.methods.getUUID = function() {
 	var d = new Date().getTime();
 	var uuid = 'xxxxxxx-xxxxx-xxxxxxx'.replace(/[x]/g, 

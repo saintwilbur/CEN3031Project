@@ -31,10 +31,10 @@ var OrderSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	result: {
+	result: [{
 		type: Schema.ObjectId,
 		ref: 'Result'
-	},
+	}],
 	tracking: {
 		type: String,
 		default: 'XXXXXXXXXX'
