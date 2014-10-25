@@ -8,13 +8,12 @@ var should = require('should'),
 	User = mongoose.model('User'),
 	Order = mongoose.model('Order'),
 	//Inventory = mongoose.model('Inventory'),
-	Result = mongoose.model('Result'),
-	BillingInformation = mongoose.model('BillingInformation');
+	Result = mongoose.model('Result');
 
 /**
  * Globals
  */
-var user, inventory, result, billingInformation, order;
+var user, inventory, result, order;
 
 /**
  * Unit tests
@@ -46,26 +45,14 @@ describe('Order Model Unit Tests:', function() {
 		result = new Result({
 				user: user,
 				object: inventory
-			});
-
-		billingInformation = new BillingInformation({
-				user: user,
-				address: {
-					streetNumber: '1864',
-					streetName: 'Stadium',
-					city: 'Gainesville',
-					state: 'Florida',
-					zipcode: '32608'
-				}
-			});		
+			});				
 
 		user.save(function() { 
 			order = new Order({
 				orderId: '12345',
 				user: user,
 				item: 'General',
-				result: result,
-				billingInformation: billingInformation
+				result: result
 			});
 
 			done();

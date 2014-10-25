@@ -6,13 +6,12 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	Inventory = mongoose.model('Inventory'),
 	Result = mongoose.model('Result');
 
 /**
  * Globals
  */
-var user, inventory, result;
+var user, result;
 
 /**
  * Unit tests
@@ -31,18 +30,10 @@ describe('Result Model Unit Tests:', function() {
 			dateOfBirth: '1992-06-14',
 			gender: 'male'
 		});
-
-		inventory = new Inventory({
-				itemId: '123456789',
-				name: 'Test kit',
-				count: '10',
-				price: '1000'
-			});
-
+		
 		user.save(function() { 
 			result = new Result({
-				user: user,
-				object: inventory
+				user: user				
 			});
 
 			done();
