@@ -17,53 +17,53 @@
 			   	   	<div class = "form-group">
 					    <label>Date of Birth</label>
 					    <p class="input-group">
-              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="credentials.dateOfBirth" is-open="opened" min-date="'1900-06-22'" max-date="'2014-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-            </p>
+				            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="credentials.dateOfBirth" is-open="opened" min-date="'1900-06-22'" max-date="dt" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+				            <span class="input-group-btn">
+				            	<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+				            </span>
+			            </p>
 					     
 					</div>
 				</div>
-				<div class="form-group">
+			<div class="form-group">
 			   <label for="gender">Gender </label></br>
-			   <input type="radio" data-ng-model="credentials.gender" name="gender" value="male"> M 
-			   <input type="radio" data-ng-model="credentials.gender" name="gender" v alue="female">F
+			   <input type="radio" name="male" ng-model="credentials.gender" value="male" required> M 
+			   <input type="radio" name="female" ng-model="credentials.gender" value="female" required>F
 			</div>
 			  <!-- </form> -->
 		
 			<!-- *************************************************************************** -->
-				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="Email">
-				</div>
-				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
-				</div>
-				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
-				</div>
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<label for="username">Username</label>
+				<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
+			</div>
 			<!--	<div class="form-group">
 					<label for="retypePassword">Retype Password</label>
 					<input type="password" id="retypePassword" name="retypePassword" class="form-control" data-ng-model="credentials.retypePassword" placeholder="Re-Type Password">
 				</div>!-->
 				<!-- ***************************************************************************** -->
-				<div class="form-group">
+			<div class="form-group">
 				<label for="roles">Role</label>
-				<select name="roles" class="form-control">
-				  <option data-ng-model="credentials.roles" value="Customer" ng-click = "noVerification()" >Customer</option>
-				  <option  ng-model="credentials.roles" value="Lab"  ng-click = "toggle()" disabled>Lab</option>
-				  <option  ng-model="credentials.roles" value="Admin" ng-click = "toggle()" disabled>Admin</option>
+				<select name="roles" class="form-control" data-ng-model="credentials.roles" required>
+				<option value="customer" ng-click = "noVerification()" >Customer</option>
+				<option value="lab"  ng-click = "toggle()">Lab</option>
+				<option value="admin" ng-click = "toggle()" disabled>Admin</option>
 				</select>
-				 <div ng-show="checked">
+				<div ng-show="checked">
 				    <div class="form-group">
 						<label for="verification">Verification Code</label>
 						<input type="text" id="verification" name="verification" class="form-control" data-ng-model="credentials.verification" placeholder="Verification">
 				    </div>
-				  </div>
-				 	</div>
+				</div>
+			</div>
 				</fieldset>
 				<!-- ***************************************************************************** -->
 				<div class="text-center form-group">

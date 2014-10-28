@@ -7,13 +7,20 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		if ($scope.authentication.user) $location.path('/customerdashboard');
 
 		$scope.signup = function() {
-			
+			console.log($scope.credentials);
 			$http.post('/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
-	
-				// And redirect to the index page
-				$location.path('/customerdashboard');
+				console.log(response);
+				// And redirect to the index page according to user role
+				if(response.roles=='user')
+				{
+					$location.path('/customerdashboard');
+				}
+				else if(response.roles=='lab')
+				{
+					$location.path('/labdashboard');
+				}
 
 				//Close Login modal
 				$scope.$emit('closeModal');
@@ -23,14 +30,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			});
 		};
 
-            $scope.checked = false;
-            $scope.toggle = function() {
-                $scope.checked = true;
-                console.log('hello');
-            };
-            $scope.noVerification = function(){
+        $scope.checked = false;
+        $scope.toggle = function() {
+            $scope.checked = true;
+        };
+        $scope.noVerification = function(){
 		$scope.checked = false;
-		console.log('world');
+
 	    };
 
 
@@ -38,9 +44,16 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			$http.post('/auth/signin', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
-				// And redirect to the index page
-				$location.path('/customerdashboard');
-
+				// And redirect to the index page according to user role
+				console.log(response.roles);
+				if(response.roles=='user')
+				{
+					$location.path('/customerdashboard');
+				}
+				else if(response.roles=='lab')
+				{
+					$location.path('/labdashboard');
+				}
 				//Close Login modal
 				$scope.$emit('closeModal');
 				
