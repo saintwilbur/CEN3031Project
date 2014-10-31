@@ -66,6 +66,14 @@ describe('Order Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+		it('should be able to show an error when try to save without order ID', function(done) {
+			order.orderId = '';
+			return order.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
 	});
 
 	afterEach(function(done) { 
