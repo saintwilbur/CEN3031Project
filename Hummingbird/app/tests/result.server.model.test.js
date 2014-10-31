@@ -6,12 +6,13 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
+	Facility = mongoose.model('LabFacility'),
 	Result = mongoose.model('Result');
 
 /**
  * Globals
  */
-var user, result;
+var user, facility, result;
 
 /**
  * Unit tests
@@ -30,10 +31,23 @@ describe('Result Model Unit Tests:', function() {
 			dateOfBirth: '1992-06-14',
 			gender: 'male'
 		});
+
+		facility = new Facility({
+			facilityId: '12345',
+				facilityName: 'UF',
+				location: {
+					streetNumber: '1864',
+					streetName: 'Stadium',
+					city: 'Gainesville',
+					state: 'Florida',
+					zipcode: '32608'
+				}
+		});
 		
 		user.save(function() { 
 			result = new Result({
-				user: user				
+				user: user,
+				facility: facility				
 			});
 
 			done();

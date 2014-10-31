@@ -67,13 +67,21 @@ describe('Order Model Unit Tests:', function() {
 			});
 		});
 
+		it('should be able to save with different shipped status', function(done) {
+			order.status = 'shipped';
+			return order.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
 		it('should be able to show an error when try to save without order ID', function(done) {
 			order.orderId = '';
 			return order.save(function(err) {
 				should.exist(err);
 				done();
 			});
-		});
+		});		
 	});
 
 	afterEach(function(done) { 
