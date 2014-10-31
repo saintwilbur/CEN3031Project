@@ -7,6 +7,7 @@ var _ = require('lodash'),
 	errorHandler = require('../errors'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
+	LabFacility = mongoose.model('LabFacility'),
 	User = mongoose.model('User');
 
 /**
@@ -19,7 +20,9 @@ exports.signup = function(req, res) {
 	// Init Variables
 	var user = new User(req.body);
 	var message = null;
-	
+	//var facility = req.body.facility;
+	//var labFacility = LabFacility.find({facilityName: facility}, {"facilityId": 1, _id:0});
+
 	// Add missing user fields
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
@@ -44,6 +47,8 @@ exports.signup = function(req, res) {
 			});
 		}
 	});
+
+	
 };
 
 /**

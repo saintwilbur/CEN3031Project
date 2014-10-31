@@ -7,7 +7,8 @@ module.exports = function(app) {
 
 	// Setting up the Order api
 	app.route('/result/new').post(results.create);
-	app.route('/result/pending').get(results.list);
+	//app.route('/result/allPending').get(results.list);
+	app.route('/result/pending').get(results.listPerLab);
 	app.route('/result/submitted').get(results.listCanVerify);
 	app.route('/result/submit').post(results.submitResult);
 	app.route('/result/verify').post(results.verifyResult);

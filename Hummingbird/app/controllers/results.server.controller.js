@@ -51,7 +51,7 @@ exports.delete = function(req, res) {
 };
 
 /**
- * List of Results
+ * List of all Results
  */
 exports.list = function(req, res) {
 	Result.find().sort('-created').exec(function(err, result){
@@ -68,10 +68,27 @@ exports.list = function(req, res) {
 };
 
 /**
+ * List of specific lab Results
+ */
+exports.listPerLab = function(req, res) {
+	Result.find({facility: req.facility}).sort('-created').exec(function(err, result){
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(result);
+		}
+	});
+};
+
+/**
  * List of Results
  */
 exports.listCanVerify = function(req, res) {
-	Result.find({submittedBy: {$not: req.user.displayName }}).sort('-created').exec(function(err, result){
+	Result.find({submittedBy: {$not: req.user.displayName }, facility: req.facility, status: 'Submitted'}).sort('-created').exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -90,7 +107,7 @@ exports.listCanVerify = function(req, res) {
 exports.submitResult = function(req, res) {
 	var results = req.results;
 
-	results = _.extend(results, {submittedBy: req.user.userId, result: req.result, status: 'submitted'});
+	results = _.extend(results, {submittedBy: req.user.userId, result: req.result, status: 'Submitted'});
 
 	results.save(function(err) {
 		if (err) {
@@ -109,7 +126,7 @@ exports.submitResult = function(req, res) {
 exports.verifyResult = function(req, res) {
 	var results = req.results;
 
-	results = _.extend(results, {verifiedBy: req.user.userId, status: 'verified'});
+	results = _.extend(results, {verifiedBy: req.user.userId, status: 'Verified'});
 
 	results.save(function(err) {
 		if (err) {
@@ -122,4 +139,27 @@ exports.verifyResult = function(req, res) {
 	});
 
 	//send email
+};
+
+exports.rejectedResult = function(req, res) {
+	var results = req.results;
+
+	results = _.extend(results, {verifiedBy: req.user.userId, status: 'Rejected'});
+
+	results.save(function(err) {
+		if (err) {
+			return res.send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(results);
+		}
+	});
+
+	//send email
+};
+
+exports.test = function(req, res) {
+	var tests = 'test';
+	res.jsonp(tests);
 };

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('lab').controller('VerifyController', ['$scope', 'Authentication','$http', 
-	function($scope, Authentication, $http) {
+angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'Authentication','$http', 
+	function($scope, $rootScope, Authentication, $http) {
 			$scope.authentication = Authentication;
 			$scope.orders = [];
 			$scope.searchOrders = [];

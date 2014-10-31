@@ -52,7 +52,22 @@ exports.read = function(req, res)
  * Update a Order
  */
 exports.update = function(req, res) {
+	var order = req.order;
 
+	order = _.extend(order, {status: req.orderStatus});
+	order.save(function(err) {
+		if (err) 
+		{
+			return res.send(
+			{
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		else 
+		{
+			res.jsonp(order);
+		}
+	});
 };
 
 /**

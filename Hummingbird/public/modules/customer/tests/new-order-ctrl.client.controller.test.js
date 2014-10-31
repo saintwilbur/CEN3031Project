@@ -50,26 +50,35 @@
 			});
 		}));
 
-		it('Should add new Order for User', inject(function() {
-			var fieldArray = ['field1', 'field2', 'field3'];
+		it('Should add new Order for User', inject(function(Order, User) {
+			var sampleUser = new User({
+				_id: '564',
+				userId: '12345',
+				firstName: 'Full',
+				lastName: 'Name',
+				displayName: 'Full Name',
+				email: 'test@test.com',
+				username: 'username',
+				password: 'password',
+				provider: 'local',
+				dateOfBirth: '1992-06-14',
+				gender: 'male'
+			});
 
-			var send = 
-			{
-				user: '1234567',
+			var sampleOrder = new Order({
+				_id: '43432r',
+				user: sampleUser,
 				item: 'SampleTest',
-				forms: 
-				{
-					name: 'Sample Test',
-					fieldTest: fieldArray
-				}
-			};
-			var test = [];
-			$httpBackend.when('POST', '/order/new').respond(200, send);
-			scope.send=send;
-			scope.submitOrder();
+				field1: 'field1',
+				field2: 'field2'
+			});
+
+			var sampleOrderRespond = [sampleOrder];
+			$httpBackend.expectGET('/order/new').respond(sampleOrder);
+			scope.find();
 			$httpBackend.flush();
-			console.log(scope.user);
-			expect(scope.user).toEqual('1234567');
+			
+			expect(scope.order).toEqual(sampleOrder);
 			// Test scope value
 			//expect(scope.user).toEqual(send.user);
 		}));
