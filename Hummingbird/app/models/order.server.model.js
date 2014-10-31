@@ -6,6 +6,20 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
+var validateStatus = function(property) {
+	if(!property.length) {
+		return false;
+	}
+	var valid = true;
+	for(var i=0; i<property.length; i++) {
+		if(!(property[i] === 'pending' || property[i] === 'shipped' || property[i] === 'recieved' || property[i] === 'Completed')) {
+			valid = false;
+			break;
+		}
+	}
+	return valid;
+};
+
 /**
  * Order Schema
  */
@@ -23,9 +37,13 @@ var OrderSchema = new Schema({
 		type: String
 	},
 	status: {
-		type: String,
+		type: [{
+			type: String,
+			enum: ['pending', 'shipped', 'recieved', 'Completed']
+		}],
 		trim: true,
-		default: 'pending'
+		default: 'pending',
+		validate: [validateStatus, 'wrong status']
 	},
 	created: {
 		type: Date,

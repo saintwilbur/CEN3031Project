@@ -21,6 +21,20 @@ var validateLocalStrategyPassword = function(password) {
 	return (this.provider !== 'local' || (password && password.length > 6));
 };
 
+var validateRole = function(property) {
+	if(!property.length) {
+		return false;
+	}
+	var valid = true;
+	for(var i=0; i<property.length; i++) {
+		if(!(property[i] === 'admin' || property[i] === 'user' || property[i] === 'lab')) {
+			valid = false;
+			break;
+		}
+	}
+	return valid;
+};
+
 /**
  * User Schema
  */
@@ -51,7 +65,8 @@ var UserSchema = new Schema({
 		trim: true,
 		default: '',
 		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
-		match: [/.+\@.+\..+/, 'Please fill a valid email address']
+		match: [/.+\@.+\..+/, 'Please fill a valid email address'],
+		unique: 'email is already registered'
 	},
 	username: {
 		type: String,
@@ -78,7 +93,8 @@ var UserSchema = new Schema({
 			type: String,
 			enum: ['user', 'admin', 'lab']
 		}],
-		default: ['user']
+		default: ['user'],
+		validate: [validateRole, 'Incorrect Role']
 	},
 	updated: {
 		type: Date
@@ -146,7 +162,6 @@ UserSchema.methods.authenticate = function(password) {
 /*
  * Create instance method for getting UUID for userId
  */
-
 UserSchema.methods.getUUID = function() {
 	var d = new Date().getTime();
 	var uuid = 'xxxxxxx-xxxxx-xxxxxxx'.replace(/[x]/g, 
