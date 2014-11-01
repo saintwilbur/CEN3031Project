@@ -8,11 +8,8 @@ var mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Result = mongoose.model('Result'),
 	errorHandler = require('./errors'),
-	SeqId = require('seqid'),
     _ = require('lodash');
 
-
-var id = new SeqId(0);
 /**
  * Create a Result
  * controller will need to pass in 
@@ -22,7 +19,6 @@ var id = new SeqId(0);
 exports.create = function(req, res) {
 	var result = new Result();
 	result.comments = req.comment;
-	result.resultId = id.next();	
 	result.result = req.outcome;
 	result.submittedBy = req.userId;
 	var size;
