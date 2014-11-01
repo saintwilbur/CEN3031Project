@@ -59,6 +59,9 @@ var ResultSchema = new Schema({
 		}],
 		default: 'Submitted',
 		validate: [validateStatus, 'wrong status']
+	},
+	comments: {
+		type: String
 	}
 });
 

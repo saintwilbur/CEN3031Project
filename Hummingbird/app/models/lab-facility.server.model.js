@@ -43,7 +43,10 @@ var LabFacilitySchema = new Schema({
 			type:Number,
 			required: ''
 		}
-	}
+	},
+	verificationCode: [{
+		type: String
+	}]
 });
 
 mongoose.model('LabFacility', LabFacilitySchema);

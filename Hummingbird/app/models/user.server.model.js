@@ -120,6 +120,10 @@ var UserSchema = new Schema({
 			enum: ['male', 'female']
 		}],
 		default: 'male'
+	},
+	facilityId: {
+		type: Number,
+		default: -1
 	}
 	/**
 	 *contact: {
@@ -164,7 +168,7 @@ UserSchema.methods.authenticate = function(password) {
  */
 UserSchema.methods.getUUID = function() {
 	var d = new Date().getTime();
-	var uuid = 'xxxxxxx-xxxxx-xxxxxxx'.replace(/[x]/g, 
+	var uuid = 'xxxxxxxxxxxxxx'.replace(/[x]/g, 
 		function(c) {
 			var r = (d + Math.random()*16)%16 | 0;
 			d = Math.floor(d/16);

@@ -20,34 +20,53 @@ exports.signup = function(req, res) {
 	// Init Variables
 	var user = new User(req.body);
 	var message = null;
+	var verification = null;
+
 	//var facility = req.body.facility;
 	//var labFacility = LabFacility.find({facilityName: facility}, {"facilityId": 1, _id:0});
-
 	// Add missing user fields
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
 
-	// Then save the user 
+	/** saving user
+	 *	if not lab or admin, continue to save.
+	 *  if lab or admin then check verification code.
+	 */
+	if (req.body.role !== 'user'){
+		verification = req.body.verificationCode;
+		LabFacility.find({verificationCode: verification}).exec(function(err, facility)
+		{
+			if(err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			}
+			else
+			{
+				user.facilityId=facility.facilityId;
+			}
+		});
+	} 
+
 	user.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			// Remove sensitive data before login
-			user.password = undefined;
-			user.salt = undefined;
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				// Remove sensitive data before login
+				user.password = undefined;
+				user.salt = undefined;
 
-			req.login(user, function(err) {
-				if (err) {
-					res.status(400).send(err);
-				} else {
-					res.jsonp(user);
-				}
-			});
-		}
-	});
-
+				req.login(user, function(err) {
+					if (err) {
+						res.status(400).send(err);
+					} else {
+						res.jsonp(user);
+					}
+				});
+			}
+		});
 	
 };
 
@@ -208,4 +227,26 @@ exports.removeOAuthProvider = function(req, res, next) {
 			}
 		});
 	}
+};
+
+/**
+ * Function to return the list of lab techs. 
+ * will not return the current lab user.
+ * requires pass in of the lab user id. 
+ * returns an array of objects containing the display names of lab tech.
+ */
+exports.isVerifier = function(req, res) 
+{
+	User.find({roles: 'lab', userId: {$not: {$eq: req.labId}}}, {'displayName':1, _id:0}).exec(function(err, verifiers)
+	{
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(verifiers);
+		}
+	});
 };
