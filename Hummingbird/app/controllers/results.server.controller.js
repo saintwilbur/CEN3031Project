@@ -191,7 +191,10 @@ exports.verifyResult = function(req, res) {
 	}
 	else
 	{
-		message: 'Submitter cannot be verifier!'
+		return res.send(
+		{
+			message: 'Submitter cannot be verifier!'
+		});
 	}
 	//send email
 };
