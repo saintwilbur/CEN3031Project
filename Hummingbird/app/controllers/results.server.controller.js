@@ -16,7 +16,7 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var result = new Result(req.body);
 	var size;
-
+	//Check if the order ID exists
 	Order.find({orderId: req.orderId}).exec(function(err, resultOrder){
 		if (err) 
 		{
@@ -28,6 +28,7 @@ exports.create = function(req, res) {
 			size = resultOrder.result.length-1; 
 		}
 	});
+	//Check if the verifier ID matches user ID
 	User.find({userID: req.verfiedBy}).exec(function(err, verifierId){
 		if (err) 
 		{
@@ -36,6 +37,7 @@ exports.create = function(req, res) {
 			});
 		} 
 	});
+	//Check if there is no result or the result has been rejected
 	if (resultOrder.result.length == 0 || resultOrder.result[size].status == 'Rejected') {
 		result.save(function(err){
 			if (err) 
