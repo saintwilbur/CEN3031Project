@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	Oreder = mongoose.model('Order'),
+	User = mongoose.model('User'),
 	Result = mongoose.model('Result'),
 	errorHandler = require('./errors'),
     _ = require('lodash');
@@ -14,7 +15,6 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var result = new Result(req.body);
-	var matchOrder;
 	var size;
 
 	Order.find({orderId: req.orderId}).exec(function(err, resultOrder){
@@ -25,12 +25,19 @@ exports.create = function(req, res) {
 			});
 		} else 
 		{
-			matchOrder = resultOrder;
-			size = matchOrder.result.length-1; 
+			size = resultOrder.result.length-1; 
 		}
 	});
-	if (matchOrder.result.length == 0 || matchOrder.result[size].status == 'Rejected') {
-		result.save(function(err) {
+	User.find({userID: req.verfiedBy}).exec(function(err, verifierId){
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} 
+	});
+	if (resultOrder.result.length == 0 || resultOrder.result[size].status == 'Rejected') {
+		result.save(function(err){
 			if (err) 
 			{
 				return res.send(
@@ -40,8 +47,8 @@ exports.create = function(req, res) {
 			}
 			else 
 			{
-				matchOrder.result.push(result);
-				res.jsonp(result);
+				resultOrder.result.push(result);
+				res.jsonp(result);							
 			}
 		});
 	}
