@@ -26,7 +26,7 @@ exports.create = function(req, res) {
 	//order the result belongs to
 	var resultOrder;
 	//Check if the order ID exists
-	Order.find({orderId: req.orderId}).exec(function(err, resOrder){
+	Order.find({orderId: req.orderId}).exec(function(err, orderId){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -35,7 +35,7 @@ exports.create = function(req, res) {
 		} else 
 		{
 			size = resultOrder.result.length-1; 
-			resultOrder = resOrder;
+			resultOrder = orderId;
 		}
 	});
 	result.user = resultOrder.user;
@@ -51,7 +51,7 @@ exports.create = function(req, res) {
 	result.verifiedBy = req.verfiedBy
 	//Check if there is no result or the result has been rejected
 	if (resultOrder.result.length == 0 || resultOrder.result[size].status == 'Rejected') {
-		result.save(function(err){
+		result.save(function(err) {
 			if (err) 
 			{
 				return res.send(
@@ -69,7 +69,7 @@ exports.create = function(req, res) {
 	else {
 		return res.send(
 		{
-			message: 'there is already a result'
+			message: 'There is already a result!'
 		});
 	}		
 };
@@ -177,16 +177,22 @@ exports.verifyResult = function(req, res) {
 
 	results = _.extend(results, {verifiedBy: req.userId, verifiersComments: req.verifierComment, status: 'Verified'});
 
-	results.save(function(err) {
-		if (err) {
-			return res.send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(results);
-		}
-	});
-
+	if(req.user.userId != results.submittedBy)
+	{
+		results.save(function(err) {
+			if (err) {
+				return res.send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(results);
+			}
+		});	
+	}
+	else
+	{
+		message: 'Submitter cannot be verifier!'
+	}
 	//send email
 };
 
