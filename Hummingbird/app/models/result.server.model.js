@@ -12,7 +12,7 @@ var validateStatus = function(property) {
 	}
 	var valid = true;
 	for(var i=0; i<property.length; i++) {
-		if(!(property[i] === 'In Progress' || property[i] === 'Submitted' || property[i] === 'Verified' || property[i] === 'Rejected' || property[i] === 'Completed')) {
+		if(!(property[i] === 'Submitted' || property[i] === 'Verified' || property[i] === 'Rejected' || property[i] === 'Completed')) {
 			valid = false;
 			break;
 		}
@@ -55,9 +55,9 @@ var ResultSchema = new Schema({
 	status: {
 		type: [{
 			type: String,
-			enum: ['In Progress', 'Submitted', 'Verified', 'Rejected', 'Completed']
+			enum: ['Submitted', 'Verified', 'Rejected', 'Completed']
 		}],
-		default: 'In Progress',
+		default: 'Submitted',
 		validate: [validateStatus, 'wrong status']
 	}
 });
