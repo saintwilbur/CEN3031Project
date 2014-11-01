@@ -38,10 +38,6 @@ var ResultSchema = new Schema({
 		trim: true,
 		default: 'No result yet'
 	},
-	facility: {
-		type: Schema.ObjectId,
-		ref: 'LabFacility'
-	},
 	submittedBy: {
 		type: String
 	},
@@ -61,6 +57,9 @@ var ResultSchema = new Schema({
 		validate: [validateStatus, 'wrong status']
 	},
 	comments: {
+		type: String
+	},
+	verifiersComments: {
 		type: String
 	}
 });

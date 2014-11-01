@@ -57,12 +57,9 @@ var OrderSchema = new Schema({
 		type: String,
 		default: 'XXXXXXXXXX'
 	},
-	field1: {
+	field1: [{
 		type: String
-	},
-	field2: {
-		type: String
-	}
+	}]
 	/**	
 	 *item: {
 	 *	type: String,

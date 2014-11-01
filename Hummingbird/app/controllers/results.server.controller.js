@@ -8,14 +8,26 @@ var mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Result = mongoose.model('Result'),
 	errorHandler = require('./errors'),
+	SeqId = require('seqid'),
     _ = require('lodash');
 
+
+var id = new SeqId(0);
 /**
  * Create a Result
+ * controller will need to pass in 
+ * userId (user submitting), orderId, verfiedBy (chosen userId), 
+ * outcome (positive, negative), comment (from submitter)
  */
 exports.create = function(req, res) {
-	var result = new Result(req.body);
+	var result = new Result();
+	result.comments = req.comment;
+	result.resultId = id.next();	
+	result.result = req.outcome;
+	result.submittedBy = req.userId;
 	var size;
+
+	//order the result belongs to
 	var resultOrder;
 	//Check if the order ID exists
 	Order.find({orderId: req.orderId}).exec(function(err, resOrder){
@@ -30,6 +42,7 @@ exports.create = function(req, res) {
 			resultOrder = resOrder;
 		}
 	});
+	result.user = resultOrder.user;
 	//Check if the verifier ID matches user ID
 	User.find({userID: req.verfiedBy}).exec(function(err, verifierId){
 		if (err) 
@@ -39,6 +52,7 @@ exports.create = function(req, res) {
 			});
 		} 
 	});
+	result.verifiedBy = req.verfiedBy
 	//Check if there is no result or the result has been rejected
 	if (resultOrder.result.length == 0 || resultOrder.result[size].status == 'Rejected') {
 		result.save(function(err){
@@ -103,10 +117,10 @@ exports.list = function(req, res) {
 };
 
 /**
- * List of specific lab Results
+ * scrap.
  */
 exports.listPerLab = function(req, res) {
-	Result.find({facility: req.facility}).sort('-created').exec(function(err, result){
+	Result.find().sort('-created').exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -120,10 +134,12 @@ exports.listPerLab = function(req, res) {
 };
 
 /**
- * List of Results
+ * Function will return the list of results that the current user can verify
+ * Controller will need to pass in the userId
+ * will return an array of result objects
  */
 exports.listCanVerify = function(req, res) {
-	Result.find({submittedBy: {$not: req.user.displayName }, facility: req.facility, status: 'Submitted'}).sort('-created').exec(function(err, result){
+	Result.find({verifiedby: req.userId, status: 'Submitted'}).sort('-created').exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -137,7 +153,7 @@ exports.listCanVerify = function(req, res) {
 };
 
 /*
- * Submits the result, passes in the result._id
+ * Submits the result
  */
 exports.submitResult = function(req, res) {
 	var results = req.results;
@@ -156,12 +172,14 @@ exports.submitResult = function(req, res) {
 };
 
 /*
- * Verifies the result, passes in the result._id
+ * Verifies the result
+ * controller needs to pass in 
+ * userId and verifierComment.
  */
 exports.verifyResult = function(req, res) {
 	var results = req.results;
 
-	results = _.extend(results, {verifiedBy: req.user.userId, status: 'Verified'});
+	results = _.extend(results, {verifiedBy: req.userId, verifiersComments: req.verifierComment, status: 'Verified'});
 
 	results.save(function(err) {
 		if (err) {
@@ -178,6 +196,8 @@ exports.verifyResult = function(req, res) {
 
 /**
  *  Returns the result of the test. 
+ *  Controller needs to pass in the resultId
+ *  Will return object with the result of the test inside.
  */
 
 exports.getResultData = function(req, res)
@@ -195,10 +215,16 @@ exports.getResultData = function(req, res)
 	});
 };
 
+/**
+ * Will update the result to rejected. 
+ * Controller needs to pass in the resultId, userId, 
+ * and a comment for why user rejected the result
+ */ 
+
 exports.rejectResult = function(req, res) {
 	var results = req.results;
 
-	results = _.extend(results, {verifiedBy: req.user.userId, status: 'Rejected'});
+	results = _.extend(results, {verifiedBy: req.userId, comments: req.comment, status: 'Rejected'});
 
 	results.save(function(err) {
 		if (err) {
