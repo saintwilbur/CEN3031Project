@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	MedicalHistory = mongoose.model('MedicalHistory'),
+	Result = mongoose.model('Result'),
     _ = require('lodash');
 
 /**
@@ -14,14 +15,14 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) 
 {
 	var medicalHistory = new MedicalHistory(req.body);
-
+	
 	medicalHistory.save(function(err) {
 		if (err) {
-			return res.status(400).send({
+			return res.send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(medicalHistory);
+			res.jsonp(medicalHistory.field1);
 		}
 	});
 };
@@ -29,9 +30,6 @@ exports.create = function(req, res)
 /**
  * Show the current Medical history
  */
-exports.read = function(req, res) {
-
-};
 
 /**
  * Update a Medical history
@@ -63,3 +61,4 @@ exports.list = function(req, res) {
 		}
 	});
 };
+
