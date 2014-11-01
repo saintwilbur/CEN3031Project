@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+	Oreder = mongoose.model('Order'),
 	Result = mongoose.model('Result'),
 	errorHandler = require('./errors'),
     _ = require('lodash');
@@ -13,20 +14,43 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var result = new Result(req.body);
-	
-	result.save(function(err) {
+	var matchOrder;
+	var size;
+
+	Order.find({orderId: req.orderId}).exec(function(err, resultOrder){
 		if (err) 
 		{
-			return res.send(
-			{
+			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		}
-		else 
+		} else 
 		{
-			res.jsonp(result);
+			matchOrder = resultOrder;
+			size = matchOrder.result.length-1; 
 		}
 	});
+	if (matchOrder.result.length == 0 || matchOrder.result[size].status == 'Rejected') {
+		result.save(function(err) {
+			if (err) 
+			{
+				return res.send(
+				{
+					message: errorHandler.getErrorMessage(err)
+				});
+			}
+			else 
+			{
+				matchOrder.result.push(result);
+				res.jsonp(result);
+			}
+		});
+	}
+	else {
+		return res.send(
+		{
+			message: errorHandler.getErrorMessage(err)
+		});
+	}		
 };
 
 /**
