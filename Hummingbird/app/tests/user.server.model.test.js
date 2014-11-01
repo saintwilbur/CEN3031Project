@@ -73,7 +73,7 @@ describe('User Model Unit Tests:', function() {
 			});
 		});
 
-		it('should be able to show an error when try to save without user ID', function(done) {
+		it('should encounter an error without user ID', function(done) {
 			user.userId = '';
 			return user.save(function(err) {
 				should.exist(err);

@@ -34,14 +34,14 @@ describe('Result Model Unit Tests:', function() {
 
 		facility = new Facility({
 			facilityId: '12345',
-				facilityName: 'UF',
-				location: {
-					streetNumber: '1864',
-					streetName: 'Stadium',
-					city: 'Gainesville',
-					state: 'Florida',
-					zipcode: '32608'
-				}
+			facilityName: 'UF',
+			location: {
+				streetNumber: '1864',
+				streetName: 'Stadium',
+				city: 'Gainesville',
+				state: 'Florida',
+				zipcode: '32608'
+			}
 		});
 		
 		user.save(function() { 
@@ -58,6 +58,14 @@ describe('Result Model Unit Tests:', function() {
 		it('should be able to save without problems', function(done) {
 			return result.save(function(err) {
 				should.not.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save with wrong status', function(done) {
+			result.status = 'Denied';
+			return result.save(function(err) {
+				should.exist(err);
 				done();
 			});
 		});

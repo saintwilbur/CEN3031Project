@@ -52,30 +52,6 @@ describe('Messaging Model Unit Tests:', function() {
 			});
 		});
 
-		it('should be able to show an error when try to save without first name', function(done) {
-			messaging.firstName = '';
-			return messaging.save(function(err) {
-				should.exist(err);
-				done();
-			});
-		});
-
-		it('should be able to show an error when try to save without last name', function(done) {
-			messaging.lastName = '';
-			return messaging.save(function(err) {
-				should.exist(err);
-				done();
-			});
-		});
-
-		it('should be able to show an error when try to save without email', function(done) {
-			messaging.email = '';
-			return messaging.save(function(err) {
-				should.exist(err);
-				done();
-			});
-		});
-
 		it('should be able to show an error when try to save without subject', function(done) {
 			messaging.subject = '';
 			return messaging.save(function(err) {

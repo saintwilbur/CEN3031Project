@@ -7,13 +7,13 @@ var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Order = mongoose.model('Order'),
-	//Inventory = mongoose.model('Inventory'),
+	Facility = mongoose.model('LabFacility'),
 	Result = mongoose.model('Result');
 
 /**
  * Globals
  */
-var user, inventory, result, order;
+var user, facility, result, order;
 
 /**
  * Unit tests
@@ -33,18 +33,21 @@ describe('Order Model Unit Tests:', function() {
 			gender: 'male'
 		});
 
-		/**
-		*inventory = new Inventory({
-		*		itemId: '123456789',
-		*		name: 'Test kit',
-		*		count: '10',
-		*		price: '1000'
-		*	});
-		*/
+		facility = new Facility({
+			facilityId: '12345',
+			facilityName: 'UF',
+			location: {
+				streetNumber: '1864',
+				streetName: 'Stadium',
+				city: 'Gainesville',
+				state: 'Florida',
+				zipcode: '32608'
+			}
+		});
 
 		result = new Result({
 				user: user,
-				object: inventory
+				facility: facility
 			});				
 
 		user.save(function() { 
@@ -52,7 +55,9 @@ describe('Order Model Unit Tests:', function() {
 				orderId: '12345',
 				user: user,
 				item: 'General',
-				result: result
+				result: result,
+				field1: 'Test',
+				field2: 'Test'
 			});
 
 			done();
