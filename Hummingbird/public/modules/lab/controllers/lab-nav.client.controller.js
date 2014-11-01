@@ -4,7 +4,7 @@ angular.module('lab').controller('LabNavController', ['$scope',
 	function($scope) {
 		$scope.navLinks = [
 		    { open: 'open', icon: 'glyphicon glyphicon-plus', title:'Input New Result', content:'/modules/customer/views/new-order.client.view.html' },
-		    { open: '', icon: 'glyphicon glyphicon-ok-sign',title:'Verify Pending Results', content:'/modules/lab/views/verify.client.view.html' },
+		    { open: 'open', icon: 'glyphicon glyphicon-ok-sign',title:'Verify Pending Results', content:'/modules/customer/views/new-order.client.view.html' },
 		    { open: '', icon: 'glyphicon glyphicon-list-alt',title:'View Completed Orders', content:'' },
 		    { open: '', icon: 'glyphicon glyphicon-exclamation-sign',title:'Notifications', content:'' }
 		  ];
