@@ -3,7 +3,7 @@
 angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'Authentication','$http', 
 	function($scope, $rootScope, Authentication, $http) {
 			$scope.authentication = Authentication;
-			$scope.orders = [];
+			$scope.orders = [{orderId: '12345', date: 'dateHere' }];
 			$scope.searchOrders = [];
 			//getOrders to verify  
 			$scope.searchOrders = function() {
@@ -18,37 +18,44 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 				}); 
 			};
 			$scope.getPendingOrders = function()
+			{
+				$http.get('/order/pending',{user: $scope.authentication.user._id}).success(function(response) 
 				{
-					$http.get('/order/pending',{user: $scope.authentication.user._id}).success(function(response) 
-					{
-						$scope.orders=response;
-						return $scope.orders;
-					}).error(function(response) 
-					{
-						$scope.error = response.message;
-					}); 
-				};
-					$scope.$on('refreshOrders', function (event) {
-					$scope.getPendingOrders();
-				});
+					$scope.orders=response;
+					return $scope.orders;
+				}).error(function(response) 
+				{
+					$scope.error = response.message;
+				}); 
+			};
+			$scope.$on('refreshOrders', function (event) 
+			{
+				$scope.getPendingOrders();
+			});
 				
-				$scope.searchOrder = function()
-				{
-					//var fieldArray = [$scope.formData.field1, $scope.formData.field2, $scope.formData.field3];
+			$scope.searchOrder = function()
+			{
+				//var fieldArray = [$scope.formData.field1, $scope.formData.field2, $scope.formData.field3];
 
-					var search = 
-					{
-						ID: $scope.search
-					};
-					$http.post('/order/verify', search).success(function(response) {
-						$rootScope.$broadcast('refreshOrders');
-						$scope.search={};
-						 alert('You have narrrowed down your list of IDs');
-					}).error(function(response) {
-						$scope.error = response.message;
-					});
+				var search = 
+				{
+					ID: $scope.search
 				};
+				$http.post('/order/verify', search).success(function(response) {
+					$rootScope.$broadcast('refreshOrders');
+					$scope.search={};
+				}).error(function(response) {
+					$scope.error = response.message;
+				});
+			};
 				
 				
 			}
+
+
+
+
+
+			$scope.dynamicPopover = 'Hello, World!';
+  			$scope.dynamicPopoverTitle = 'Title';
 		]);
