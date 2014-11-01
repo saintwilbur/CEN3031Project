@@ -1,3 +1,4 @@
+/*jshint eqnull:true */
 'use strict';
 
 angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
