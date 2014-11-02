@@ -1,4 +1,4 @@
-/*jshint eqnull:true */
+/*jshint eqeqeq:false, eqnull:true*/
 'use strict';
 
 /**
@@ -51,7 +51,7 @@ exports.create = function(req, res) {
 	});
 	result.verifiedBy = req.verfiedBy;
 	//Check if there is no result or the result has been rejected
-	if (resultOrder.result.length == 0 || resultOrder.result[size].status == 'Rejected') {
+	if (resultOrder.result.length === 0 || resultOrder.result[size].status == 'Rejected') {
 		result.save(function(err) {
 			if (err) 
 			{
