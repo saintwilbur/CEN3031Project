@@ -3,7 +3,7 @@
 angular.module('lab').controller('LabNavController', ['$scope','Authentication',
 	function($scope, Authentication) {
 		$scope.authentication = Authentication;
-		$scope.notificationCount;
+		$scope.notificationCount; // jshint ignore:line
 		$scope.navLinks = [
 		    { open: 'open', icon: 'glyphicon glyphicon-plus', title:'Input New Result', content:'/modules/lab/views/input-result.client.view.html' },
 		    { open: '', icon: 'glyphicon glyphicon-ok-sign',title:'Verify Pending Results', content:'/modules/lab/views/verify.client.view.html' },

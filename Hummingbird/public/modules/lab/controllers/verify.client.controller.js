@@ -1,5 +1,5 @@
 'use strict';
-
+/* jshint ignore:start */
 angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'Authentication','$http', 
 	function($scope, $rootScope, Authentication, $http) {
 			$scope.authentication = Authentication;
@@ -47,15 +47,10 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 				}).error(function(response) {
 					$scope.error = response.message;
 				});
-			};
-				
-				
-			}
-
-
-
-
-
+			};			
+	}
 			$scope.dynamicPopover = 'Hello, World!';
   			$scope.dynamicPopoverTitle = 'Title';
-		]);
+]);
+
+/* jshint ignore:end */

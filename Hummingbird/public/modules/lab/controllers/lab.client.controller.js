@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 'use strict';
 
 angular.module('lab').controller('LabController', ['$scope', '$rootScope',
@@ -56,3 +57,4 @@ angular.module('lab').controller('LabController', ['$scope', '$rootScope',
 		}
 	}
 ]);
+/* jshint ignore:end */
