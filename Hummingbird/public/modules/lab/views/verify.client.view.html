@@ -1,12 +1,11 @@
-<section ng-controller="VerifyController" data-ng-init="getPendingOrders()">
-	<div ng-show = "orders.length !== 0">
+<section ng-controller="VerifyController" >
+	<div class="row">
+		<div class="input-group col-md-4 col-md-offset-4">
+	        Search: <input type="text" class="form-control" placeholder="ID" ng-model="query">
+		</div>		
+		<br>	
+	</div>
 		<div class="row">
-			<div class="input-group col-md-4 col-md-offset-4">
-		        Search: <input type="text" class="form-control" placeholder="ID" ng-model="query">
-			</div>			
-		</div>
-		</br>
-			<div class="row">
 			<div class="col-md-12">
 				<table class="table table-hover table-condensed table-bordered">
 					<thead>
@@ -26,19 +25,19 @@
 		<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('sm','/modules/lab/views/verify-accept.client.view.html')">View</a>							
 							</td>
 							<td>																
-								<a popover="form input" popover-title="Credentials" class="navbar-btn" data-toggle="popover" data-trigger="focus" title="Accept">Accept</a>														
+								<a popover="form input" popover-title="Credentials" data-content='<form><input type="text"/></form>'class="navbar-btn" data-toggle="popover" data-trigger="focus" title="Accept">Accept</a>														
 							</td>							
 							<td>
-								<a class="navbar-btn" ng-controller="ModalController" ng-click="open('md',{{order.tracking}})">Deny</a>
+								<a class="navbar-btn" ng-controller="ModalController" >Deny</a>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 	</div>
-</div>
 	<div ng-hide = "orders.length !== 0">
 		<p>No orders for verification. </p>
 	</div>
+	 <button popover="{{dynamicPopover}}" popover-title="{{dynamicPopoverTitle}}" class="btn btn-default">Dynamic Popover</button>
 </section>
 
