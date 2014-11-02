@@ -1,0 +1,28 @@
+<section data-ng-controller="CustomermedicalhistoryController">
+	<div>
+		<p>No Medical hisory on file. Please Fill out your medical History.</p>
+		<form class="form-horizontal" ng-submit="submit()">  
+			<div class="form-group">
+				<label for="field1">field1</label>
+				<input type="text" required id="field1" name="field1" class="form-control input-md" data-ng-model="medicalHistory.field1" placeholder="field1">
+			</div>
+			<div class="form-group">
+				<label for="field2">field2</label>
+				<input type="text" required id="field2" name="field2" class="form-control input-md" data-ng-model="medicalHistory.field2" placeholder="field2">
+			</div>
+			<div class="form-group">
+				<label for="field3">field3</label>
+				<input type="text" required id="field3" name="field3" class="form-control input-md" data-ng-model="medicalHistory.field3" placeholder="field3">
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="singlebutton"></label>
+				<div class="col-md-2">
+					<button  type="submit" id="singlebutton" name="singlebutton" class="btn btn-success">submit</button>
+				</div>
+			</div>
+		</form>
+		<form class="form-horizontal" ng-submit="myTesting()">
+			<button  type="submit" id="singlebutton2" name="singlebutton2" class="btn btn-success">test</button>
+		</form>
+	</div>
+</section>
