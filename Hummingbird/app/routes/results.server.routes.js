@@ -9,7 +9,7 @@ module.exports = function(app) {
 	app.route('/result/new').post(results.create);
 	//app.route('/result/allPending').get(results.list);
 	app.route('/result/pending').get(results.listPerLab);
-	app.route('/result/submitted').get(results.listCanVerify);
+	app.route('/result/verifierList').get(results.listCanVerify);
 	//app.route('/result/submit').post(results.submitResult);
 	app.route('/result/verify').post(results.verifyResult);
 	app.route('/result/reject').post(results.rejectResult);

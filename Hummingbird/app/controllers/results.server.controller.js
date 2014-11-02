@@ -136,7 +136,7 @@ exports.listPerLab = function(req, res) {
  * will return an array of result objects
  */
 exports.listCanVerify = function(req, res) {
-	Result.find({verifiedby: req.userId, status: 'Submitted'}).sort('-created').exec(function(err, result){
+	Result.find({verifiedby: req.user.userId, status: 'Submitted'}).sort('-created').exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -153,7 +153,7 @@ exports.listCanVerify = function(req, res) {
  * Submits the result
  */
 exports.submitResult = function(req, res) {
-	var results = req.results;
+	var results = req.body;
 
 	results = _.extend(results, {submittedBy: req.user.userId, result: req.result, status: 'Submitted'});
 
@@ -171,12 +171,12 @@ exports.submitResult = function(req, res) {
 /*
  * Verifies the result
  * controller needs to pass in 
- * userId and verifierComment.
+ * userId, result_id, and verifierComment.
  */
 exports.verifyResult = function(req, res) {
-	var results = req.results;
+	var results = req.body.results;
 
-	results = _.extend(results, {verifiedBy: req.userId, verifiersComments: req.verifierComment, status: 'Verified'});
+	results = _.extend(results, {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Verified'});
 
 	if(req.user.userId != results.submittedBy)
 	{
@@ -208,7 +208,7 @@ exports.verifyResult = function(req, res) {
 
 exports.getResultData = function(req, res)
 {
-	Result.find({resultId: req.resultId}, {'result':1, _id:0}).exec(function(err, result){
+	Result.find({resultId: req.body.resultId}, {'result':1, _id:0})[0].exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -221,16 +221,41 @@ exports.getResultData = function(req, res)
 	});
 };
 
+/* Function will return the order info for the given result
+ * Controller will need to pass in the result_id 
+ * Will return an order object 
+ */
+exports.getOrderInfo = function(req, res) 
+{
+	if(Order.find({result: req.body.result_id}).length() > 0) {
+		Order.find({result: req.body.result_id})[0].exec(function(err, orderItem) {
+			if(err) 
+			{
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else 
+			{
+				res.json(orderItem);
+			}
+		});
+	}
+	else 
+	{
+		res.json('no order');
+	}
+};
+
 /**
  * Will update the result to rejected. 
  * Controller needs to pass in the resultId, userId, 
  * and a comment for why user rejected the result
- */ 
-
+ */
 exports.rejectResult = function(req, res) {
-	var results = req.results;
+	
+	var results = req.body.results;
 
-	results = _.extend(results, {verifiedBy: req.userId, comments: req.comment, status: 'Rejected'});
+	results = _.extend(results, {verifiedBy: req.user.userId, comments: req.body.comment, status: 'Rejected', completed: Date.now});
 
 	results.save(function(err) {
 		if (err) {

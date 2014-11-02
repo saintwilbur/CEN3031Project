@@ -237,7 +237,7 @@ exports.removeOAuthProvider = function(req, res, next) {
  */
 exports.isVerifier = function(req, res) 
 {
-	User.find({roles: 'lab', userId: {$not: {$eq: req.labId}}}, {'displayName':1, _id:0}).exec(function(err, verifiers)
+	User.find({roles: 'lab', userId: {$not: {$eq: req.user.userId}}}, {'displayName':1, _id:0}).exec(function(err, verifiers)
 	{
 		if (err) 
 		{
