@@ -14,4 +14,5 @@ module.exports = function(app) {
 	app.route('/result/verify').post(results.verifyResult);
 	app.route('/result/reject').post(results.rejectResult);
 	app.route('/result/outcome').get(results.getResultData);
+	app.route('/result/getOrderInfo').get(results.getOrderInfo);
 };

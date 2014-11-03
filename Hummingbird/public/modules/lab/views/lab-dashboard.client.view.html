@@ -1,12 +1,10 @@
 <section data-ng-controller="LabNavController">
-  <div class="wrapper" data-ng-controller="LabController">
-
-        <!-- Sidebar -->
+  <div class="wrapper" >
         <div class="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                   
-                        ID: 544efb9dd0869 <!--<span data-ng-bind="authentication.user._id"></span> -->
+                        ID: <span data-ng-bind="authentication.user.userId"></span>
 
                 </li>
                 <li  ng-repeat="link in navLinks">

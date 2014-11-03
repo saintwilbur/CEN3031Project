@@ -3,7 +3,12 @@
 angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'Authentication','$http', 
 	function($scope, $rootScope, Authentication, $http) {
 			$scope.authentication = Authentication;
-			$scope.orders = [{orderId: '12345', date: 'dateHere' }];
+			$scope.results = 
+			[
+				/*{orderId: '2345fsd', date: 'dateHere' },
+				{orderId: '123asdfw235245', date: 'dateHere' },
+				{orderId: '24y4h5fa', date: 'dateHere' }*/
+			];
 			$scope.searchOrders = [];
 			//getOrders to verify  
 			$scope.searchOrders = function() {
@@ -17,23 +22,79 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 					$scope.error = response.message;
 				}); 
 			};
-			$scope.getPendingOrders = function()
+			$scope.getSubmittedResults = function()
 			{
-				$http.get('/order/pending',{user: $scope.authentication.user._id}).success(function(response) 
+				$http.get('/result/verifierList',{userId: $scope.authentication.user.userId}).success(function(response) 
 				{
-					$scope.orders=response;
-					return $scope.orders;
+					$scope.results=response;
 				}).error(function(response) 
 				{
 					$scope.error = response.message;
 				}); 
 			};
+
+			$scope.acceptResult = function(resultObj, verifierComment)
+			{
+				var send = 
+				{
+					userId: $scope.authentication.user.userId,
+					results: resultObj,
+					verifierComment: verifierComment
+				};
+				$http.post( '/result/verify', send).success(function(response) 
+				{
+					/*var resultInfo = 
+					{
+						result_id: resultObj._id
+					};
+					console.log(send);
+					$http.get( '/result/getOrderInfo', send).success(function(response) 
+					{
+						console.log(response);
+					}).error(function(response) 
+					{
+						$scope.error = response.message;
+					});*/
+					alert('Order Completed');
+					$scope.getSubmittedResults();
+				}).error(function(response) 
+				{
+					$scope.error = response.message;
+				});
+			};
+
 			$scope.$on('refreshOrders', function (event) 
 			{
 				$scope.getPendingOrders();
 			});
 				
-			$scope.searchOrder = function()
+
+
+
+			$scope.rejectResult = function(resultObj, verifierComment)
+			{
+				var send = 
+				{
+					userId: $scope.authentication.user.userId,
+					results: resultObj,
+					verifierComment: verifierComment
+				};
+				$http.post( '/result/reject', send).success(function(response) 
+				{
+					
+					alert('Order Incomplete. Result needs to be reviewed by Submitter.');
+					$scope.getSubmittedResults();
+				}).error(function(response) 
+				{
+					$scope.error = response.message;
+				});
+			};
+
+			$scope.$on('refreshOrders', function (event) 
+			{
+				$scope.getPendingOrders();
+			});
+		/*	$scope.searchOrder = function()
 			{
 				//var fieldArray = [$scope.formData.field1, $scope.formData.field2, $scope.formData.field3];
 
@@ -47,10 +108,8 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 				}).error(function(response) {
 					$scope.error = response.message;
 				});
-			};			
-	}
-			$scope.dynamicPopover = 'Hello, World!';
-  			$scope.dynamicPopoverTitle = 'Title';
+			};
+			*/
+  	}
 ]);
 
-/* jshint ignore:end */

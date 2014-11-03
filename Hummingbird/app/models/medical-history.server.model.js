@@ -4,10 +4,10 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-	SeqId = require('seqid'),
+//	SeqId = require('seqid'),
 	Schema = mongoose.Schema;
 
-var id = new SeqId(0);
+//var id = new SeqId(0);
 /**
  * MedicalHistory Schema
  */
@@ -15,7 +15,7 @@ var MedicalHistorySchema = new Schema({
 	// MedicalHistory model fields   
 	historyId: {
 		type: Number,
-		default: id.next()
+		//default: id.next()
 	},
 	user: {
 		type: Schema.ObjectId, 

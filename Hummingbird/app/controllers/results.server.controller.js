@@ -163,7 +163,7 @@ exports.listPerLab = function(req, res) {
  * will return an array of result objects
  */
 exports.listCanVerify = function(req, res) {
-	Result.find({verifiedby: req.user.userId, status: 'Submitted'}).sort('-created').exec(function(err, result){
+	Result.find({verifiedby: req.body.userId, status: 'Submitted'}).sort('-created').exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -202,29 +202,41 @@ exports.submitResult = function(req, res) {
  */
 exports.verifyResult = function(req, res) {
 	var results = req.body.results;
+	
 
-	results = _.extend(results, {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Verified'});
-
-	if(req.user.userId != results.submittedBy)
-	{
-		results.save(function(err) {
-			if (err) {
-				return res.send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {
-				res.jsonp(results);
-			}
-		});	
-	}
-	else
-	{
-		return res.send(
+	Result.find({_id: results._id}).sort('-created').exec(function(err, resultFound){
+		if (err) 
 		{
-			message: 'Submitter cannot be verifier!'
-		});
-	}
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			resultFound[0] = _.extend(resultFound[0], {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Verified'});
+
+			if(req.user.userId != results.submittedBy)
+			{
+				resultFound[0].save(function(err) {
+					if (err) {
+						return res.send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					} else {
+						res.jsonp(resultFound[0]);
+					}
+				});	
+			}
+			else
+			{
+				return res.send(
+				{
+					message: 'Submitter cannot be verifier!'
+				});
+			}
 	//send email
+			//res.jsonp(results);
+		}
+	});
 };
 
 /**
@@ -254,7 +266,9 @@ exports.getResultData = function(req, res)
  */
 exports.getOrderInfo = function(req, res) 
 {
-	if(Order.find({result: req.body.result_id}).length() > 0) {
+	var results = req.results;
+
+	if(Order.find({result: req.body.result_id}).length > 0) {
 		Order.find({result: req.body.result_id})[0].exec(function(err, orderItem) {
 			if(err) 
 			{
@@ -281,20 +295,39 @@ exports.getOrderInfo = function(req, res)
 exports.rejectResult = function(req, res) {
 	
 	var results = req.body.results;
+	
 
-	results = _.extend(results, {verifiedBy: req.user.userId, comments: req.body.comment, status: 'Rejected', completed: Date.now});
-
-	results.save(function(err) {
-		if (err) {
-			return res.send({
+	Result.find({_id: results._id}).sort('-created').exec(function(err, resultFound){
+		if (err) 
+		{
+			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
-			res.jsonp(results);
+		} else 
+		{
+			resultFound[0] = _.extend(resultFound[0], {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Rejected'});
+			if(req.user.userId != results.submittedBy)
+			{
+				resultFound[0].save(function(err) {
+					if (err) {
+						return res.send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					} else {
+						res.jsonp(resultFound[0]);
+					}
+				});	
+			}
+			else
+			{
+				return res.send(
+				{
+					message: 'Submitter cannot be verifier!'
+				});
+			}
+			//res.jsonp(results);
 		}
 	});
-
-	//send email
 };
 
 exports.test = function(req, res) {

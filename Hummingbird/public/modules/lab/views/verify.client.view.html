@@ -1,43 +1,58 @@
-<section ng-controller="VerifyController" >
-	<div class="row">
-		<div class="input-group col-md-4 col-md-offset-4">
-	        Search: <input type="text" class="form-control" placeholder="ID" ng-model="query">
-		</div>		
-		<br>	
-	</div>
+<section ng-controller="VerifyController" data-ng-init="getSubmittedResults()" >
+	<div class="page-header">
+      	<h1>Verify Pending Results</h1>
+    </div>
 		<div class="row">
-			<div class="col-md-12">
-				<table class="table table-hover table-condensed table-bordered">
-					<thead>
-						<tr>
-							<th class="col-md-4">ID</th>
-							<th class="col-md-2">Date</th>
-							<th class="col-md-2">View</th>
-							<th class="col-md-2">Accept</th>
-							<th class="col-md-2">Deny</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="order in orders | filter:query">
-							<td>{{order.orderId}}</td>
-							<td>{{order.date}}</td>
-							<td>								
-		<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('sm','/modules/lab/views/verify-accept.client.view.html')">View</a>							
-							</td>
-							<td>																
-								<a popover="form input" popover-title="Credentials" data-content='<form><input type="text"/></form>'class="navbar-btn" data-toggle="popover" data-trigger="focus" title="Accept">Accept</a>														
-							</td>							
-							<td>
-								<a class="navbar-btn" ng-controller="ModalController" >Deny</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-	</div>
-	<div ng-hide = "orders.length !== 0">
-		<p>No orders for verification. </p>
-	</div>
-	 <button popover="{{dynamicPopover}}" popover-title="{{dynamicPopoverTitle}}" class="btn btn-default">Dynamic Popover</button>
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Results Waiting to be Verified
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                        <div class="row">
+							<div class="col-sm-4">
+						        <label>Search:</label><input type="search" class="form-control" ng-model="query" placeholder="ID">	<br>
+							</div>		
+							
+						</div>
+							<div class="row">
+								<div class="col-md-12">
+									<table class="table table-hover table-condensed table-striped">
+										<thead>
+											<tr>
+												<th class="col-md-4">Result ID</th>
+												<th class="col-md-4">Submitted On</th>
+												<th class="col-md-2">View</th>
+												<th class="col-md-2">Verify</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="result in results | filter:query">
+												<td>{{result._id}}</td>
+												<td>{{result.created}}</td>
+												<td>								
+												<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
+												</td>
+												<td>											
+													<button type="button" class="btn btn-xs btn-primary" ng-click="acceptResult(results[$index], 'placeholder text')">Accept</button>	
+													&nbsp;												
+													<button type="button" class="btn btn-xs btn-warning" ng-click="rejectResult(results[$index], 'placeholder text')">Reject</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div ng-hide = "orders.length !== 0">
+									<p>No orders for verification. </p>
+								</div>
+							</div>			
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
 </section>
 
