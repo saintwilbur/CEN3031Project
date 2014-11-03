@@ -3,16 +3,16 @@
 angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'Authentication','$http', 
 	function($scope, $rootScope, Authentication, $http) {
 			$scope.authentication = Authentication;
-<<<<<<< Updated upstream
+
 			$scope.results = 
 			[
 				/*{orderId: '2345fsd', date: 'dateHere' },
 				{orderId: '123asdfw235245', date: 'dateHere' },
 				{orderId: '24y4h5fa', date: 'dateHere' }*/
 			];
-=======
+
 			$scope.orders = [{orderId: '2231', date: '231341'},{orderId: '4598', date: '120931'}];
->>>>>>> Stashed changes
+
 			$scope.searchOrders = [];
 			//getOrders to verify  
 			$scope.searchOrders = function() {
