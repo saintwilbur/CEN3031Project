@@ -78,6 +78,14 @@ describe('Order Model Unit Tests:', function() {
 				should.exist(err);
 				done();
 			});
+		});
+
+		it('should encounter an error with wrong type of data', function(done) {
+			order.user = '';
+			return order.save(function(err) {
+				should.exist(err);
+				done();
+			});
 		});		
 	});
 

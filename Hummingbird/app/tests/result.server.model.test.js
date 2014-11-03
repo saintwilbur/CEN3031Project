@@ -69,6 +69,14 @@ describe('Result Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+		it('should encounter an error with wrong type of data', function(done) {
+			result.completed = 'Today';
+			return result.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
 	});
 
 	afterEach(function(done) { 
