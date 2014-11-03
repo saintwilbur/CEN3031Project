@@ -27,7 +27,7 @@ var validateRole = function(property) {
 	}
 	var valid = true;
 	for(var i=0; i<property.length; i++) {
-		if(!(property[i] === 'admin' || property[i] === 'user' || property[i] === 'lab')) {
+		if(!(property[i] === 'admin' || property[i] === 'customer' || property[i] === 'lab')) {
 			valid = false;
 			break;
 		}
@@ -91,9 +91,9 @@ var UserSchema = new Schema({
 	roles: {
 		type: [{
 			type: String,
-			enum: ['user', 'admin', 'lab']
+			enum: ['customer', 'admin', 'lab']
 		}],
-		default: ['user'],
+		default: ['customer'],
 		validate: [validateRole, 'Incorrect Role']
 	},
 	updated: {
@@ -119,7 +119,7 @@ var UserSchema = new Schema({
 			type: String,
 			enum: ['male', 'female']
 		}],
-		default: 'male'
+		required: 'Please select gender'
 	},
 	facilityId: {
 		type: Number,

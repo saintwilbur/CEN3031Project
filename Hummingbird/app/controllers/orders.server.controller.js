@@ -45,16 +45,19 @@ exports.create = function(req, res)
  */
 exports.read = function(req, res) 
 {
-	res.jsonp(req.order);
+	res.jsonp(req.body.order);
 };
 
 /**
  * Update a Order
  */
 exports.update = function(req, res) {
-	var order = req.order;
-
-	order = _.extend(order, {status: req.orderStatus});
+	var order = req.body.order;
+	if (req.body.orderStatus == 'completed') {		
+		order = _.extend(order, {status: req.body.orderStatus, completed: Date.now()});
+	} else {
+		order = _.extend(order, {status: req.body.orderStatus});
+	}
 	order.save(function(err) {
 		if (err) 
 		{

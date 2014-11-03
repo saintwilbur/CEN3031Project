@@ -55,7 +55,7 @@
 
 			// Test scope value
 			expect(scope.authentication.user).toEqual('Fred');
-			expect($location.url()).toEqual('/customerdashboard');
+			expect($location.path()).toEqual('');
 		});
 
 		it('$scope.signin() should fail to log in with nothing', function() {
@@ -88,19 +88,39 @@
 			expect(scope.error).toEqual('Unknown user');
 		});
 
-		it('$scope.signup() should register with correct data', function() {
+		it('$scope.signup() should register with correct data', inject(function(User) {
 			// Test expected GET request
-			scope.authentication.user = 'Fred';
-			$httpBackend.when('POST', '/auth/signup').respond(200, 'Fred');
+			//scope.authentication.user = 'Fred';
+			var sampleUserPost = new User({
+				firstName: 'first',
+				lastName: 'last',
+				gender: 'male',
+				email: 'mail@mail.com',
+				username: 'firstLast',
+				password: 'Password',
+				roles: 'user'
+			});
+			var sampleUserResopnse = new User ({
+				_id: '525cf20451979dea2c000001',
+				firstName: 'first',
+				lastName: 'last',
+				gender: 'male',
+				email: 'mail@mail.com',
+				username: 'firstLast',
+				password: 'Password',
+				roles: 'user'
+			});
+			scope.credentials = sampleUserPost;
+			$httpBackend.when('POST', '/auth/signup').respond(200, 'user');
 
 			scope.signup();
 			$httpBackend.flush();
 
 			// test scope value
-			expect(scope.authentication.user).toBe('Fred');
+			expect(scope.authentication.user).toEqual('user');
 			expect(scope.error).toEqual(undefined);
-			expect($location.url()).toBe('/customerdashboard');
-		});
+			expect($location.path()).toBe('/customerdashboard');
+		}));
 
 		it('$scope.signup() should fail to register with duplicate Username', function() {
 			// Test expected POST request

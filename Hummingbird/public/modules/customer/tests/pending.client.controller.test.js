@@ -1,10 +1,10 @@
 'use strict';
 
 (function() {
-	// New order ctrl Controller Spec
-	describe('New order ctrl Controller Tests', function() {
+	// Pending Controller Spec
+	describe('Pending Controller Tests', function() {
 		// Initialize global variables
-		var NewOrderCtrl,
+		var PendingController,
 			scope,
 			$httpBackend,
 			$stateParams,
@@ -44,39 +44,35 @@
 			$httpBackend = _$httpBackend_;
 			$location = _$location_;
 
-			// Initialize the New order ctrl controller.
-			NewOrderCtrl = $controller('NewOrderCtrl', {
+			// Initialize the Pending controller.
+			PendingController = $controller('PendingController', {
 				$scope: scope
 			});
 		}));
 
-		it('$scope.submitOrder Should add new Order for User', inject(function(Order, User) {
-			var sampleUser = new User({
-				_id: '564',
-				userId: '12345',
-				firstName: 'Full',
-				lastName: 'Name',
-				displayName: 'Full Name',
-				email: 'test@test.com',
-				username: 'username',
-				password: 'password',
-				provider: 'local',
-				dateOfBirth: '1992-06-14',
-				gender: 'male'
-			});
-			
-			scope.authentication.user = sampleUser;
-			$httpBackend.when('POST', '/order/new').respond(200, 'order');
+		it('$scope.getPendingOrders should return the pending orders for user', inject(function(User) {
+			scope.authentication.user = new User({_id:'525cf20451979dea2c000001'});
+			$httpBackend.when('GET', '/order/pending').respond(200, 'order');
 
-			scope.submitOrder();
+			scope.getPendingOrders();
 			$httpBackend.flush();
 
-				
-			expect(scope.item).toEqual('');
-			
-			//expect(scope.orders).toEqual(sampleOrderRespond);
-			// Test scope value
-			//expect(scope.user).toEqual(send.user);
+			// test scope value
+			expect(scope.orders).toBe('order');
+			expect(scope.error).toEqual(undefined);
+		}));
+
+		it('$scope.getPendingOrders should fail to return the pending orders for no user', inject(function(User) {
+			scope.authentication.user = 'foo';
+			$httpBackend.when('GET', '/order/pending').respond(400, {
+				'message' : 'unknown user'
+			});
+
+			scope.getPendingOrders();
+			$httpBackend.flush();
+
+			// test scope value
+			expect(scope.error).toEqual('unknown user');
 		}));
 	});
 }());

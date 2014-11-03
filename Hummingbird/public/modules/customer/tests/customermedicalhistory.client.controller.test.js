@@ -1,10 +1,10 @@
 'use strict';
 
 (function() {
-	// New order ctrl Controller Spec
-	describe('New order ctrl Controller Tests', function() {
+	// Customermedicalhistory Controller Spec
+	describe('Customermedicalhistory Controller Tests', function() {
 		// Initialize global variables
-		var NewOrderCtrl,
+		var CustomermedicalhistoryController,
 			scope,
 			$httpBackend,
 			$stateParams,
@@ -43,40 +43,34 @@
 			$stateParams = _$stateParams_;
 			$httpBackend = _$httpBackend_;
 			$location = _$location_;
-
-			// Initialize the New order ctrl controller.
-			NewOrderCtrl = $controller('NewOrderCtrl', {
+			// Initialize the Customermedicalhistory controller.
+			CustomermedicalhistoryController = $controller('CustomermedicalhistoryController', {
 				$scope: scope
 			});
 		}));
 
-		it('$scope.submitOrder Should add new Order for User', inject(function(Order, User) {
-			var sampleUser = new User({
-				_id: '564',
-				userId: '12345',
-				firstName: 'Full',
-				lastName: 'Name',
-				displayName: 'Full Name',
-				email: 'test@test.com',
-				username: 'username',
-				password: 'password',
-				provider: 'local',
-				dateOfBirth: '1992-06-14',
-				gender: 'male'
+		it('$scope.submit() with valid form data should create a new MedicalHistory for user ', inject(function(User, MedicalHistory) {
+			scope.authentication.user= new User({_id:'525cf20451979dea2c000002'});
+			scope.medicalHistory = new MedicalHistory({
+				field1: 'field1',
+				field2: 'field2',
+				field3: 'field3'
 			});
-			
-			scope.authentication.user = sampleUser;
-			$httpBackend.when('POST', '/order/new').respond(200, 'order');
+			$httpBackend.when('POST', '/medicalHistory/create').respond(200, 'medicalHistory');
 
-			scope.submitOrder();
+			scope.submit();
 			$httpBackend.flush();
-
-				
-			expect(scope.item).toEqual('');
-			
-			//expect(scope.orders).toEqual(sampleOrderRespond);
-			// Test scope value
-			//expect(scope.user).toEqual(send.user);
+			expect(scope.medicalHistory).toEqual({});
 		}));
+
+		it('$scope.getMedicalHistory() with valid user should return the medicalHistory for user ', inject(function(User, MedicalHistory) {
+			scope.authentication.user= new User({_id:'525cf20451979dea2c000002'});
+			
+			$httpBackend.when('GET', '/medicalHistory/get').respond(200, 'medicalHistory');
+
+			scope.getMedicalHistory();
+			$httpBackend.flush();
+			expect(scope.medicalHistory).toEqual('medicalHistory');
+		}));		
 	});
 }());

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('customer').controller('PendingController', ['$scope', 'Authentication', '$http', 
-	function($scope, Authentication, $http) {
+angular.module('customer').controller('PendingController', ['$scope', 'Authentication', '$http', 'User',
+	function($scope, Authentication, $http, User) {
 		$scope.authentication = Authentication;
 		$scope.orders = [];
 		//getPendingOrders();  

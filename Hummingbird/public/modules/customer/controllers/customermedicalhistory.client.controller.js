@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('customer').controller('CustomermedicalhistoryController', ['$scope', '$rootScope', '$http', 'Authentication',
-	function($scope, $rootScope, $http, Authentication) {
+angular.module('customer').controller('CustomermedicalhistoryController', ['$scope', '$rootScope', '$http', 'Authentication', 'User', 'MedicalHistory',
+	function($scope, $rootScope, $http, Authentication, User, MedicalHistory) {
 		// Customerorder controller logic
 		// ...
 		$scope.authentication = Authentication;
@@ -10,6 +10,7 @@ angular.module('customer').controller('CustomermedicalhistoryController', ['$sco
 		{
 			$http.get('/medicalHistory/get', {user: $scope.authentication.user._id}).success(function(response){
 				$scope.medicalHistory = response;
+				console.log(response);
 				return $scope.medicalHistory;
 			}).error(function(response){
 				$scope.error = response.message;

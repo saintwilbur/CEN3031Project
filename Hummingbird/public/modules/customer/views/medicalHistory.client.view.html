@@ -1,5 +1,12 @@
-<section data-ng-controller="CustomermedicalhistoryController">
-	<div>
+<section data-ng-controller="CustomermedicalhistoryController"  data-ng-init="getMedicalHistory()">
+	<div ng-show = "medicalHistory.length !== 0">
+		<p>Your medical History</p>
+		{{medicalHistory.historyId}}
+		{{medicalHistory.field1}}
+		{{medicalHistory.field2}}
+		{{medicalHistory.field3}}				
+	</div>
+	<div ng-hide = "medicalHistory.length !== 0">
 		<p>No Medical hisory on file. Please Fill out your medical History.</p>
 		<form class="form-horizontal" ng-submit="submit()">  
 			<div class="form-group">
@@ -20,9 +27,10 @@
 					<button  type="submit" id="singlebutton" name="singlebutton" class="btn btn-success">submit</button>
 				</div>
 			</div>
-		</form>
-		<form class="form-horizontal" ng-submit="myTesting()">
+		</form>		
+	</div>
+	<form class="form-horizontal" ng-submit="myTesting()">
 			<button  type="submit" id="singlebutton2" name="singlebutton2" class="btn btn-success">test</button>
 		</form>
-	</div>
+	
 </section>

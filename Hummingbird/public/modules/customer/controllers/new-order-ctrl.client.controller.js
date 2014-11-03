@@ -24,7 +24,7 @@ angular.module('customer').controller('NewOrderCtrl', ['$scope', '$rootScope', '
 			$http.post('/order/new', send).success(function(response) {
 				$rootScope.$broadcast('refreshOrders');
 				$scope.formData={};
-				$scope.billing={};
+				$scope.item='';
 				 alert('Your Order has been submitted.');
 			}).error(function(response) {
 				$scope.error = response.message;
