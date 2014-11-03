@@ -98,8 +98,7 @@ exports.create = function(req, res) {
 				}
 			});
 		}
-	});
-			
+	});			
 };
 
 /**
@@ -233,7 +232,7 @@ exports.verifyResult = function(req, res) {
 					message: 'Submitter cannot be verifier!'
 				});
 			}
-	//send email
+			//send email
 			//res.jsonp(results);
 		}
 	});
