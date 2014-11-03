@@ -19,15 +19,14 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var result = new Result();
-	result.comments = req.comment;
-	result.result = req.outcome;
-	result.submittedBy = req.userId;
+	result.comments = req.body.comment;
+	result.result = req.body.outcome;
+	result.submittedBy = req.body.userId;
 	var size;
-
 	//order the result belongs to
 	var resultOrder;
 	//Check if the order ID exists
-	Order.find({orderId: req.orderId}).exec(function(err, orderId){
+	Order.find({orderId: req.body.orderId}).exec(function(err, orderId){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -35,44 +34,72 @@ exports.create = function(req, res) {
 			});
 		} else 
 		{
-			size = resultOrder.result.length-1; 
-			resultOrder = orderId;
-		}
-	});
-	result.user = resultOrder.user;
-	//Check if the verifier ID matches user ID
-	User.find({userID: req.verfiedBy}).exec(function(err, verifierId){
-		if (err) 
-		{
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} 
-	});
-	result.verifiedBy = req.verfiedBy;
-	//Check if there is no result or the result has been rejected
-	if (resultOrder.result.length === 0 || resultOrder.result[size].status == 'Rejected') {
-		result.save(function(err) {
-			if (err) 
+
+			if(orderId.length<=0)
 			{
-				return res.send(
-				{
-					message: errorHandler.getErrorMessage(err)
+				return res.send({
+					message: 'Order does not exist in system.'
 				});
 			}
-			else 
-			{
-				resultOrder.result.push(result);
-				res.jsonp(result);							
-			}
-		});
-	}
-	else {
-		return res.send(
-		{
-			message: 'There is already a result!'
-		});
-	}		
+			size = orderId[0].result.length; 
+			resultOrder = orderId[0];
+			result.user = resultOrder.user;
+
+			//Check if the verifier ID matches user ID
+			User.find({userId: req.body.verifiedBy, roles: 'lab'}).exec(function(err, verifierId){
+				if (err) 
+				{
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else
+				{
+					if(verifierId.length<=0)
+					{
+						return res.send({
+							message: 'Verifier does not exist in this lab.'
+						});
+					}
+					result.verifiedBy = req.verfiedBy;
+					//Check if there is no result or the result has been rejected
+					if (size === 0 || resultOrder.result[size-1].status == 'Rejected') {
+						result.save(function(err) {
+							if (err) 
+							{
+								return res.send(
+								{
+									message: errorHandler.getErrorMessage(err)
+								});
+							}
+							else 
+							{
+								resultOrder.result.push(result);
+								resultOrder.save(function(err) {
+									if (err) {
+										return res.send({
+											message: errorHandler.getErrorMessage(err)
+										});
+									} else {
+										return res.send({
+											message: 'Result submitted and waiting for verification.'
+										});
+									}
+								});
+													
+							}
+						});
+					}
+					else {
+						return res.send(
+						{
+							message: 'This order already has a result that is waiting to be verified.'
+						});
+					}	
+				}
+			});
+		}
+	});
+			
 };
 
 /**
