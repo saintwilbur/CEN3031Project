@@ -40,6 +40,10 @@
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+	<!--
+	<link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
+	<script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+-->
 </head>
 
 <body class="ng-cloak">
@@ -53,6 +57,7 @@
 	<!--Embedding The User Object-->
 	<script type="text/javascript">
 		var user = {{ user | json | safe }};
+
 	</script>
 
 	<!--Application JavaScript Files-->

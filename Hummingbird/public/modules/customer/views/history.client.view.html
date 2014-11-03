@@ -1,30 +1,94 @@
-<section data-ng-controller="CustomerhistoryController">
+<html ng-app="customer">
+	<head>
+		<title>xeditable test</title>
+	</head>
+	<body>
+		<h4>Angular-xeditable Text (Bootstrap 3)</h4>
+		<div ng-controller="JsFiddleCtrlController">
+			<!--{{user}} -->
+		  <a href="#" editable-text="user.name">{{ user.name || 'empty' }}</a> 
+		</div>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>
+<html ng-app="example">
+<head>
+<title>ngReactGrid Basic Example</title>
+<link rel="stylesheet" type="text/css" href="css/ngReactGrid.css"> 
+</head>
+	<body>
+		<h3>Hello</h3>
+		<div ng-controller="BasicExampleController" style="width: 100%">
+			<ng-react-grid grid="grid"></ng-react-grid>
+		</div>
+		<script type="text/javascript">
+		/*
+		 
+		angular.module("example", ['ngReactGrid'])
+		.controller("BasicExampleController", function($scope) {
+		 
+		var employees = [];
+		for(var i = 0; i < 49; i++)
+		employees.push({
+			firstName: "John " + i,
+			lastName: "Doe " + i
+		});
+			$scope.grid = {
+			data: employees,
+			columnDefs: [
+			{
+			field: "firstName",
+			displayName: "First Name"
+			},
+			{
+			field: "lastName",
+			displayName: "Last Name"
+			}]
+			};
+			});*/
+			</script>
+		</body>
+	</html>
+
+<!--<section data-ng-controller="CustomerhistoryController">
 	<div ng-show = "checked">
 		<h3>Completed Order History</h3>
 		<table class="table table-hover table-condensed table-bordered">
-			<thead>
-				<tr>
-					<th class="col-md-3">Invoice Number</th>
-					<th class="col-md-5">Order Description</th>
-					<th class="col-md-3">Order Date</th>
-					<th class="col-md-3">Status</th>
-					<th class="col-md-3">Estimated Ship Date</th>
-					<th class="col-md-3">Total Amount</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="orders in order">
-					<td>{{orders.invoice}}</td>
-					<td>{{orders.description}}</td>
-					<td>{{orders.date}}</td>
-					<td>{{orders.status}}</td>
-					<td>{{orders.shipDate}}</td>
-					<td>{{orders.totalAmount}}</td>
-				</tr>
-			</tbody>
+		    <thead>
+		        <tr>
+		          <th class="col-md-3">Invoice Number</th>
+		          <th class="col-md-5">Order Description</th>
+		          <th class="col-md-3">Order Date</th>
+		          <th class="col-md-3">Status</th>
+		          <th class="col-md-3">Estimated Ship Date</th>
+		          <th class="col-md-3">Total Amount</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr ng-repeat="orders in order">
+		          <td>{{orders.invoice}}</td>
+		          <td>{{orders.description}}</td>
+		          <td>{{orders.date}}</td>
+		          <td>{{orders.status}}</td>
+		          <td>{{orders.shipDate}}</td>
+		          <td>{{orders.totalAmount}}</td>
+		        </tr>
+		    </tbody>
+		    </table>
 		</table>
 	</div>
 	<div ng-hide = "checked">
 		<h3>No history found!</h3>
 	</div>
+	
 </section>
+-->

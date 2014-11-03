@@ -7,8 +7,9 @@ angular.module('lab').controller('LabNavController', ['$scope','Authentication',
 		$scope.navLinks = [
 		    { open: 'open', icon: 'glyphicon glyphicon-plus', title:'Input New Result', content:'/modules/lab/views/input-result.client.view.html' },
 		    { open: '', icon: 'glyphicon glyphicon-ok-sign',title:'Verify Pending Results', content:'/modules/lab/views/verify.client.view.html' },
-		    { open: '', icon: 'glyphicon glyphicon-list-alt',title:'View Completed Orders', content:'' },
-		    { open: '', icon: 'glyphicon glyphicon-exclamation-sign',title:'Notifications ', content:'/modules/lab/views/lab-notifications.client.view.html' }
+		    { open: '', icon: 'glyphicon glyphicon-list-alt',title:'View Completed Orders', content:'/modules/lab/views/completed-order.client.view.html' },
+		    { open: '', icon: 'glyphicon glyphicon-exclamation-sign',title:'Notifications', content:'' }
+
 		  ];
 		$scope.currentLink = $scope.navLinks[0];
 		$scope.changeCurrent = function( index )
