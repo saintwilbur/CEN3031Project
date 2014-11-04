@@ -11,7 +11,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var user, labFacility;
+var user, labFacility, labFacility2;
 
 /**
  * Unit tests
@@ -44,6 +44,18 @@ describe('Lab facility Model Unit Tests:', function() {
 				}
 			});
 
+			labFacility2 = new LabFacility({
+				facilityId: '12345',
+				facilityName: 'UF',
+				location: {
+					streetNumber: '1864',
+					streetName: 'Stadium',
+					city: 'Gainesville',
+					state: 'Florida',
+					zipcode: '32608'
+				}
+			});
+
 			done();
 		});
 	});
@@ -55,6 +67,31 @@ describe('Lab facility Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+		it('should fail to save an existing facility again', function(done) {
+			labFacility.save();
+			return labFacility2.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save without ficility name', function(done) {
+			labFacility.facilityName = '';
+			return labFacility.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should encounter an error without user ID', function(done) {
+			labFacility.location = null;
+			return labFacility.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
 	});
 
 	afterEach(function(done) { 
