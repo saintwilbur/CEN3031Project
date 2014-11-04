@@ -50,9 +50,17 @@
 			});
 		}));
 
-		it('Should do some controller test', inject(function() {
-			// The test logic
-			// ...
+		it('$scope.getSubmittedResults should get get the submitted results for the lab worker', inject(function(User) {
+			scope.authentication.user = new User({_id:'525cf20451979dea2c000001'});
+			$httpBackend.when('GET', '/result/verifierList').respond(200, 'result');
+
+			scope.getSubmittedResults();
+			$httpBackend.flush();
+
+			// test scope value
+			expect(scope.results).toBe('result');
+			expect(scope.error).toEqual(undefined);
 		}));
+
 	});
 }());

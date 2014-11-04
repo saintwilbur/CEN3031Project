@@ -53,7 +53,7 @@ exports.read = function(req, res)
  */
 exports.update = function(req, res) {
 	var order = req.body.order;
-	if (req.body.orderStatus == 'completed') {		
+	if (req.body.orderStatus === 'completed') {		
 		order = _.extend(order, {status: req.body.orderStatus, completed: Date.now()});
 	} else {
 		order = _.extend(order, {status: req.body.orderStatus});
