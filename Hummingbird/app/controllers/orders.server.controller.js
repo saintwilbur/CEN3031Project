@@ -1,3 +1,4 @@
+/*jshint eqeqeq:false, eqnull:true*/
 'use strict';
 
 /**
