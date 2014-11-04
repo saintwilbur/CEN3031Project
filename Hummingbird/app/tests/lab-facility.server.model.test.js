@@ -31,8 +31,7 @@ describe('Lab facility Model Unit Tests:', function() {
 			gender: 'male'
 		});
 
-		user.save(function() { 
-			labFacility = new LabFacility({
+		labFacility2 = new LabFacility({
 				facilityId: '12345',
 				facilityName: 'UF',
 				location: {
@@ -42,9 +41,10 @@ describe('Lab facility Model Unit Tests:', function() {
 					state: 'Florida',
 					zipcode: '32608'
 				}
-			});
+		});
 
-			labFacility2 = new LabFacility({
+		user.save(function() { 
+			labFacility = new LabFacility({
 				facilityId: '12345',
 				facilityName: 'UF',
 				location: {
