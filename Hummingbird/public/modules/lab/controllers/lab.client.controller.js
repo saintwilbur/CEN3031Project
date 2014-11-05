@@ -87,7 +87,7 @@ angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$htt
 			{
 				$scope.error = response.message;
 			});*/
-			$rootScope.$broadcast('Rejected Count Update', [1]);	
+			$rootScope.$broadcast('Rejected Count Update', [3]);	
 		}();
 
 		$scope.getResultInfo = function()
