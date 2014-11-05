@@ -8,7 +8,7 @@ angular.module('lab').controller('LabNavController', ['$scope','Authentication',
 		    { open: 'open', icon: 'glyphicon glyphicon-plus', title:'Input New Result', content:'/modules/lab/views/input-result.client.view.html' },
 		    { open: '', icon: 'glyphicon glyphicon-ok-sign',title:'Verify Pending Results', content:'/modules/lab/views/verify.client.view.html' },
 		    { open: '', icon: 'glyphicon glyphicon-list-alt',title:'View Completed Orders', content:'/modules/lab/views/completed-order.client.view.html' },
-		    { open: '', icon: 'glyphicon glyphicon-exclamation-sign',title:'Notifications', content:'' }
+		    { open: '', icon: 'glyphicon glyphicon-exclamation-sign',title:'Notifications', content:'/modules/lab/views/notifications.client.view.html' }
 
 		  ];
 		$scope.currentLink = $scope.navLinks[0];
