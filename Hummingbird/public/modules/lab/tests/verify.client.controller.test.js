@@ -50,7 +50,7 @@
 			});
 		}));
 
-		it('$scope.getSubmittedResults should get get the submitted results for the lab worker', inject(function(User) {
+		it('$scope.getSubmittedResults should get the submitted results for the lab worker', inject(function(User) {
 			scope.authentication.user = new User({_id:'525cf20451979dea2c000001'});
 			$httpBackend.when('GET', '/result/verifierList').respond(200, 'result');
 
