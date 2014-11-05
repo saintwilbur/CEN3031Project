@@ -49,10 +49,47 @@
 				$scope: scope
 			});
 		}));
-
-		it('Should do some controller test', inject(function() {
-			// The test logic
-			// ...
+		// Tests: GetVerifiers, SubmitResult, resetResult
+		it('Function getVerifiers should respond with a list of verifiers ', inject(function(User) {
+			scope.authentication.user= new User({userId:'525cf20451979dea2c111112'});
+			
+			$httpBackend.when('GET', '/auth/labTech').respond(200, 'verifiers');
+			console.log('Getting List of Verifiers');
+			scope.getVerifiers();
+			$httpBackend.flush();
+			expect(scope.verifiers).toEqual('verifiers');
 		}));
+		
+		
+	/*	it('Function SubmitResult should successfully send a result ', inject(function(User) {
+			scope.authentication.user= new User({userId:'525cf20451979dea2c111112'});
+			$httpBackend.when('POST', '/result/new').respond(200, 'verifiers');
+			console.log('test Running');
+			scope.getVerifiers();
+			$httpBackend.flush();
+			expect(scope.verifiers).toEqual('verifiers');
+		}));
+		/*
+		$scope.submitResult = function()
+		{	
+			$scope.formData.userId=$scope.authentication.user.userId;
+			$http.post('/result/new', $scope.formData).success(function(response) 
+			{
+				alert(response.message);
+			}).error(function(response) 
+			{
+				$scope.error = response.message;
+				alert(response.message);
+			});
+			$scope.resetResult();
+		};
+		$scope.resetResult = function()
+		{
+			$scope.formData = {};
+			 $scope.inputResult.$setPristine();
+		};
+		
+		*/
+		
 	});
 }());
