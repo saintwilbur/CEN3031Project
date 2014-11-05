@@ -48,7 +48,7 @@ describe('Order Model Unit Tests:', function() {
 		result = new Result({
 				user: user,
 				facility: facility
-			});				
+		});				
 
 		user.save(function() { 
 			order = new Order({

@@ -265,7 +265,7 @@ exports.getResultData = function(req, res)
  */
 exports.getOrderInfo = function(req, res) 
 {
-	var results = req.results;
+	var results = req.body.results;
 
 	if(Order.find({result: req.body.result_id}).length > 0) {
 		Order.find({result: req.body.result_id})[0].exec(function(err, orderItem) {
