@@ -7,5 +7,6 @@ module.exports = function(app) {
 	// Setting up the Order api
 	app.route('/order/new').post(orders.create);
 	app.route('/order/pending').get(orders.list);
+	app.route('/order/labCompletedOrders').get(orders.listLabCompletedOrders);
 
 };

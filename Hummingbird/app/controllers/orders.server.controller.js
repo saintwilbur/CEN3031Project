@@ -98,3 +98,19 @@ exports.list = function(req, res)
 		}
 	});
 };
+
+//lists labTech's completed orders
+exports.listLabCompletedOrders = function(req, res) 
+{
+	Order.find({ result: { $elemMatch: { submittedBy: req.body.userId } } }).sort('-created').exec(function(err, orders){
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(orders);
+		}
+	});
+};

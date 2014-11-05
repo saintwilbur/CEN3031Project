@@ -4,7 +4,9 @@
 angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$http', 'Authentication',
 	function($scope, $rootScope, $http, Authentication) {
 		
-		//input-result view 
+		/**
+		 * input-result.client.view.html
+		 */
 		$scope.authentication = Authentication;
 		$scope.verifiers = [];
 		$scope.getVerifiers = function()
@@ -42,18 +44,25 @@ angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$htt
 			 $scope.inputResult.$setPristine();
 		};
 
-		//verify view
+		/**
+		 * verify.client.view.html
+		 */
 
-		//completed view
+		/**
+		 * completed-order.client.view.html
+		 */
+		$scope.completedOrders = [];
 		$scope.completedOrderList = function()
 		{
-			/*$http.get('RETURN COMPLETED METHOD',{user: $scope.authentication.user._id}).success(function(response) 
+			
+			$http.get('/order/labCompletedOrders').success(function(response) 
 			{
-				return response;
+				console.log(response.length);
+				completedOrders = response;
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
-			});*/
+			});
 		}();
 
 		$scope.getOrderInfo = function(orderID)

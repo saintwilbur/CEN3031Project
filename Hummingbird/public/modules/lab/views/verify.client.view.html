@@ -22,9 +22,9 @@
 										<thead>
 											<tr>
 												<th class="col-md-4">Result ID</th>
-												<th class="col-md-4">Submitted On</th>
+												<th class="col-md-3">Submitted On</th>
 												<th class="col-md-2">View</th>
-												<th class="col-md-2">Verify</th>
+												<th class="col-md-3">Verify</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -35,9 +35,9 @@
 												<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
 												</td>
 												<td>											
-													<button type="button" class="btn btn-xs btn-primary" ng-click="acceptResult(results[$index], 'placeholder text')">Accept</button>	
+													<button type="button" class="btn btn-xs btn-primary" ng-click="acceptResult(results[$index], 'placeholder text')"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Accept</button>	
 													&nbsp;												
-													<button type="button" class="btn btn-xs btn-warning" ng-click="rejectResult(results[$index], 'placeholder text')">Reject</button>
+													<button type="button" class="btn btn-xs btn-danger" ng-click="rejectResult(results[$index], 'placeholder text')"><span class="glyphicon glyphicon-thumbs-down"></span>&nbsp;Reject</button>
 												</td>
 											</tr>
 										</tbody>
