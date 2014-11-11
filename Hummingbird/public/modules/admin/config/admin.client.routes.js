@@ -1,13 +1,13 @@
 'use strict';
 
 //Setting up route
-angular.module('lab').config(['$stateProvider',
+angular.module('admin').config(['$stateProvider',
 	function($stateProvider) {
-		// Lab state routing
+		// Admin state routing
 		$stateProvider.
-		state('lab-dashboard', {
-			url: '/lab/labdashboard',
-			templateUrl: 'modules/lab/views/lab-dashboard.client.view.html',
+		state('admin-dashboard', {
+			url: '/admin/admindashboard',
+			templateUrl: 'modules/admin/views/admin-dashboard.client.view.html',
 			onEnter: function()
 			{
 				document.body.style.backgroundImage='none';

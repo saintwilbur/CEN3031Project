@@ -23,7 +23,10 @@ module.exports = function(app) {
 	// Setting up the users authentication api
 	app.route('/auth/signup').post(users.signup);
 	app.route('/auth/signin').post(users.signin);
-	app.route('/auth/signout').get(users.signout);
+	app.route('/auth/signoutCustomer').get(users.signoutCustomer);
+	app.route('/auth/signoutLab').get(users.signoutLab);
+	app.route('/auth/signoutAdmin').get(users.signoutAdmin);
+
 
 	// Returning users labs
 	app.route('/auth/labTech').get(users.isVerifier);

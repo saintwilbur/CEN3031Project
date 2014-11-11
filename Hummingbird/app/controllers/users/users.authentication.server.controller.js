@@ -96,9 +96,17 @@ exports.signin = function(req, res, next) {
 /**
  * Signout
  */
-exports.signout = function(req, res) {
+exports.signoutCustomer = function(req, res) {
 	req.logout();
-	res.redirect('/');
+	res.redirect('/#!/customer/');
+};
+exports.signoutLab = function(req, res) {
+	req.logout();
+	res.redirect('/#!/lab/');
+};
+exports.signoutAdmin = function(req, res) {
+	req.logout();
+	res.redirect('/#!/admin/');
 };
 
 /**

@@ -12,17 +12,20 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			$http.post('/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
-				console.log(response);
 				// And redirect to the index page according to user role
 				if(response.roles=='user')
 				{
-					$location.path('/customerdashboard');
+					$location.path('/customer/customerdashboard');
 				}
 				else if(response.roles=='lab')
 				{
-					$location.path('/labdashboard');
+					$location.path('/lab/labdashboard');
 				}
+				else if(response.roles=='admin')
+				{
+					$location.path('/admin/admindashboard');
 
+				}
 				//Close Login modal
 				$scope.$emit('closeModal');
 			}).error(function(response) {
@@ -46,14 +49,19 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
 				// And redirect to the index page according to user role
-				console.log(response.roles);
+				console.log(response.roles)
 				if(response.roles=='user')
 				{
-					$location.path('/customerdashboard');
+					$location.path('/customer/customerdashboard');
 				}
 				else if(response.roles=='lab')
 				{
-					$location.path('/labdashboard');
+					$location.path('/lab/labdashboard');
+				}
+				else if(response.roles=='admin')
+				{
+					$location.path('/admin/admindashboard');
+
 				}
 				//Close Login modal
 				$scope.$emit('closeModal');

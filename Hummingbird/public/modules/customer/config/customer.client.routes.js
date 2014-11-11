@@ -6,7 +6,7 @@ angular.module('customer').config(['$stateProvider',
 		// Customer state routing
 		$stateProvider.
 		state('dashboard', {
-			url: '/customerdashboard',
+			url: '/customer/customerdashboard',
 			templateUrl: 'modules/customer/views/dashboard.client.view.html',
 			onEnter: function()
 			{
