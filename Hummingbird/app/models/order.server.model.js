@@ -12,7 +12,7 @@ var validateStatus = function(property) {
 	}
 	var valid = true;
 	for(var i=0; i<property.length; i++) {
-		if(!(property[i] === 'pending' || property[i] === 'shipped' || property[i] === 'recieved' || property[i] === 'Completed')) {
+		if(!(property[i] === 'placed' || property[i] === 'shipped' || property[i] === 'registered' || property[i] === 'recieved' || property[i] === 'Completed')) {
 			valid = false;
 			break;
 		}
@@ -39,10 +39,10 @@ var OrderSchema = new Schema({
 	status: {
 		type: [{
 			type: String,
-			enum: ['pending', 'shipped', 'recieved', 'Completed']
+			enum: ['placed', 'shipped', 'registered', 'recieved', 'Completed']
 		}],
 		trim: true,
-		default: 'pending',
+		default: 'placed',
 		validate: [validateStatus, 'wrong status']
 	},
 	created: {
@@ -62,7 +62,15 @@ var OrderSchema = new Schema({
 	},
 	field1: [{
 		type: String
-	}]
+	}],
+	registerCode: {
+		type: String,
+		unique: ''
+	},
+	registered: {
+		type: Boolean,
+		default: 'false'
+	}
 	/**	
 	 *item: {
 	 *	type: String,
@@ -75,5 +83,23 @@ var OrderSchema = new Schema({
 	 */
 
 });
+
+
+OrderSchema.pre('save', function(next) {
+	this.registerCode = this.createRegisterCode();
+	next();
+});
+
+OrderSchema.methods.createRegisterCode = function() {
+	var d = new Date().getTime();
+	var registerCode = 'xxxx-xxxx-xxxx-xxxx-xxxx'.replace(/[x]/g, 
+		function(c) {
+			var r = (d + Math.random()*16)%16 | 0;
+			d = Math.floor(d/16);
+			return (c==='x' ? r : (r&0x7|0x8)).toString(16);
+		});
+	return registerCode;
+};
+
 
 mongoose.model('Order', OrderSchema);

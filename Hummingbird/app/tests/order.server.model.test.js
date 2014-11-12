@@ -55,9 +55,9 @@ describe('Order Model Unit Tests:', function() {
 				orderId: '12345',
 				user: user,
 				item: 'General',
+				status: 'placed',
 				result: result,
-				field1: 'Test',
-				field2: 'Test'
+				field1: 'Test'
 			});
 
 			done();
@@ -87,6 +87,14 @@ describe('Order Model Unit Tests:', function() {
 				done();
 			});
 		});		
+
+		it('should not save with invalid status', function(done) {
+			order.status = 'status';
+			return order.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
 	});
 
 	afterEach(function(done) { 

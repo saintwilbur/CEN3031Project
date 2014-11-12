@@ -87,7 +87,7 @@
 			// Test scope value
 			expect(scope.error).toEqual('Unknown user');
 		});
-		/*Bugs below
+
 		it('$scope.signup() should register with correct data', inject(function(User) {
 			//Test expected GET request
 			//scope.authentication.user = 'Fred';
@@ -125,9 +125,9 @@
 			// test scope value
 			expect(scope.authentication.user).toEqual('user');
 			expect(scope.error).toEqual(undefined);
-			expect($location.path()).toBe('/customerdashboard');
+			expect($location.path()).toBe('');
 		}));
-		*/
+		
 		it('$scope.signup() should fail to register with duplicate Username', function() {
 			// Test expected POST request
 			$httpBackend.when('POST', '/auth/signup').respond(400, {

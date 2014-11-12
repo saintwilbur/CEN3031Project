@@ -22,6 +22,8 @@ exports.create = function(req, res) {
 	result.comments = req.body.comment;
 	result.result = req.body.outcome;
 	result.submittedBy = req.body.userId;
+					result.verifiedBy = req.body.verfiedBy;
+
 	var size;
 	//order the result belongs to
 	var resultOrder;
@@ -60,7 +62,6 @@ exports.create = function(req, res) {
 							message: 'Verifier does not exist in this lab.'
 						});
 					}
-					result.verifiedBy = req.verfiedBy;
 					//Check if there is no result or the result has been rejected
 					if (size === 0 || resultOrder.result[size-1].status == 'Rejected') {
 						result.save(function(err) {

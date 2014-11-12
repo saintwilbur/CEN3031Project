@@ -85,7 +85,7 @@ exports.delete = function(req, res) {
  * List of Orders
  */
 exports.list = function(req, res) {
-	Order.find().sort('-created').exec(function(err, order){
+	Order.find({ }).sort('-created').exec(function(err, order){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -114,6 +114,60 @@ exports.listPend = function(req, res)
 	});
 };
 
+/* Function will list all orders with status shipped
+ * front end does not neeed to pass in any parameters
+ */
+exports.listShipped = function(req, res) 
+{
+	Order.find({status: 'shipped'}).sort('-created').exec(function(err, order){
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(order);
+		}
+	});
+};
+
+/* Function will list all orders with status placed
+ * front end does not neeed to pass in any parameters
+ */
+exports.listPlaced = function(req, res) 
+{
+	Order.find({status: 'placed'}).sort('-created').exec(function(err, order){
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(order);
+		}
+	});
+};
+
+/* Function will list all orders with any status but placed
+ * front end does not neeed to pass in any parameters
+ */
+exports.listAllButPlaced = function(req, res) 
+{
+	Order.find({'status': {$ne:'placed'}}).sort('-created').exec(function(err, order){
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(order);
+		}
+	});
+};
+
 //lists labTech's completed orders
 exports.listLabCompletedOrders = function(req, res) 
 {
@@ -129,3 +183,63 @@ exports.listLabCompletedOrders = function(req, res)
 		}
 	});
 };
+
+/**
+ * Function will check to make sure the Register Code from the order exist on an order. 
+ * req.body will need to contain the 
+ * register code, req.body.registerCode
+ */
+exports.checkRegisterCode = function(req, res) 
+{
+	Order.find({registerCode: req.body.registerCode}).exec(function(err, orders) 
+	{
+		if(err) 
+		{
+			return res.status(400).send({
+				message:errorHandler.getErrorMessage(err)
+			});
+		}
+		else 
+		{
+			if(orders.length <= 0) {
+				return res.send({
+					message: 'registerCode does not exist in system.'
+				});
+			}
+			else
+			{
+				orders = _.extend(orders, {registered: true});
+			}
+		}
+	});
+};
+
+/** 
+ * Function to set status of orders to shipped
+ * Function is only for Admins 
+ * req.body.orderId will need to be the orderId of the the order
+ */
+exports.setShipped = function(req, res) 
+{
+	Order.find({ orderId: req.body.orderId})[0].exec(function(err, orders){
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} 
+		else 
+		{
+			if(orders.length <= 0) {
+				return res.send({
+					message: 'order does not exist in system.'
+				});
+			}
+			else
+			{
+				orders = _.extend(orders, {status: 'shipped'});
+			}
+		}
+	});
+};
+
