@@ -49,7 +49,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
 				// And redirect to the index page according to user role
-				console.log(response.roles)
+				console.log(response.roles);
 				if(response.roles=='user')
 				{
 					$location.path('/customer/customerdashboard');
