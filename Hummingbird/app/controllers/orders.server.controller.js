@@ -84,7 +84,22 @@ exports.delete = function(req, res) {
 /**
  * List of Orders
  */
-exports.list = function(req, res) 
+exports.list = function(req, res) {
+	Order.find().sort('-created').exec(function(err, order){
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(order);
+		}
+	});
+};
+
+//list user's pending order
+exports.listPend = function(req, res) 
 {
 	Order.find({status: 'pending', user: req.user}).sort('-created').exec(function(err, order){
 		if (err) 
