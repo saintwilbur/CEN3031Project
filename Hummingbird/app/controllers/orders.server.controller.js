@@ -7,6 +7,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Order = mongoose.model('Order'),
+	Item = mongoose.model('Inventory'),
 	Result = mongoose.model('Result'),
 	//Forms = mongoose.model('Form'),
 	//BillingInformation = mongoose.model('BillingInformation'), 
@@ -238,6 +239,18 @@ exports.setShipped = function(req, res)
 			else
 			{
 				orders = _.extend(orders, {status: 'shipped'});
+				Item.findOne({name: req.body.item}).exec(function(err, items){
+					if (err) 
+					{
+						return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+						});
+					}
+					else
+					{
+						
+					}	
+				});
 			}
 		}
 	});
