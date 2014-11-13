@@ -62,8 +62,8 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
-			}
-		)}; 
+			});
+		}; 
 		
 			
 		/**
