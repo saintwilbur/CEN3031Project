@@ -6,13 +6,35 @@ angular.module('admin').controller('AdminController',['$scope', '$http',
 		/**
 		 * ship.client.view.html
 		 */
-
+		 
 
 
 
 		 /**
 		 * admin-orders.client.view.html
 		 */
+
+		 $scope.orders = [];
+			//get orderId to verify  
+			$scope.orderId = function() {
+				var send = 
+				{
+					user: $scope.authentication.user._id
+				};
+
+				$http.get('/order/new',send).success(function(response) 
+				{
+					$scope.orders=response;
+					return $scope.searchOrders;
+				}).error(function(response) 
+				{
+					$scope.error = response.message;
+				}
+			}(); 
+			
+			
+			
+
 
 
 
