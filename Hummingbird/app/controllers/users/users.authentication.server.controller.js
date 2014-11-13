@@ -31,8 +31,8 @@ exports.signup = function(req, res) {
 	/** saving user
 	 *	if not lab or admin, continue to save.
 	 *  if lab or admin then check verification code.
-	 */
-	if (req.body.role !== 'user'){
+	 **/
+	if (req.body.role !== 'customer'){
 		verification = req.body.verificationCode;
 		LabFacility.find({verificationCode: verification}).exec(function(err, facility)
 		{

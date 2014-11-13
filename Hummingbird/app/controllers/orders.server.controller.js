@@ -98,10 +98,10 @@ exports.list = function(req, res) {
 	});
 };
 
-//list user's pending order
-exports.listPend = function(req, res) 
+//list user's placed order
+exports.listPlaced = function(req, res) 
 {
-	Order.find({status: 'pending', user: req.user}).sort('-created').exec(function(err, order){
+	Order.find({status: 'placed', user: req.user}).sort('-created').exec(function(err, order){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -135,9 +135,9 @@ exports.listShipped = function(req, res)
 /* Function will list all orders with status placed
  * front end does not neeed to pass in any parameters
  */
-exports.listPlaced = function(req, res) 
+exports.listRegistered = function(req, res) 
 {
-	Order.find({status: 'placed'}).sort('-created').exec(function(err, order){
+	Order.find({status: 'registered'}).sort('-created').exec(function(err, order){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -208,7 +208,7 @@ exports.checkRegisterCode = function(req, res)
 			}
 			else
 			{
-				orders = _.extend(orders, {registered: true});
+				orders = _.extend(orders, {status: 'registered'});
 			}
 		}
 	});
