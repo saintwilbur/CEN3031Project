@@ -246,10 +246,10 @@ exports.setShipped = function(req, res)
 						message: errorHandler.getErrorMessage(err)
 						});
 					}
-					else
+					/*else
 					{
 						
-					}	
+					}*/	
 				});
 			}
 		}
