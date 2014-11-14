@@ -30,6 +30,8 @@ module.exports = function(app) {
 
 	// Returning users labs
 	app.route('/auth/labTech').get(users.isVerifier);
+	app.route('/users/customers').get(users.listCustomers);
+	app.route('/users/labs').get(users.listLabs);
 
 	// Setting the facebook oauth routes
 	app.route('/auth/facebook').get(passport.authenticate('facebook', {

@@ -259,3 +259,43 @@ exports.isVerifier = function(req, res)
 		}
 	});
 };
+
+/**
+ * Function to return the list of all customers. 
+ * returns an array of objects containing the userId, displayNames, and creation date
+ */
+exports.listCustomers = function(req, res) 
+{
+	User.find({roles: 'customer'}).exec(function(err, customers)
+	{
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(customers);
+		}
+	});
+};
+
+/**
+ * Function to return the list of all lab techs. 
+ * returns an array of objects containing the userId, displayNames, and creation date
+ */
+exports.listLabs= function(req, res) 
+{
+	User.find({roles: 'lab'}).exec(function(err, labs)
+	{
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(labs);
+		}
+	});
+};
