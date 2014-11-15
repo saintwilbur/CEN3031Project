@@ -22,12 +22,12 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			});
 		};
 
-		$scope.getSubmittedResults = function()
+		$scope.getLabs = function()
 		{
-			$http.get('/result/verifierList',{userId: $scope.authentication.user.userId}).success(function(response) 
+			$http.get('/users/labs').success(function(response) 
 			{
-				$scope.results=response;
-				console.log('Testing Submit Results');
+				//console.log(response);
+				$scope.labs=response;
 
 			}).error(function(response) 
 			{
@@ -35,6 +35,18 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			}); 
 		};
 
+		$scope.getCustomer = function()
+		{
+			$http.get('/users/customers').success(function(response) 
+			{
+				//console.log(response);
+				$scope.customers=response;
+
+			}).error(function(response) 
+			{
+				$scope.error = response.message;
+			}); 
+		};
 
 		/**
 		 * ship.client.view.html

@@ -1,4 +1,4 @@
-<section data-ng-controller="AdminController">
+<section data-ng-controller="AdminController" data-ng-init="getLabs()">
 	<div class="page-header">
       	<h3>Lab Info</h3>
     </div>
@@ -6,7 +6,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Results Waiting to be Verified
+                       		Lab Info
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -21,27 +21,21 @@
 								<table class="table table-hover table-condensed table-striped">
 									<thead>
 										<tr>
-											<th class="col-md-4">Lab ID</th>
+											<th class="col-md-5">Lab ID</th>
+											<th class="col-md-4">Name</th>
 											<th class="col-md-3">Created</th>
 										</tr>
 									</thead>
 									<tbody>
-								<tr ng-repeat="result in results | filter:query">
-									<td>{{result._id}}</td>
-									<td>{{result.created}}</td>
-									<td>								
-									<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
-									</td>
-									<td>											
-									<button type="button" class="btn btn-xs btn-primary" ng-click="acceptResult(results[$index], 'placeholder text')"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Accept</button>	
-									&nbsp;												
-									<button type="button" class="btn btn-xs btn-danger" ng-click="rejectResult(results[$index], 'placeholder text')"><span class="glyphicon glyphicon-thumbs-down"></span>&nbsp;Reject</button>
-								</td>
+								<tr ng-repeat="lab in labs | filter:query">
+									<td>{{lab.userId}}</td>
+									<td>{{lab.displayName}}</td>
+									<td>{{lab.created}}</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div ng-hide = "orders.length !== 0">
+				<div ng-hide = "labs.length !== 0">
 					<p>No Lab info </p>
 				</div>
 			</div>			
