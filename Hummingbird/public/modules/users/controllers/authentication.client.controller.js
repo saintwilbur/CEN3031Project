@@ -8,11 +8,23 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		if ($scope.authentication.user) $location.path('/customerdashboard');
 
 		$scope.signup = function() {
+			if($location.path().lastIndexOf('/customer/',0)===0)
+			{
+				$scope.credentials.roles='customer';
+			}
+			else if($location.path().lastIndexOf('/lab/',0)===0)
+			{
+				$scope.credentials.roles='lab';
+			} 
+			else if($location.path().lastIndexOf('/admin/',0)===0)
+			{
+				$scope.credentials.roles='admin';
+			}
 			$http.post('/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
 				// And redirect to the index page according to user role
-				if(response.roles=='user')
+				if(response.roles=='customer')
 				{
 					$location.path('/customer/customerdashboard');
 				}
@@ -48,8 +60,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
 				// And redirect to the index page according to user role
-				console.log(response.roles);
-				if(response.roles=='user')
+				if(response.roles=='customer')
 				{
 					$location.path('/customer/customerdashboard');
 				}

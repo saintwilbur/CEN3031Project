@@ -49,21 +49,6 @@
 					<label for="retypePassword">Retype Password</label>
 					<input type="password" id="retypePassword" name="retypePassword" class="form-control" data-ng-model="credentials.retypePassword" placeholder="Re-Type Password">
 				</div>!-->
-				<!-- ***************************************************************************** -->
-			<div class="form-group">
-				<label for="roles">Role</label>
-				<select name="roles" class="form-control" data-ng-model="credentials.roles" required>
-				<option value="customer" ng-click = "noVerification()" >Customer</option>
-				<option value="lab"  ng-click = "toggle()">Lab</option>
-				<option value="admin" ng-click = "toggle()">Admin</option>
-				</select>
-				<div ng-show="checked">
-				    <div class="form-group">
-						<label for="verification">Verification Code</label>
-						<input type="text" id="verification" name="verification" class="form-control" data-ng-model="credentials.verification" placeholder="Verification">
-				    </div>
-				</div>
-			</div>
 				</fieldset>
 				<!-- ***************************************************************************** -->
 				<div class="text-center form-group">

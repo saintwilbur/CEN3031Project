@@ -8,19 +8,12 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		 * customer-lab.client.view.html
 		 */
 		$scope.tabs = [
-			{ title:'Lab', content:'/modules/admin/views/lab-info.client.view.html' },
-			{ title:'Customer', content:'/modules/admin/views/customer-info.client.view.html' }
+			{ title:'Lab Technicians', content:'/modules/admin/views/lab-info.client.view.html' },
+			{ title:'Customers', content:'/modules/admin/views/customer-info.client.view.html' }
 		];
 		var test = true;
 		$scope.tabs[0].active = true;
 
-		$scope.alertMe = function() 
-		{
-			setTimeout(function() 
-			{
-				alert('You\'ve selected the alert tab!');
-			});
-		};
 
 		$scope.getLabs = function()
 		{
@@ -51,26 +44,27 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		/**
 		 * ship.client.view.html
 		 */
-		 
+		$scope.waitingOrders = [];
+		$scope.getWaitingOrders = function() {
+			$http.get('/order/listRegistered').success(function(response) 
+			{
+				$scope.waitingOrders=response;
+			}).error(function(response) 
+			{
+				$scope.error = response.message;
+			});
+		}; 
 
 
 
 		 /**
 		 * admin-orders.client.view.html
 		 */
-		 
-	 	$scope.orders = [];
-		//get orderId to verify  
-		$scope.orderId = function() {
-			var send = 
+		$scope.shippedOrders = [];
+		$scope.getShippedOrders = function() {
+			$http.get('/order/listNotPlaced').success(function(response) 
 			{
-				user: $scope.authentication.user._id
-			};
-
-			$http.get('/order/new',send).success(function(response) 
-			{
-				$scope.orders=response;
-				return $scope.searchOrders;
+				$scope.shippedOrders=response;
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
@@ -90,7 +84,6 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 				name: $scope.kitSelect.name,
 				count: $scope.kitSelect.amount,
 			};
-			console.log(send);
 			$http.post('/inventory/increment',send).success(function(response) 
 			{
 				$scope.results=response;
@@ -100,6 +93,18 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 				$scope.error = response.message;
 			}); 
 		};		 	
+		$scope.inventory = {};
+		$scope.getInventory = function()
+		{
+			$http.get('/inventory/listAll').success(function(response) 
+			{
+				$scope.inventory=response;
+
+			}).error(function(response) 
+			{
+				$scope.error = response.message;
+			}); 
+		};
 		
 
 	}

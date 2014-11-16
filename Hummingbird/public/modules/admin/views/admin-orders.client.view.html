@@ -1,18 +1,19 @@
-<section data-ng-controller="AdminController">
+<section data-ng-controller="AdminController" data-ng-init="getShippedOrders()">
 <section >
 	 <div class="page-header">
-	 <h2>Order Status</h2>
+	 	<h3>Order Status</h3>
+	</div>
      <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Results Waiting to be Verified
+                            Status of Orders with Shipped Kits
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                         <div class="row">
 							<div class="col-sm-4">
-						        <label>Search:</label><input type="search" class="form-control" ng-model="query" placeholder="Result ID">	<br>
+						        <label>Search:</label><input type="search" class="form-control" ng-model="query" placeholder="Order ID">	<br>
 							</div>		
 							
 						</div>
@@ -27,23 +28,16 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat="result in results | filter:query">
-												<td>{{result._id}}</td>
-												<td>{{result.created}}</td>
-												<td>								
-												<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
-												</td>
-												<td>											
-													<button type="button" class="btn btn-xs btn-primary" ng-click="acceptResult(results[$index], 'placeholder text')"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Accept</button>	
-													&nbsp;												
-													<button type="button" class="btn btn-xs btn-danger" ng-click="rejectResult(results[$index], 'placeholder text')"><span class="glyphicon glyphicon-thumbs-down"></span>&nbsp;Reject</button>
-												</td>
+											<tr ng-repeat="order in shippedOrders | filter:query">
+												<td>{{order.orderId}}</td>
+												<td>{{order.created}}</td>
+												<td>{{order.status[0]}}</td>
 											</tr>
 										</tbody>
 									</table>
-								</div>
-								<div ng-hide = "orders.length !== 0">
-									<p>No orders for verification. </p>
+									<div ng-hide = "orders.length !== 0">
+										<p>No orders for verification. </p>
+									</div>
 								</div>
 							</div>			
                         <!-- /.panel-body -->
@@ -52,4 +46,5 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+        </div>
 </section>
