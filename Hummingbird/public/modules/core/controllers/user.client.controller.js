@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module('core').controller('UserController', ['$scope', '$location',
-	function($scope, $location) {
+angular.module('core').controller('UserController', ['$scope', '$location', 'Authentication', '$rootScope',
+	function($scope, $location, Authentication, $rootScope) {
+
+		$scope.authentication = Authentication;
+
 		this.user = 
 		{
 			header: '/modules/core/views/customer-header.client.view.html'
@@ -30,5 +33,20 @@ angular.module('core').controller('UserController', ['$scope', '$location',
 				return this.admin.header;
 			}
 		};
+
+		$rootScope.$on('$locationChangeStart', function (event, next, current) {
+		       
+			if($scope.authentication.user=='')
+			{
+				if($location.path()!=='/customer/' && $location.path()!=='/lab/' && $location.path()!=='/admin/')
+				{
+					$location.path('/');
+				}
+			}
+			else if ($location.path().lastIndexOf('/'+$scope.authentication.user.roles+'/',0)!==0)
+			{
+				$location.path('/'+$scope.authentication.user.roles+'/');
+			}
+		 });
 	}
 ]);

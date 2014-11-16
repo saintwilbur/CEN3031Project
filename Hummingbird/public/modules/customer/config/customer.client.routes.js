@@ -1,11 +1,12 @@
 'use strict';
 
 //Setting up route
-angular.module('customer').config(['$stateProvider',
-	function($stateProvider) {
+angular.module('customer').config(['$stateProvider', '$urlRouterProvider', 
+	function($stateProvider,$urlRouterProvider) {
+
 		// Customer state routing
 		$stateProvider.
-		state('dashboard', {
+		state('customer-dashboard', {
 			url: '/customer/customerdashboard',
 			templateUrl: 'modules/customer/views/dashboard.client.view.html',
 			onEnter: function()

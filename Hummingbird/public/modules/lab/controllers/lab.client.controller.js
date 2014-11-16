@@ -3,11 +3,11 @@
 
 angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$http', 'Authentication',
 	function($scope, $rootScope, $http, Authentication) {
-		
+		$scope.authentication = Authentication;
+
 		/**
 		 * input-result.client.view.html
 		 */
-		$scope.authentication = Authentication;
 		$scope.verifiers = [];
 		$scope.getVerifiers = function()
 		{	var send = {labId: $scope.authentication.user.userId};
@@ -57,7 +57,6 @@ angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$htt
 			
 			$http.get('/order/labCompletedOrders').success(function(response) 
 			{
-				console.log(response.length);
 				completedOrders = response;
 			}).error(function(response) 
 			{

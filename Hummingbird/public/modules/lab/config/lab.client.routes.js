@@ -1,8 +1,9 @@
 'use strict';
 
 //Setting up route
-angular.module('lab').config(['$stateProvider',
-	function($stateProvider) {
+angular.module('lab').config(['$stateProvider', '$urlRouterProvider', 
+	function($stateProvider, $urlRouterProvider ) {
+		
 		// Lab state routing
 		$stateProvider.
 		state('lab-dashboard', {
