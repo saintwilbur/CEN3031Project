@@ -204,7 +204,7 @@ exports.checkRegisterCode = function(req, res)
 		{
 			if(orders.length <= 0) {
 				return res.send({
-					message: 'registerCode does not exist in system.'
+					message: 'register code does not exist in system.'
 				});
 			}
 			else
@@ -239,18 +239,7 @@ exports.setShipped = function(req, res)
 			else
 			{
 				orders = _.extend(orders, {status: 'shipped'});
-				Item.findOne({name: req.body.item}).exec(function(err, items){
-					if (err) 
-					{
-						return res.status(400).send({
-						message: errorHandler.getErrorMessage(err)
-						});
-					}
-					/*else
-					{
-						
-					}*/	
-				});
+				Item.update({name: req.body.item}, {$inc: {count: -1}});
 			}
 		}
 	});
