@@ -1,3 +1,4 @@
+/*jshint eqeqeq:false, eqnull:true*/
 'use strict';
 
 angular.module('core').controller('UserController', ['$scope', '$location', 'Authentication', '$rootScope',
@@ -36,7 +37,7 @@ angular.module('core').controller('UserController', ['$scope', '$location', 'Aut
 
 		$rootScope.$on('$locationChangeStart', function (event, next, current) {
 		       
-			if($scope.authentication.user=='')
+			if($scope.authentication.user==null)
 			{
 				if($location.path()!=='/customer/' && $location.path()!=='/lab/' && $location.path()!=='/admin/')
 				{
