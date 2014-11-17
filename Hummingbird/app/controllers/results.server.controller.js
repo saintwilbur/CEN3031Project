@@ -200,12 +200,13 @@ exports.submitResult = function(req, res) {
  * Verifies the result
  * controller needs to pass in 
  * userId, result_id, and verifierComment.
+ * req.body.userId, req.body.result_id, req.body.verifierComment
  */
 exports.verifyResult = function(req, res) {
-	var results = req.body.results;
-	
+	var results = req.body.result_id;
+	var order = '';
 
-	Result.findOne({_id: results._id}).sort('-created').exec(function(err, resultFound){
+	Result.findOne({_id: results}).sort('-created').exec(function(err, resultFound){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -217,6 +218,8 @@ exports.verifyResult = function(req, res) {
 
 			if(req.user.userId != results.submittedBy)
 			{
+				order = Order.findOnd({result: results});
+				order =_.extend(order, {status: 'Completed'});
 				resultFound.save(function(err) {
 					if (err) {
 						return res.send({

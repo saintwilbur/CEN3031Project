@@ -11,9 +11,7 @@ var mongoose = require('mongoose'),
  */
 var InventorySchema = new Schema({
 	itemId: {
-		type: Number,
-		unique: 'testing error message',
-		required: 'Please fill in an id'
+		type: Number
 	},
 	name: {
 		type: String,

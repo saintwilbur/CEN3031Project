@@ -50,12 +50,13 @@ angular.module('customer').controller('CustomermedicalhistoryController', ['$sco
 		$scope.myTesting = function() {
 
 			var send= {
-				labId: $scope.authentication.user.userId
+				itemId: 455,
+				name: 'test1',
+				count: 100,
+				price: 15
 			};
-			console.log(send.labId);
-			$http.get('/results/submitterRejectedList', send).success(function(response){
+			$http.post('/inventory/newKit', send).success(function(response){
 					console.log(response);
-					console.log($scope.authentication.user.userId);
 					alert(response);
 				}).error(function(response){
 					$scope.error = response.message;

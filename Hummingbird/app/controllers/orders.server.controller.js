@@ -100,9 +100,26 @@ exports.list = function(req, res) {
 };
 
 //list user's placed order
-exports.listPlaced = function(req, res) 
+exports.listPlacedForUser = function(req, res) 
 {
 	Order.find({status: 'placed', user: req.user}).sort('-created').exec(function(err, order){
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(order);
+		}
+	});
+};
+
+/** List all placed orders for admin module
+ */
+exports.listPlaced = function(req, res) 
+{
+	Order.find({status: 'placed'}).sort('-created').exec(function(err, order){
 		if (err) 
 		{
 			return res.status(400).send({

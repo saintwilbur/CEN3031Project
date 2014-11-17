@@ -7,6 +7,7 @@ module.exports = function(app) {
 	// Setting up the Order api
 	app.route('/order/new').post(orders.create);
 	app.route('/order/placed').get(orders.listPlaced);
+	app.route('/order/pending').get(orders.listPlacedForUser);
 	app.route('/order/list').get(orders.list);
 	app.route('/order/listRegistered').get(orders.listRegistered);
 	app.route('/order/listNotPlaced').get(orders.listAllButPlaced);

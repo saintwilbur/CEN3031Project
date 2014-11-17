@@ -8,7 +8,7 @@ angular.module('customer').controller('PendingController', ['$scope', 'Authentic
 
 		$scope.getPendingOrders = function()
 		{
-			$http.get('/order/placed',{user: $scope.authentication.user._id}).success(function(response) 
+			$http.get('/order/pending',{user: $scope.authentication.user._id}).success(function(response) 
 			{
 				$scope.orders=response;
 				return $scope.orders;
