@@ -42,7 +42,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		 */
 		$scope.waitingOrders = 
 		[
-			{
+		/*	{
 				orderId: '012asfwe231',
 				kit: 'Kit A',
 				created: 'yesterday',
@@ -51,7 +51,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 				orderId: '82fs0721jl',
 				kit: 'Kit B',
 				created: 'tomorrow',
-			}
+			}*/
 		];
 		$scope.getWaitingOrders = function() 
 		{
@@ -68,12 +68,13 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			var send = 
 			{
 				orderId: $scope.waitingOrders[index].orderId
-			}
+			};
+
 			$http.post('/order/shipped', send).success(function(response) 
 			{
-				if(response.message!='')
+				if(response.message != '')
 				{
-					alert(message);
+					alert(response.message);
 				}
 			}).error(function(response) 
 			{
@@ -104,7 +105,9 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		var kitSelect = {};
 		$scope.increaseKitCount = function()
 		{
-			var send = 
+			console.log($scope.kitSelect);
+
+		/*	var send = 
 			{
 				name: $scope.kitSelect.itemId,
 				count: $scope.kitSelect.amount,
@@ -116,7 +119,9 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
-			}); 
+			}); */
+			$scope.newKit = {};
+			$scope.changeKitAmount.$setPristine(); 
 		};
 
 		$scope.inventory = [];
@@ -125,10 +130,11 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			$http.get('/inventory/listAll').success(function(response) 
 			{
 				$scope.inventory=response;
-
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
+					console.log(response.message);
+
 			}); 
 		};
 
@@ -143,7 +149,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			};
 			$http.post('/inventory/newKit').success(function(response) 
 			{
-				if(response.message!=='')
+				if(response.message != '')
 				{
 					alert(response.message);
 				}
@@ -151,6 +157,8 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			{
 				$scope.error = response.message;
 			}); */
+			$scope.newKit = {};
+			$scope.addToInventory.$setPristine();
 		};
 		
 

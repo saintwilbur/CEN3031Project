@@ -56,7 +56,7 @@ exports.delete = function(req, res) {
  * List of Inventories
  */
 exports.list = function(req, res) {
-	Inventory.find().execute(function(err, item){
+	Inventory.find({ }).sort('-created').exec(function(err, item){
 		if (err) 
 		{
 			return res.status(400).send({
