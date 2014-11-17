@@ -1,8 +1,8 @@
 /*jshint eqeqeq:false, eqnull:true*/
 'use strict';
 
-angular.module('core').controller('UserController', ['$scope', '$location', 'Authentication', '$rootScope',
-	function($scope, $location, Authentication, $rootScope) {
+angular.module('core').controller('UserController', ['$scope', '$http', '$location', 'Authentication', '$rootScope',
+	function($scope, $http, $location, Authentication, $rootScope) {
 
 		$scope.authentication = Authentication;
 
@@ -39,10 +39,19 @@ angular.module('core').controller('UserController', ['$scope', '$location', 'Aut
 		       
 			if($scope.authentication.user=='')
 			{
-				if($location.path()!=='/customer/' && $location.path()!=='/lab/' && $location.path()!=='/admin/')
+				if($location.path()!='/customer/' && $location.path()!='/lab/' && $location.path()!='/admin/')
 				{
 					$location.path('/');
 				}
+			}
+			else if($scope.authentication.user.roles!='customer' && $scope.authentication.user.roles!='lab' && $scope.authentication.user.roles!='admin')
+			{
+				$http.get('/auth/signout').success(function(response) {
+					alert('Unauthorized Account');
+				}).error(function(response) {
+					$scope.error = response.message;
+
+				});
 			}
 			else if ($location.path().lastIndexOf('/'+$scope.authentication.user.roles+'/',0)!==0)
 			{

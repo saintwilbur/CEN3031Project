@@ -28,7 +28,7 @@ exports.create = function(req, res) {
 	//order the result belongs to
 	var resultOrder;
 	//Check if the order ID exists
-	Order.find({orderId: req.body.orderId}).exec(function(err, orderId){
+	Order.find({orderId: req.body.orderId, status: 'registered'}).exec(function(err, orderId){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -40,7 +40,7 @@ exports.create = function(req, res) {
 			if(orderId.length<=0)
 			{
 				return res.send({
-					message: 'Order does not exist in system.'
+					message: 'Order does not exist or is not registered in system.'
 				});
 			}
 			size = orderId[0].result.length; 

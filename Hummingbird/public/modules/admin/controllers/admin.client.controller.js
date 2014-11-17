@@ -19,9 +19,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		{
 			$http.get('/users/labs').success(function(response) 
 			{
-				//console.log(response);
 				$scope.labs=response;
-
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
@@ -32,9 +30,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		{
 			$http.get('/users/customers').success(function(response) 
 			{
-				//console.log(response);
 				$scope.customers=response;
-
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
@@ -44,8 +40,21 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		/**
 		 * ship.client.view.html
 		 */
-		$scope.waitingOrders = [];
-		$scope.getWaitingOrders = function() {
+		$scope.waitingOrders = 
+		[
+			{
+				orderId: '012asfwe231',
+				kit: 'Kit A',
+				created: 'yesterday',
+			},
+			{
+				orderId: '82fs0721jl',
+				kit: 'Kit B',
+				created: 'tomorrow',
+			}
+		];
+		$scope.getWaitingOrders = function() 
+		{
 			$http.get('/order/listRegistered').success(function(response) 
 			{
 				$scope.waitingOrders=response;
@@ -54,14 +63,30 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 				$scope.error = response.message;
 			});
 		}; 
-
-
+		$scope.shipKit = function(index)
+		{
+			var send = 
+			{
+				orderId: $scope.waitingOrders[index].orderId
+			}
+			$http.post('/order/shipped', send).success(function(response) 
+			{
+				if(response.message!='')
+				{
+					alert(message);
+				}
+			}).error(function(response) 
+			{
+				$scope.error = response.message;
+			});
+		};
 
 		 /**
 		 * admin-orders.client.view.html
 		 */
 		$scope.shippedOrders = [];
-		$scope.getShippedOrders = function() {
+		$scope.getShippedOrders = function() 
+		{
 			$http.get('/order/listNotPlaced').success(function(response) 
 			{
 				$scope.shippedOrders=response;
@@ -77,11 +102,11 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		 */
 		
 		var kitSelect = {};
-		$scope.addKits = function()
+		$scope.increaseKitCount = function()
 		{
 			var send = 
 			{
-				name: $scope.kitSelect.name,
+				name: $scope.kitSelect.itemId,
 				count: $scope.kitSelect.amount,
 			};
 			$http.post('/inventory/increment',send).success(function(response) 
@@ -92,8 +117,9 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			{
 				$scope.error = response.message;
 			}); 
-		};		 	
-		$scope.inventory = {};
+		};
+
+		$scope.inventory = [];
 		$scope.getInventory = function()
 		{
 			$http.get('/inventory/listAll').success(function(response) 
@@ -104,6 +130,27 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			{
 				$scope.error = response.message;
 			}); 
+		};
+
+		$scope.newKit = {};
+		$scope.addNewKit = function()
+		{
+			console.log($scope.newKit);
+		/*	var send = 
+			{
+				name: $scope.newKit.name,
+				count: $scope.newKit.initalAmount
+			};
+			$http.post('/inventory/newKit').success(function(response) 
+			{
+				if(response.message!=='')
+				{
+					alert(response.message);
+				}
+			}).error(function(response) 
+			{
+				$scope.error = response.message;
+			}); */
 		};
 		
 

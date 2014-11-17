@@ -8,23 +8,22 @@
                         		<form class="form-inline" role="form">
 									<div class="form-group">
 									    <label >New Kit</label>
-									    <input type="password" class="form-control"  placeholder="Name">
+									    <input type="text" class="form-control"  placeholder="Name" data-ng-model="newKit.name">
 									</div>
 									<div class="form-group">
 									    <label >Initial Quantity</label>
-									    <input type="password" class="form-control" placeholder="Number">
+									    <input type="text" class="form-control" placeholder="Number" data-ng-model="newKit.initalAmount">
 									</div>
 									
-									<button type="submit" class="btn btn-default">Add to Inventory</button>
+									<button type="submit" class="btn btn-default" ng-click = "addNewKit()">Add to Inventory</button>
 								</form>
                         	</div>
                         	<form class="form-inline" role="form">
 									<div class="form-group">
 									<label>Select Kit</label>
 									
-										<select class="form-control" data-ng-model="kitSelect.name">
-											<option value="1">Option one</option>
-											<option value="2">Option two</option>
+										<select class="form-control" data-ng-model="kitSelect.itemId">
+											<option ng-repeat="kit in kits" value="{{kit.itemId}}">{{kit.name}}</option>
 										</select>
 									
 								</div>
@@ -33,7 +32,7 @@
 									    <input type="text" class="form-control" placeholder="Number" data-ng-model="kitSelect.amount">
 									</div>
 									
-									<button type="button" class="btn btn-default" ng-click = "addKits()">Increase</button>
+									<button type="button" class="btn btn-default" ng-click = "increaseKitCount()">Increase</button>
 							</form>
 			</div>
 		</div>

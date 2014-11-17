@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
     _ = require('lodash');
 
 /**
- * Create a Inventory
+ * Create an Inventory item
  */
 exports.create = function(req, res) {
 
@@ -24,13 +24,13 @@ exports.read = function(req, res) {
 
 /**
  * Update a Inventory's count
- * Controller will need to pass in the name of the item 
+ * Controller will need to pass in the id of the item 
  * and the count to be added. 
- * req.body.name and req.body.amount
+ * req.body.itemId and req.body.amount
  */
 exports.updateCount = function(req, res) {
 	var newCount = req.body.amount;
-	Inventory.findOne({name: req.body.name}).execute(function(err, item)
+	Inventory.findOne({itemId: req.body.itemId}).execute(function(err, item)
 	{
 		if (err) 
 		{

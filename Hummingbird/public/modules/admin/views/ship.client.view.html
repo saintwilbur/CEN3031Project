@@ -1,4 +1,4 @@
-<section data-ng-controller="AdminController" data-ng-init="getWaitingOrders()">
+<section data-ng-controller="AdminController" >
 	<section >
 	 <div class="page-header">
 		<h3>New Orders</h3>
@@ -23,7 +23,7 @@
 										<thead>
 											<tr>
 												<th class="col-md-4">Order ID</th>
-												<th class="col-md-3">Type Test</th>
+												<th class="col-md-3">Kit Type</th>
 												<th class="col-md-2">Date</th>
 												<th class="col-md-3">Ship</th>
 											</tr>
@@ -31,14 +31,10 @@
 										<tbody>
 											<tr ng-repeat="order in waitingOrders | filter:query">
 												<td>{{order.orderId}}</td>
-												<td>{{result.created}}</td>
-												<td>								
-												<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
-												</td>
-												<td>											
-													<button type="button" class="btn btn-xs btn-primary" ng-click="acceptResult(results[$index], 'placeholder text')"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Accept</button>	
-													&nbsp;												
-													<button type="button" class="btn btn-xs btn-danger" ng-click="rejectResult(results[$index], 'placeholder text')"><span class="glyphicon glyphicon-thumbs-down"></span>&nbsp;Reject</button>
+												<td>{{order.kit}}</td>
+												<td>{{order.created}}</td>
+												<td>										
+													<button type="button" class="btn btn-xs btn-warning" ng-click="shipKit(waitingOrders[$index])"><span class="glyphicon glyphicon-export"></span>&nbsp;Ship Kit</button>
 												</td>
 											</tr>
 										</tbody>
