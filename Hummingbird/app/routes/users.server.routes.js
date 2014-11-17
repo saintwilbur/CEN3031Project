@@ -26,6 +26,8 @@ module.exports = function(app) {
 	app.route('/auth/signout').get(users.signout);
 	app.route('/auth/signoutCustomer').get(users.signoutCustomer);
 	app.route('/auth/signoutLab').get(users.signoutLab);
+	app.route('/auth/signoutAdmin').get(users.signoutCustomer);
+
 
 
 
