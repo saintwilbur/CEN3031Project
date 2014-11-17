@@ -16,6 +16,7 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var item = new Inventory(req.body);
+	item.itemId = Math.floor((Math.random() * 100000000000) + 1000000);
 	item.save(function(err) {
 		if (err) {
 			return res.send({

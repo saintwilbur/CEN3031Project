@@ -149,8 +149,9 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 				name: $scope.newKit.name,
 				count: $scope.newKit.initalAmount
 			};
-			$http.post('/inventory/newKit').success(function(response) 
+			$http.post('/inventory/newKit', send).success(function(response) 
 			{
+				console.log('hi');
 				if(response.message != '')
 				{
 					alert(response.message);
