@@ -236,10 +236,10 @@ exports.setShipped = function(req, res)
 					message: 'order does not exist in system.'
 				});
 			}
-			else
+			else 
 			{
 				orders = _.extend(orders, {status: 'shipped'});
-				Item.save({name: req.body.item}, {$inc: {count: -1}});
+				Item.update({name: req.body.item}, {$inc: {count: -1}});
 			}
 		}
 	});
