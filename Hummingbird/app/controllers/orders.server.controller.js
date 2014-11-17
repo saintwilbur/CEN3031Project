@@ -239,7 +239,7 @@ exports.setShipped = function(req, res)
 			else
 			{
 				orders = _.extend(orders, {status: 'shipped'});
-				Item.update({name: req.body.item}, {$inc: {count: -1}});
+				Item.save({name: req.body.item}, {$inc: {count: -1}});
 			}
 		}
 	});
