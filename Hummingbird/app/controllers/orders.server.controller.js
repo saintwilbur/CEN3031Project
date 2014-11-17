@@ -156,7 +156,7 @@ exports.listShipped = function(req, res)
 exports.listRegistered = function(req, res) 
 {
 	Order.find({status: 'registered'}).sort('-created').exec(function(err, order){
-		console.log("test");
+		console.log('test');
 
 		if (err) 
 		{
@@ -212,7 +212,7 @@ exports.listLabCompletedOrders = function(req, res)
  */
 exports.checkRegisterCode = function(req, res) 
 {
-	console.log("test");
+	console.log('test');
 	Order.findOne({registerCode: req.body.registerCode}).exec(function(err, orders) 
 	{
 
