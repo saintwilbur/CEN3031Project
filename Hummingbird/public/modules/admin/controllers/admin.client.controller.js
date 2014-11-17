@@ -55,7 +55,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		];
 		$scope.getWaitingOrders = function() 
 		{
-			$http.get('/order/listRegistered').success(function(response) 
+			$http.get('/order/placed').success(function(response) 
 			{
 				$scope.waitingOrders=response;
 			}).error(function(response) 
@@ -86,7 +86,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		 * admin-orders.client.view.html
 		 */
 		$scope.shippedOrders = [];
-		$scope.getShippedOrders = function() 
+		$scope.getOtherOrders = function() 
 		{
 			$http.get('/order/listNotPlaced').success(function(response) 
 			{

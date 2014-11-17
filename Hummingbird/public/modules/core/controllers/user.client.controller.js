@@ -46,8 +46,8 @@ angular.module('core').controller('UserController', ['$scope', '$http', '$locati
 			}
 			else if($scope.authentication.user.roles!='customer' && $scope.authentication.user.roles!='lab' && $scope.authentication.user.roles!='admin')
 			{
+				alert('Unauthorized Account');
 				$http.get('/auth/signout').success(function(response) {
-					alert('Unauthorized Account');
 				}).error(function(response) {
 					$scope.error = response.message;
 
