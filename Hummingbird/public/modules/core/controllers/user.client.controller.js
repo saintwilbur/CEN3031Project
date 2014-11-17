@@ -34,7 +34,7 @@ angular.module('core').controller('UserController', ['$scope', '$location', 'Aut
 				return this.admin.header;
 			}
 		};
-
+		/* jshint ignore:start */
 		$rootScope.$on('$locationChangeStart', function (event, next, current) {
 		       
 			if($scope.authentication.user=='')
@@ -49,5 +49,6 @@ angular.module('core').controller('UserController', ['$scope', '$location', 'Aut
 				$location.path('/'+$scope.authentication.user.roles+'/');
 			}
 		 });
+		/* jshint ignore:end */
 	}
 ]);
