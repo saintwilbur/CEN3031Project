@@ -1,3 +1,4 @@
+/*jshint eqeqeq:false, eqnull:false*/
 'use strict';
 
 angular.module('admin').controller('AdminController',['$scope', '$http','Authentication',
@@ -69,7 +70,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			{
 				orderId: $scope.waitingOrders[index].orderId
 			};
-
+			/* jshint ignore:start */
 			$http.post('/order/shipped', send).success(function(response) 
 			{
 				if(response.message != '')
@@ -80,6 +81,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			{
 				$scope.error = response.message;
 			});
+			/* jshint ignore:end */
 		};
 
 		 /**
@@ -137,12 +139,12 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 
 			}); 
 		};
-
+		/* jshint ignore:start */
 		$scope.newKit = {};
 		$scope.addNewKit = function()
 		{
 			console.log($scope.newKit);
-		/*	var send = 
+			var send = 
 			{
 				name: $scope.newKit.name,
 				count: $scope.newKit.initalAmount
@@ -156,11 +158,10 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
-			}); */
+			}); 
 			$scope.newKit = {};
 			$scope.addToInventory.$setPristine();
 		};
-		
-
+		/* jshint ignore:end */
 	}
 ]);
