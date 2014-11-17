@@ -75,6 +75,7 @@ exports.create = function(req, res) {
 							else 
 							{
 								resultOrder.result.push(result);
+								resultOrder.status = 'recieved';
 								resultOrder.save(function(err) {
 									if (err) {
 										return res.send({

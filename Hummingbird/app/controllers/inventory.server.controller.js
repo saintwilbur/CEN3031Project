@@ -10,9 +10,21 @@ var mongoose = require('mongoose'),
 
 /**
  * Create an Inventory item
+ * Controller will need to pass in the item name, item start count and,
+ * item price. 
+ * req.body.name, req.body.count, req.body.price
  */
 exports.create = function(req, res) {
-
+	var item = new Inventory(req.body);
+	item.save(function(err) {
+		if (err) {
+			return res.send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(item);
+		}
+	});
 };
 
 /**
