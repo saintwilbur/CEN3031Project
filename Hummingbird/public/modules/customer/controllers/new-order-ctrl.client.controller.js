@@ -12,7 +12,7 @@ angular.module('customer').controller('NewOrderCtrl', ['$scope', '$rootScope', '
 			var send = 
 			{
 				user: $scope.authentication.user._id,
-				item: 'SampleTest'
+				item: 'KitA'
 				/**
 				 *forms: 
 				 *{

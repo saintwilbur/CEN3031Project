@@ -24,6 +24,7 @@
 											<tr>
 												<th class="col-md-4">Order ID</th>
 												<th class="col-md-2">Date</th>
+												<th class="col-md-2">Register Code</th>
 												<th class="col-md-3">Status</th>
 											</tr>
 										</thead>
@@ -31,6 +32,7 @@
 											<tr ng-repeat="order in shippedOrders | filter:query">
 												<td>{{order.orderId}}</td>
 												<td>{{order.created}}</td>
+												<td>{{order.registerCode}}</td>
 												<td>{{order.status[0]}}</td>
 											</tr>
 										</tbody>
