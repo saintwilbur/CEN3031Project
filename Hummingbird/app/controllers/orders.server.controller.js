@@ -253,7 +253,7 @@ exports.setShipped = function(req, res)
 		} 
 		else 
 		{
-			Item.findOne({name: req.body.item}).exec(err, items){
+			Item.findOne({name: req.body.item}).exec(function(err, items){
 				if(orders.length <= 0) {
 					return res.send({
 						message: 'order does not exist in system.'
