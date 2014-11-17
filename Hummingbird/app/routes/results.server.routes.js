@@ -16,4 +16,5 @@ module.exports = function(app) {
 	app.route('/result/outcome').get(results.getResultData);
 	app.route('/result/getOrderInfo').get(results.getOrderInfo);
 	app.route('/results/submitterRejectedList').get(results.rejectedList);
+	
 };

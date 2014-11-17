@@ -156,10 +156,13 @@ exports.listShipped = function(req, res)
 exports.listRegistered = function(req, res) 
 {
 	Order.find({status: 'registered'}).sort('-created').exec(function(err, order){
+		console.log("test");
+
 		if (err) 
 		{
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
+				
 			});
 		} else 
 		{
@@ -209,8 +212,10 @@ exports.listLabCompletedOrders = function(req, res)
  */
 exports.checkRegisterCode = function(req, res) 
 {
-	Order.find({registerCode: req.body.registerCode}).exec(function(err, orders) 
+	console.log("test");
+	Order.findOne({registerCode: req.body.registerCode}).exec(function(err, orders) 
 	{
+
 		if(err) 
 		{
 			return res.status(400).send({

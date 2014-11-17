@@ -90,7 +90,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		$scope.shippedOrders = [];
 		$scope.getOtherOrders = function() 
 		{
-			$http.get('/order/listNotPlaced').success(function(response) 
+			$http.get('/order/list').success(function(response) 
 			{
 				$scope.shippedOrders=response;
 			}).error(function(response) 
