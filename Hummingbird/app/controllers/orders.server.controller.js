@@ -239,7 +239,7 @@ exports.checkRegisterCode = function(req, res)
  */
 exports.setShipped = function(req, res) 
 {
-	Order.find({ orderId: req.body.orderId})[0].exec(function(err, orders){
+	Order.find({orderId: req.body.orderId})[0].exec(function(err, orders){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -248,16 +248,23 @@ exports.setShipped = function(req, res)
 		} 
 		else 
 		{
-			if(orders.length <= 0) {
-				return res.send({
-					message: 'order does not exist in system.'
-				});
-			}
-			else 
-			{
-				orders = _.extend(orders, {status: 'shipped'});
-				Item.update({name: req.body.item}, {$inc: {count: -1}});
-			}
+			Item.findOne({name: req.body.item}).exec(err, items){
+				if(orders.length <= 0) {
+					return res.send({
+						message: 'order does not exist in system.'
+					});
+				}
+				else if(items.count <= 0) {
+					return res.send({
+						message: 'not enough item in the inventory.'
+					});
+				}
+				else 
+				{
+					orders = _.extend(orders, {status: 'shipped'});
+					Item.update({name: req.body.item}, {$inc: {count: -1}});
+				}
+			});
 		}
 	});
 };
