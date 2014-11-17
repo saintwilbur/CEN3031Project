@@ -245,3 +245,36 @@ exports.setShipped = function(req, res)
 	});
 };
 
+/* Function will check to see if the order for the passed in orderId is registered
+ * Controler will need to pass in the orderId 
+ * req.body.orderId
+ * function will return a statement,
+ * 'Valid order id' or 'Invalid order id'
+ */
+exports.checkIsRegistered = function(req, res)
+{
+	var result= '';
+	Order.findOne({orderId: req.body.orderId}).exec(function(err, orders) 
+	{
+		if(err)
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		else
+		{
+			if(orders.status == 'registered'){
+				result = 'Valid order id';
+			}
+			else {
+				result = 'Invalid order id';
+			}
+
+			return res.send({
+				message: result
+			});
+		}
+	});
+};
+

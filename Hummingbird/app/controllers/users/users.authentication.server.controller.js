@@ -266,7 +266,7 @@ exports.isVerifier = function(req, res)
  */
 exports.listCustomers = function(req, res) 
 {
-	User.find({roles: 'customer'}).exec(function(err, customers)
+	User.find({roles: 'customer'},{_id:0, 'userId':1, 'displayName':1, 'created': 1}).exec(function(err, customers)
 	{
 		if (err) 
 		{
@@ -286,7 +286,7 @@ exports.listCustomers = function(req, res)
  */
 exports.listLabs= function(req, res) 
 {
-	User.find({roles: 'lab'}).exec(function(err, labs)
+	User.find({roles: 'lab'},{_id:0, 'userId':1, 'displayName':1, 'created': 1}).exec(function(err, labs)
 	{
 		if (err) 
 		{

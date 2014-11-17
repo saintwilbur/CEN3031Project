@@ -7,4 +7,6 @@ module.exports = function(app) {
 
 	// Setting up the Order api
 	app.route('/inventory/listAll').get(inventory.list);
+	app.route('/inventory/increment').post(inventory.updateCount);
+	
 };

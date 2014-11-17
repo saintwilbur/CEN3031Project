@@ -204,7 +204,7 @@ exports.verifyResult = function(req, res) {
 	var results = req.body.results;
 	
 
-	Result.find({_id: results._id}).sort('-created').exec(function(err, resultFound){
+	Result.findOne({_id: results._id}).sort('-created').exec(function(err, resultFound){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -212,17 +212,17 @@ exports.verifyResult = function(req, res) {
 			});
 		} else 
 		{
-			resultFound[0] = _.extend(resultFound[0], {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Verified'});
+			resultFound = _.extend(resultFound, {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Verified'});
 
 			if(req.user.userId != results.submittedBy)
 			{
-				resultFound[0].save(function(err) {
+				resultFound.save(function(err) {
 					if (err) {
 						return res.send({
 							message: errorHandler.getErrorMessage(err)
 						});
 					} else {
-						res.jsonp(resultFound[0]);
+						res.jsonp(resultFound);
 					}
 				});	
 			}
@@ -247,7 +247,7 @@ exports.verifyResult = function(req, res) {
 
 exports.getResultData = function(req, res)
 {
-	Result.find({resultId: req.body.resultId}, {'result':1, _id:0})[0].exec(function(err, result){
+	Result.findOne({resultId: req.body.resultId}, {'result':1, _id:0}).exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -262,29 +262,24 @@ exports.getResultData = function(req, res)
 
 /* Function will return the order info for the given result
  * Controller will need to pass in the result_id 
+ * req.body.resultId
  * Will return an order object 
  */
 exports.getOrderInfo = function(req, res) 
 {
 	var results = req.body.results;
 
-	if(Order.find({result: req.body.result_id}).length > 0) {
-		Order.find({result: req.body.result_id})[0].exec(function(err, orderItem) {
-			if(err) 
-			{
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else 
-			{
-				res.json(orderItem);
-			}
-		});
-	}
-	else 
-	{
-		res.json('no order');
-	}
+	Order.findOne({result: req.body.resultId}, {_id:0, 'orderId':1, 'fields':1, 'created':1}).exec(function(err, orderItem) {
+		if(err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.json(orderItem);
+		}
+	});	
 };
 
 /**
@@ -305,7 +300,7 @@ exports.rejectResult = function(req, res) {
 			});
 		} else 
 		{
-			resultFound[0] = _.extend(resultFound[0], {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Rejected'});
+			resultFound[0] = _.extend(resultFound[0], {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Rejected', completed: Date.now});
 			if(req.user.userId != results.submittedBy)
 			{
 				resultFound[0].save(function(err) {
@@ -329,6 +324,34 @@ exports.rejectResult = function(req, res) {
 		}
 	});
 };
+
+/* rejectedList() will return a list of rejected results 
+ * of the passed in lab user. 
+ * Controller will need to pass in the userId of the lab.
+ * req.body.userId
+ * The list of results will contain the resultId, result, 
+ * comments, and the date completed.
+ */
+exports.rejectedList = function(req, res) {
+	var labsId = req.body.labId;
+
+	Result.findOne({submittedBy: labsId, status: 'Rejected'}, {_id:0, 'resultId':1, 'result':1, 'comments':1, 'verifiersComments':1, 'completed':1}).exec(function(err, results)
+	{
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(results);
+		}
+	});
+
+};
+
+
+
 
 exports.test = function(req, res) {
 	var tests = 'test';

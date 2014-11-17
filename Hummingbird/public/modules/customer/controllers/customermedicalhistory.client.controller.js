@@ -5,12 +5,13 @@ angular.module('customer').controller('CustomermedicalhistoryController', ['$sco
 		// Customerorder controller logic
 		// ...
 		$scope.authentication = Authentication;
-
+		$scope.medicalHistory = null;
 		$scope.getMedicalHistory = function() 
 		{
 			$http.get('/medicalHistory/get', {user: $scope.authentication.user._id}).success(function(response){
 				$scope.medicalHistory = response;
-				//console.log(response);
+				console.log(response);
+				console.log($scope.authentication.user._id);
 				return $scope.medicalHistory;
 			}).error(function(response){
 				$scope.error = response.message;
@@ -51,15 +52,55 @@ angular.module('customer').controller('CustomermedicalhistoryController', ['$sco
 			var send= {
 				labId: $scope.authentication.user.userId
 			};
+			console.log(send.labId);
+			$http.get('/results/submitterRejectedList', send).success(function(response){
+					console.log(response);
+					console.log($scope.authentication.user.userId);
+					alert(response);
+				}).error(function(response){
+					$scope.error = response.message;
+					alert('bad');
+				});
+		};
 
-			$http.get('/auth/labTech', send).success(function(response){
-   				console.log(response);
-   				console.log($scope.authentication.user.userId);
-   				alert(response);
-   			}).error(function(response){
-   				$scope.error = response.message;
-   				alert('bad');
-   			});
+		$scope.customers = function() {
+
+			$http.get('/users/customers').success(function(response){
+					alert(response);
+				}).error(function(response){
+					$scope.error = response.message;
+					alert('bad');
+				});
+		};
+
+		$scope.labs = function() {
+			
+			$http.get('/users/labs').success(function(response){
+					alert(response);
+				}).error(function(response){
+					$scope.error = response.message;
+					alert('bad');
+				});
+		};
+
+		$scope.placed = function() {
+			
+			$http.get('/order/placed').success(function(response){
+					alert(response);
+				}).error(function(response){
+					$scope.error = response.message;
+					alert('bad');
+				});
+		};
+
+		$scope.shipped = function() {
+			
+			$http.get('/order/listShipped').success(function(response){
+					alert(response);
+				}).error(function(response){
+					$scope.error = response.message;
+					alert('bad');
+				});
 		};
 	}
 ]);

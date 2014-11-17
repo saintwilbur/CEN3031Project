@@ -60,7 +60,7 @@ var OrderSchema = new Schema({
 		type: String,
 		default: 'XXXXXXXXXX'
 	},
-	field1: [{
+	fields: [{
 		type: String
 	}],
 	registerCode: {
