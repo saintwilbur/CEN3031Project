@@ -49,7 +49,7 @@
 					$scope: scope
 				});
 			}));
-
+		
 			
 			it('Should get some specific lab info', inject(function() {
 				// The test logic
@@ -65,33 +65,58 @@
 			// The test logic
 			console.log('get the customer info');
 			$httpBackend.when('GET', '/users/customers').respond(200, 'customers');
-
+			//
 			scope.getCustomer();
 			$httpBackend.flush();
 			expect(scope.customers).toEqual('customers');
 		}));
 
-		it('Should get the order ID', inject(function(User) {
+		it('Should get the waiting orders', inject(function(User) {
 			// The test logic
-			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-			console.log('Get the order ID');
-			$httpBackend.when('GET', '/order/new').respond(200, 'new');
+			console.log('Get waiting orders');
+			$httpBackend.when('GET', '/order/placed').respond(200, 'placed');
 
-			scope.orderId();
+			scope.getWaitingOrders();
 			$httpBackend.flush();
-			expect(scope.orders).toEqual('new');
+			expect(scope.waitingOrders).toEqual('placed');
 		}));
-		/*
-		it('Should add the kits using the addKits() function', inject(function() {
-			// The test logic
-			//scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-			console.log('Get the kits');
-			$httpBackend.when('post', '/inventory/increment').respond(200, 'increment');
 
-			scope.addKits();
+		
+
+		it('Should get the other orders', inject(function() {
+			// The test logic
+			console.log('Get the other orders');
+			$httpBackend.when('GET', '/order/listNotPlaced').respond(200, 'listNotPlaced');
+
+			scope.getOtherOrders();
 			$httpBackend.flush();
-			//expect(scope.results).toEqual('increment');
+			expect(scope.shippedOrders).toEqual('placed');
+		}));
+
+		/*
+		it('Should get the shipped kits', inject(function(User) {
+			// The test logic
+			scope.authentication.user = new User({userId:'525cf20451979dea2c000003'});
+			console.log('Get waiting orders');
+			$httpBackend.when('post', '/order/shipped').respond(200, 'shipped');
+
+			scope.shipKit();
+			$httpBackend.flush();
+			//expect(scope.waitingOrders).toEqual('placed');
+		}));
+
+	
+		it('Should add the kits using the addNewKits() function', inject(function() {
+			// The test logic
+			//scope.authentication.user = new User({userId:'525cf20451979dea2c000003'});
+			console.log('Post the kits');
+			$httpBackend.when('post', '/inventory/newKit').respond(200, 'newKit');
+
+			scope.addNewKit();
+			$httpBackend.flush();
+			//expect(scope.results).toEqual('newKit');
 		}));
 		*/
+		
 	});
 }());
