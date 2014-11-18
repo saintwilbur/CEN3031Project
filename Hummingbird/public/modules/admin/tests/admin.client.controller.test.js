@@ -53,7 +53,7 @@
 			
 			it('Should get some specific lab info', inject(function() {
 				// The test logic
-				console.log('get the lab info');
+				console.log('Get the lab info');
 				$httpBackend.when('GET', '/users/labs').respond(200, 'labs');
 
 				scope.getLabs();
@@ -63,7 +63,7 @@
 
 			it('Should get some specific customer info', inject(function() {
 			// The test logic
-			console.log('get the customer info');
+			console.log('Get the customer info');
 			$httpBackend.when('GET', '/users/customers').respond(200, 'customers');
 			//
 			scope.getCustomer();
