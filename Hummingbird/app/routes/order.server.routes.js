@@ -16,4 +16,5 @@ module.exports = function(app) {
 	app.route('/order/checkRegisterCode').post(orders.checkRegisterCode);
 	app.route('/order/shipped').post(orders.setShipped);
 	app.route('/order/isRegistered').get(orders.checkIsRegistered);
+	app.route('/order/getShipping').get(orders.shippingAddress);
 };

@@ -50,12 +50,29 @@ angular.module('customer').controller('CustomermedicalhistoryController', ['$sco
 		$scope.myTesting = function() {
 
 			var send= {
-				itemId: 455,
-				name: 'test1',
-				count: 100,
-				price: 15
+				item: 'nancytest6',
+				user: $scope.authentication.user._id,
+				fields: {
+					field1: 'field1',
+					field2: 'field2'
+				},
+				billing: {
+					cardHolderName: 'Nancy',
+					cardNumber: 48456564464,
+					address: {
+						streetNumber: 955,
+						streetName: 'Main',
+						city: 'Gaines',
+						state: 'Florida',
+						zipCode: 3595
+					}
+				}
 			};
-			$http.post('/inventory/newKit', send).success(function(response){
+
+			var orderIdParm = {
+				orderId: 59249781995
+			};
+			$http.get('/order/getShipping', orderIdParm).success(function(response){
 					console.log(response);
 					alert(response);
 				}).error(function(response){

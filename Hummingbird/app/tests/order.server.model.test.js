@@ -57,7 +57,25 @@ describe('Order Model Unit Tests:', function() {
 				item: 'General',
 				status: 'placed',
 				result: result,
-				field1: 'Test'
+				field1: 'Test',
+				billing: {
+					cardHolderName: 'holderName',
+					cardNumber: '123456789',
+					address: {
+						streetNumber: '123',
+						streetName: 'street',
+						city: 'city',
+						state: 'Florida',
+						zipCode: 12345
+					}
+				},		
+				shippingAddress: {
+					streetNumber: '123',
+					streetName: 'street',
+					city: 'city',
+					state: 'Florida',
+					zipCode: 12345
+				}
 			});
 
 			done();

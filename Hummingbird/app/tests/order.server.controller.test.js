@@ -65,7 +65,7 @@ var user, facility, result, order;
 		});
 	});
 
-	describe('Method Create', function() {
+	/*describe('Method Create', function() {
 		it('should be able to create without problems', function(done) {
 			var req = {};
 			req.body = {
@@ -83,7 +83,7 @@ var user, facility, result, order;
 			orders.create(req, res);
 			done();
 		});
-	});
+	});*/
 
 	afterEach(function(done) { 
 		Order.remove().exec();

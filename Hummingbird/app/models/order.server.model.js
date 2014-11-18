@@ -45,6 +45,30 @@ var OrderSchema = new Schema({
 		default: 'placed',
 		validate: [validateStatus, 'wrong status']
 	},
+	billing: {
+		type:{
+			cardHolderName: String,
+			cardNumber: Number,
+			address: {
+				streetNumber: Number,
+				streetName: String,
+				city: String,
+				state: String,
+				zipCode: Number
+			}
+		},		
+		required: 'Need Billing Information'
+	},
+	shippingAddress: {
+		type: {
+			streetNumber: Number,
+			streetName: String,
+			city: String,
+			state: String,
+			zipCode: Number
+		},
+		required: 'Need Shipping address'
+	},
 	created: {
 		type: Date,
 		default: Date.now

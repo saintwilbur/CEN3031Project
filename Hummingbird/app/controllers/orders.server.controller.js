@@ -307,3 +307,24 @@ exports.checkIsRegistered = function(req, res)
 	});
 };
 
+/** Function wil return the shipping address of an order
+ * controller must pass in the order id 
+ * req.body.orderId
+ * will return the shipping address for the order
+ */
+exports.shippingAddress = function(req, res) 
+{
+	Order.findOne({orderId: req.body.orderId}, {_id:0, 'orderId': 1, 'shipping':1}).exec(function(err, orderFound)
+	{
+		if(err)
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		else
+		{
+			res.jsonp(orderFound);
+		}
+	});
+};
