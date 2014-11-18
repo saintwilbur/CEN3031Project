@@ -10,7 +10,7 @@ angular.module('customer').controller('CustomermedicalhistoryController', ['$sco
 		{
 			$http.get('/medicalHistory/get', {user: $scope.authentication.user._id}).success(function(response){
 				$scope.medicalHistory = response;
-				console.log(response);
+				//console.log(response);
 				console.log($scope.authentication.user._id);
 				return $scope.medicalHistory;
 			}).error(function(response){

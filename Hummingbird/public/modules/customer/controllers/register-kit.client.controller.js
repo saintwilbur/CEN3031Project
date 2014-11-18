@@ -18,7 +18,7 @@ angular.module('customer').controller('RegisterKitController', ['$scope', '$root
 
 			$http.post('/order/checkRegisterCode/', send).success(function(response) {
 				$rootScope.$broadcast('refreshOrders');
-				 alert('your kit is Registered.');
+				 alert('Your kit is registered.');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});

@@ -226,7 +226,7 @@ exports.checkRegisterCode = function(req, res)
 		{
 			if(orders.length <= 0) {
 				return res.send({
-					message: 'register code does not exist in system.'
+					message: 'Register code does not exist in system.'
 				});
 			}
 			else
@@ -256,12 +256,12 @@ exports.setShipped = function(req, res)
 			Item.findOne({name: req.body.item}).exec(function(err, items){
 				if(orders.length <= 0) {
 					return res.send({
-						message: 'order does not exist in system.'
+						message: 'Order does not exist in system.'
 					});
 				}
 				else if(items.count <= 0) {
 					return res.send({
-						message: 'not enough item in the inventory.'
+						message: 'Not enough item in the inventory.'
 					});
 				}
 				else 
