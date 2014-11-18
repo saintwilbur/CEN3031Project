@@ -244,7 +244,7 @@ exports.checkRegisterCode = function(req, res)
  */
 exports.setShipped = function(req, res) 
 {
-	Order.find({orderId: req.body.orderId})[0].exec(function(err, orders){
+	Order.findOne({orderId: req.body.orderId}).exec(function(err, orders){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -254,7 +254,13 @@ exports.setShipped = function(req, res)
 		else 
 		{
 			Item.findOne({name: req.body.item}).exec(function(err, items){
-				if(orders.length <= 0) {
+				if (err) 
+				{
+					return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+					});
+				}
+				else if(orders.length <= 0) {
 					return res.send({
 						message: 'Order does not exist in system.'
 					});

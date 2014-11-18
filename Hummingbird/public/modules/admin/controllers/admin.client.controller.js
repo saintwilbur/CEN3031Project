@@ -65,13 +65,13 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			});
 		}; 
 		$scope.shipKit = function(index)
-		{
+		{	console.log('Function called');
 			var send = 
 			{
 				orderId: $scope.waitingOrders[index].orderId,
 				item: $scope.waitingOrders[index].item
 			};
-			/* jshint ignore:start */
+			
 			$http.post('/order/shipped', send).success(function(response) 
 			{
 				alert(response.message);
@@ -80,7 +80,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			{
 				$scope.error = response.message;
 			});
-			/* jshint ignore:end */
+			
 		};
 
 		 /**
