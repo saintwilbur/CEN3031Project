@@ -7,13 +7,7 @@ angular.module('customer').controller('TabsDemoCtrl', function ($scope) {
 	    { title:'Order History', content:'/modules/customer/views/history.client.view.html' },
 	    { title:'Medical Background', content:'/modules/customer/views/medicalHistory.client.view.html' },
 	    { title:'Register-Kit', content:'/modules/customer/views/register-kit.client.view.html' }
-	    //{ title:'Nancy', content:'/modules/customer/views/medicalHistory.client.view.html' }
 	  ];
 	  var test = true;
 	  $scope.tabs[0].active = true;
-	  $scope.alertMe = function() {
-	    setTimeout(function() {
-	      alert('You\'ve selected the alert tab!');
-	    });
-	  };
 });

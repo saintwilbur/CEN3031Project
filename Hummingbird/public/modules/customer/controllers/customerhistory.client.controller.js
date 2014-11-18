@@ -1,43 +1,29 @@
-
-
-
-
-
 'use strict';
 
-var app1 = angular.module('customer');
+angular.module('customer').controller('CustomerHistoryController', ['$scope', 'Authentication', '$http', 'User',
+  function($scope, Authentication, $http, User) {
+    $scope.authentication = Authentication;
+    $scope.orders = [];
+    //getHistory();  
 
-app1.controller('CustomerhistoryController', function($scope, OrderService) {
-  $scope.order = OrderService.getData();
- $scope.checked = OrderService.getData().length !== 0;
- 
+    $scope.getHistory = function()
+    {
+      var send = {
+        user: $scope.authentication.user._id   
+      };
 
-});
-
-
-
-app1.factory('OrderService', function() {
-  return {
-    getData: function() {
-      return [
-              {
-              invoice: '5689',
-              description: 'Gonorrhea Test',
-              date: '10/02/2014',
-              status: 'Open',
-              shipDate: '10/12/2014',
-              totalAmount:'$150.00'
-              },
-         
-              {
-              invoice: '2357',
-              description: 'Herpes Test',
-              date: '9/6/2014',
-              status: 'Paid',
-              shipDate:'11/15/2014',
-              totalAmount:'$140.00'
-              }
-        ];
-    }
-  };
-});
+      $http.get('/order/list',send).success(function(response) 
+      {
+        $scope.orders=response;
+        return $scope.orders;
+      }).error(function(response) 
+      {
+        $scope.error = response.message;
+      });
+      /* Refresh Current Page */
+      $scope.$on('refreshOrders', function (event) {
+      $scope.getHistory();
+    }); 
+    };
+  }
+]);

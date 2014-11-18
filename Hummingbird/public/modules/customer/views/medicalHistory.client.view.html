@@ -1,38 +1,10 @@
 <section data-ng-controller="CustomermedicalhistoryController"  data-ng-init="getMedicalHistory()">
-	<div ng-show = "medicalHistory.length !== 0">
-		<p>Register</p>
-		{{medicalHistory.historyId}}
-		{{medicalHistory.field1}}
-		{{medicalHistory.field2}}
-		{{medicalHistory.field3}}
-		
-
-<!-- Button Drop Down -->
-<div class="control-group">
-  <label class="control-label" for="Test Order">Select Test</label>
-  <div class="controls">
-    <div class="input-append">
-      <input id="buttondropdown" name="buttondropdown" class="input-large" placeholder="select lab test" type="text">
-      <div class="btn-group">
-        <button class="btn dropdown-toggle" data-toggle="dropdown">
-          confirm
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a href="#">Option one</a></li>
-          <li><a href="#">Option two</a></li>
-          <li><a href="#">Option three</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
 	<div ng-hide = "medicalHistory.length !== 0">
-		<p>No Medical hisory on file. Please Fill out your medical History.</p>
+		<h2> Here is your entered information </h2>
+	</div>
+	<div ng-show = "medicalHistory.length !== 0">
+		<div class = "well">
+		<h3 align= "center">No Medical hisory on file. Please Fill out your medical History.</h3>
 		<form class="form-horizontal" ng-submit="submit()">  
 			<div class="form-group">
 				<label for="field1">field1</label>
@@ -54,7 +26,4 @@
 			</div>
 		</form>		
 	</div>
-	<form class="form-horizontal" ng-submit="myTesting()">
-			<button  type="submit" id="singlebutton2" name="singlebutton2" class="btn btn-success">test</button>
-		</form>
 </section>

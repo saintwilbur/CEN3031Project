@@ -109,7 +109,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		{
 			console.log($scope.kitSelect);
 
-		/*	var send = 
+			var send = 
 			{
 				name: $scope.kitSelect.itemId,
 				count: $scope.kitSelect.amount,
@@ -121,7 +121,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
-			}); */
+			}); 
 			$scope.newKit = {};
 			$scope.changeKitAmount.$setPristine(); 
 		};
