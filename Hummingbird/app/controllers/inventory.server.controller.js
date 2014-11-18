@@ -39,11 +39,11 @@ exports.read = function(req, res) {
  * Update a Inventory's count
  * Controller will need to pass in the id of the item 
  * and the count to be added. 
- * req.body.itemId and req.body.amount
+ * req.body.itemId and req.body.count
  */
 exports.updateCount = function(req, res) {
-	var newCount = req.body.amount;
-	Inventory.findOne({itemId: req.body.itemId}).execute(function(err, item)
+	var newCount = req.body.count;
+	Inventory.findOne({itemId: req.body.itemId}).exec(function(err, item)
 	{
 		if (err) 
 		{
@@ -52,8 +52,9 @@ exports.updateCount = function(req, res) {
 			});
 		} else 
 		{
-			newCount += item.count;
+			newCount = Number(newCount) + Number(item.count);
 			item = _.extend(item, {count: newCount});
+			item.save(item);
 		}
 	});
 };

@@ -111,12 +111,12 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 
 			var send = 
 			{
-				name: $scope.kitSelect.itemId,
-				count: $scope.kitSelect.amount,
+				itemId: $scope.kitSelect.itemId,
+				count: $scope.kitSelect.amount
 			};
 			$http.post('/inventory/increment',send).success(function(response) 
 			{
-				$scope.results=response;
+				alert('New kits have been added.');
 
 			}).error(function(response) 
 			{
@@ -124,6 +124,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			}); 
 			$scope.newKit = {};
 			$scope.changeKitAmount.$setPristine(); 
+			$scope.getInventory();
 		};
 
 		$scope.inventory = [];
@@ -143,7 +144,6 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		$scope.newKit = {};
 		$scope.addNewKit = function()
 		{
-			console.log($scope.newKit);
 			var send = 
 			{
 				name: $scope.newKit.name,
@@ -151,17 +151,15 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			};
 			$http.post('/inventory/newKit', send).success(function(response) 
 			{
-				console.log('hi');
-				if(response.message != '')
-				{
-					alert(response.message);
-				}
+				alert(send.name + ' has been created.');
+			
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
 			}); 
 			$scope.newKit = {};
 			$scope.addToInventory.$setPristine();
+			$scope.getInventory();
 		};
 		/* jshint ignore:end */
 	}
