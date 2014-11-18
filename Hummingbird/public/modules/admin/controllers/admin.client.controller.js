@@ -68,15 +68,14 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		{
 			var send = 
 			{
-				orderId: $scope.waitingOrders[index].orderId
+				orderId: $scope.waitingOrders[index].orderId,
+				item: $scope.waitingOrders[index].item
 			};
 			/* jshint ignore:start */
 			$http.post('/order/shipped', send).success(function(response) 
 			{
-				if(response.message != '')
-				{
-					alert(response.message);
-				}
+				alert(response.message);
+				$scope.getWaitingOrders();
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
@@ -87,12 +86,12 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		 /**
 		 * admin-orders.client.view.html
 		 */
-		$scope.shippedOrders = [];
+		$scope.otherOrders = [];
 		$scope.getOtherOrders = function() 
 		{
 			$http.get('/order/list').success(function(response) 
 			{
-				$scope.shippedOrders=response;
+				$scope.otherOrders=response;
 			}).error(function(response) 
 			{
 				$scope.error = response.message;

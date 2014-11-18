@@ -31,7 +31,6 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 				$http.get('/result/verifierList',{userId: $scope.authentication.user.userId}).success(function(response) 
 				{
 					$scope.results=response;
-					console.log('Testing Submit Results');
 
 				}).error(function(response) 
 				{

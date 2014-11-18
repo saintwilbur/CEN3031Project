@@ -5,20 +5,21 @@ angular.module('customer').controller('RegisterKitController', ['$scope', '$root
 	function($scope,$rootScope, Authentication, $http) {
 		
 		$scope.authentication = Authentication;
+		$scope.registerField = '';
 
 		$scope.checkRegisterCode = function()
 		{
-			console.log($scope.registerField);
 			var send = 
 			{
 				user: $scope.authentication.user._id,
 				item: 'KitA',
-//				registerCode: $scope.registerField
+				registerCode: $scope.registerField
 			};
 
 			$http.post('/order/checkRegisterCode/', send).success(function(response) {
-				$rootScope.$broadcast('refreshOrders');
-				 alert('Your kit is registered.');
+				alert('Kit for Order ID ' + response.orderId + ' has been registered.');
+				$scope.registerField = 'Enter Register Code';
+				$scope.registerKit.$setPristine();
 			}).error(function(response) {
 				$scope.error = response.message;
 			});

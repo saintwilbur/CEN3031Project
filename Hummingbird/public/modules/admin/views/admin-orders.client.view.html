@@ -22,14 +22,14 @@
 									<table class="table table-hover table-condensed table-striped">
 										<thead>
 											<tr>
-												<th class="col-md-4">Order ID</th>
-												<th class="col-md-2">Date</th>
-												<th class="col-md-2">Register Code</th>
+												<th class="col-md-2">Order ID</th>
+												<th class="col-md-4">Date Placed</th>
+												<th class="col-md-4">Register Code</th>
 												<th class="col-md-3">Status</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat="order in shippedOrders | filter:query">
+											<tr ng-repeat="order in otherOrders | filter:query">
 												<td>{{order.orderId}}</td>
 												<td>{{order.created}}</td>
 												<td>{{order.registerCode}}</td>
