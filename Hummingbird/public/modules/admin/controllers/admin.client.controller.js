@@ -65,7 +65,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			});
 		}; 
 		$scope.shipKit = function(index)
-		{	console.log('Function called');
+		{	
 			var send = 
 			{
 				orderId: $scope.waitingOrders[index].orderId,
