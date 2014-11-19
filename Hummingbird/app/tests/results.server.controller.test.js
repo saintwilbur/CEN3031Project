@@ -13,7 +13,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var user, result;
+var user, user2, result, result2;
 
 /**
  * Unit tests
@@ -29,43 +29,101 @@ describe('Result Controller Unit Tests:', function() {
 			username: 'username',
 			password: 'password',
 			provider: 'local',
+			roles: 'customer',
+			dateOfBirth: '1992-06-14',
+			gender: 'male'
+		});	
+
+		user2 = new User({
+			userId: '23456',
+			firstName: 'Full',
+			lastName: 'Name',
+			displayName: 'Full Name',
+			email: 'test@test.com',
+			username: 'username',
+			password: 'password',
+			provider: 'local',
 			roles: 'lab',
 			dateOfBirth: '1992-06-14',
 			gender: 'male'
-		});		
+		});	
 
 		result = new Result({
-			resutlId: '12345',
+			resutlId: '12346',
+			user: user._id,
+			result: 'positive',
+			status: 'Submitted',
+			submittedBy: '12345',
+			verifiedBy: '23456'
+		});	
+		result2 = new Result({
+			resutlId: '12895',
 			user: user._id,
 			result: 'positive',
 			submittedBy: '12345',
-			verifiedBy: '12345'
-		});		
+			verifiedBy: '23456'
+		});	
 
 		user.save();
-		result.save();		
+		result.save();
+		user2.save();		
 		done();
 	
 	});
 	
 	describe('Method list', function() {
-		it('should be able to list all results without problems', function(done) {
+		it('result.list() should be able to list all results without problems', function(done) {
 			var req = {};
 
 			var res = {
 				jsonp: function(object) {
-					//object.user.should.equal(user._id);
+					object[0].result.should.equal('positive');
+					object[0].submittedBy.should.equal('12345');
+					//object[0].user.should.equal(result.user);
 				}
 			};
+
 			results.list(req, res);
 			done();
 		});
+
+		it('result.list() should not return wrong information', function(done) {
+			var req = {};
+
+			var res = {
+				jsonp: function(object) {
+					object[0].result.should.not.equal('negative');
+					object[0].submittedBy.should.not.equal('1234');
+				}
+			};
+
+			results.list(req, res);
+			done();
+		});
+
+		it('result.listCanVerify() should return correct list of results', function(done) {
+			var req = {
+				body: {
+					userId: '23456'
+				}
+			};
+			
+			var res = {
+				jsonp: function(object) {
+					object[0].verifiedBy.should.equal('23456');
+				}
+			};
+
+			results.listCanVerify(req, res);
+			done();
+		});
+
 	});
+
 	
 	afterEach(function(done) { 
-		Order.remove().exec();
+		Result.remove().exec();
 		User.remove().exec();
-
 		done();
 	});
 });

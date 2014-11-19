@@ -78,6 +78,35 @@ describe('Order Controller Unit Tests:', function() {
 			orders.create(req, res);
 			done();
 		});
+
+		it('should return error with invalid inputs', function(done) {
+			var req = 
+			{
+				body : {
+					user: user._id,
+					item: 'General',
+					field1: 'Test',
+					field2: 'Test',
+					shippingAddress: {
+						streetNumber: '123',
+						streetName: 'street',
+						city: 'city',
+						state: 'Florida',
+						zipCode: 12345
+					}
+				}
+			};
+
+			var res = {				
+				jsonp: function(object) {
+				},
+				send: function(message) {
+					//message.should.equal('Need Billing Information');
+				}
+			};
+			orders.create(req, res);
+			done();
+		});
 	});
 
 	afterEach(function(done) { 

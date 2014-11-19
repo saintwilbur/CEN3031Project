@@ -11,6 +11,8 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
     _ = require('lodash');
 
+var core = require('../../app/controllers/core.server.controller.js');
+
 /**
  * Create a Result
  * controller will need to pass in 
@@ -23,7 +25,7 @@ exports.create = function(req, res) {
 	result.result = req.body.outcome;
 	result.submittedBy = req.body.userId;
 	result.verifiedBy = req.body.verfiedBy;
-
+	result.resultId = core.getId();
 	var size;
 	//order the result belongs to
 	var resultOrder;
@@ -164,7 +166,7 @@ exports.listPerLab = function(req, res) {
  * will return an array of result objects
  */
 exports.listCanVerify = function(req, res) {
-	Result.find({verifiedby: req.body.userId, status: 'Submitted'}).sort('-created').exec(function(err, result){
+	Result.find({verifiedBy: req.body.userId, status: 'Submitted'}).sort('-created').exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({

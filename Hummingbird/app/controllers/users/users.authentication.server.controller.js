@@ -10,6 +10,8 @@ var _ = require('lodash'),
 	LabFacility = mongoose.model('LabFacility'),
 	User = mongoose.model('User');
 
+var core = require('../../../app/controllers/core.server.controller.js');
+
 /**
  * Signup
  */
@@ -27,7 +29,7 @@ exports.signup = function(req, res) {
 	// Add missing user fields
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
-
+	user.userId = core.getId();
 	/** saving user
 	 *	if not lab or admin, continue to save.
 	 *  if lab or admin then check verification code.
@@ -57,7 +59,7 @@ exports.signup = function(req, res) {
 				// Remove sensitive data before login
 				user.password = undefined;
 				user.salt = undefined;
-
+				
 				req.login(user, function(err) {
 					if (err) {
 						res.status(400).send(err);

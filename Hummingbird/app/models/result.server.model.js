@@ -68,7 +68,7 @@ var ResultSchema = new Schema({
 });
 
 ResultSchema.pre('save', function(next) {
-	this.resultId = this.getResultId();
+	//this.resultId = this.getResultId();
 	next();
 });
 

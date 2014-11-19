@@ -108,7 +108,7 @@ var OrderSchema = new Schema({
 
 });
 
-
+/*
 OrderSchema.pre('save', function(next) {
 	this.registerCode = this.createRegisterCode();
 	next();
@@ -124,6 +124,6 @@ OrderSchema.methods.createRegisterCode = function() {
 		});
 	return registerCode;
 };
-
+*/
 
 mongoose.model('Order', OrderSchema);

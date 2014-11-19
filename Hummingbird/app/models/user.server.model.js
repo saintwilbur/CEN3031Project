@@ -141,7 +141,7 @@ UserSchema.pre('save', function(next) {
 		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
 		this.password = this.hashPassword(this.password);
 	}
-	this.userId = this.getUUID();
+	//this.userId = this.getUUID();
 	next();
 });
 

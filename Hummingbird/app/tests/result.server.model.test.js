@@ -44,14 +44,18 @@ describe('Result Model Unit Tests:', function() {
 			}
 		});
 		
-		user.save(function() { 
-			result = new Result({
-				user: user,
-				facility: facility				
-			});
-
-			done();
+		result = new Result ({
+			user:user,
+			result: 'positive',
+			submittedBy: '12',
+			verifiedBy: '456'
 		});
+
+		result.save();
+		user.result = result;
+
+		user.save();
+		done();
 	});
 
 	describe('Method Save', function() {
