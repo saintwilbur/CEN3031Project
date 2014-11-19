@@ -113,6 +113,22 @@ describe('Order Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+		it('should require billing', function(done) {
+			order.billing = null;
+			return order.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should ask for shippingAddress', function(done) {
+			order.shippingAddress = null;
+			return order.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
 	});
 
 	afterEach(function(done) { 

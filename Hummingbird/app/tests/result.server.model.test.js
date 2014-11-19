@@ -77,6 +77,14 @@ describe('Result Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+		it('should save without comment', function(done) {
+			result.comments = '';
+			return result.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
 	});
 
 	afterEach(function(done) { 
