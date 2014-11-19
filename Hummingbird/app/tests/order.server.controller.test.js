@@ -19,7 +19,7 @@ var user, facility, result, order;
 /**
  * Unit tests
  */
- describe('Order Controller Unit Tests:', function() {
+describe('Order Controller Unit Tests:', function() {
 	beforeEach(function(done) {
 		user = new User({
 			userId: '12345',
@@ -52,44 +52,44 @@ var user, facility, result, order;
 		});				
 
 		user.save();
-			done();
+		done();
 	
 	});
 
 	describe('Method Create', function() {
 		it('should be able to create without problems', function(done) {
 			var req = 
-			{body : {
-				user: user._id,
-				item: 'General',
-				field1: 'Test',
-				field2: 'Test',
-				billing: {
-					cardHolderName: 'holderName',
-					cardNumber: '123456789',
-					address: {
+			{
+				body : {
+					user: user._id,
+					item: 'General',
+					field1: 'Test',
+					field2: 'Test',
+					billing: {
+						cardHolderName: 'holderName',
+						cardNumber: '123456789',
+						address: {
+							streetNumber: '123',
+							streetName: 'street',
+							city: 'city',
+							state: 'Florida',
+							zipCode: 12345
+						}
+					},		
+					shippingAddress: {
 						streetNumber: '123',
 						streetName: 'street',
 						city: 'city',
 						state: 'Florida',
 						zipCode: 12345
 					}
-				},		
-				shippingAddress: {
-					streetNumber: '123',
-					streetName: 'street',
-					city: 'city',
-					state: 'Florida',
-					zipCode: 12345
 				}
-			}
-		};
+			};
 
-			var test = {};
-			var res = {
+			var res = {				
 				jsonp: function(object) {
-					object.item.should.equal('General');
 					object.user.should.equal(user._id);
+					object.item.should.equal('General');					
 				}
 			};
 			orders.create(req, res);

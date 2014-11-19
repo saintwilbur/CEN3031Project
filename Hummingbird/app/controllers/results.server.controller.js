@@ -22,7 +22,7 @@ exports.create = function(req, res) {
 	result.comments = req.body.comment;
 	result.result = req.body.outcome;
 	result.submittedBy = req.body.userId;
-					result.verifiedBy = req.body.verfiedBy;
+	result.verifiedBy = req.body.verfiedBy;
 
 	var size;
 	//order the result belongs to
@@ -142,7 +142,7 @@ exports.list = function(req, res) {
 };
 
 /**
- * scrap.
+ * Scrap.
  */
 exports.listPerLab = function(req, res) {
 	Result.find().sort('-created').exec(function(err, result){
