@@ -51,39 +51,51 @@ var user, facility, result, order;
 				facility: facility
 		});				
 
-		user.save(function() { 
-			order = new Order({
-				orderId: '12345',
-				user: user,
-				item: 'General',
-				result: result,
-				field1: 'Test',
-				field2: 'Test'
-			});
-			order.save();
+		user.save();
 			done();
-		});
+	
 	});
 
-	/*describe('Method Create', function() {
+	describe('Method Create', function() {
 		it('should be able to create without problems', function(done) {
-			var req = {};
-			req.body = {
-				user: user,
-				item: 'sample'
-			};
+			var req = 
+			{body : {
+				user: user._id,
+				item: 'General',
+				field1: 'Test',
+				field2: 'Test',
+				billing: {
+					cardHolderName: 'holderName',
+					cardNumber: '123456789',
+					address: {
+						streetNumber: '123',
+						streetName: 'street',
+						city: 'city',
+						state: 'Florida',
+						zipCode: 12345
+					}
+				},		
+				shippingAddress: {
+					streetNumber: '123',
+					streetName: 'street',
+					city: 'city',
+					state: 'Florida',
+					zipCode: 12345
+				}
+			}
+		};
 
+			var test = {};
 			var res = {
 				jsonp: function(object) {
-					//object[0].user.should.equal(user._id);
-					//object[0].item.should.equal('sample');
+					object.item.should.equal('General');
+					object.user.should.equal(user._id);
 				}
 			};
-
 			orders.create(req, res);
 			done();
 		});
-	});*/
+	});
 
 	afterEach(function(done) { 
 		Order.remove().exec();

@@ -17,7 +17,7 @@ angular.module('customer').controller('RegisterKitController', ['$scope', '$root
 			};
 
 			$http.post('/order/checkRegisterCode/', send).success(function(response) {
-				alert('Kit for Order ID ' + response.orderId + ' has been registered.');
+				alert(response.message);
 				$scope.registerField = 'Enter Register Code';
 				$scope.registerKit.$setPristine();
 			}).error(function(response) {

@@ -13,6 +13,7 @@ var mongoose = require('mongoose'),
 	//BillingInformation = mongoose.model('BillingInformation'), 
     _ = require('lodash');
 
+var inventory = require('../../app/controllers/inventory.server.controller.js');
 /**
  * Create a Order
  */
@@ -50,7 +51,7 @@ exports.read = function(req, res)
 	res.jsonp(req.body.order);
 };
 
-/**
+/***
  * Update a Order
  */
 exports.update = function(req, res) {
@@ -162,6 +163,7 @@ exports.listRegistered = function(req, res)
 		{
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
+
 				
 			});
 		} else 
@@ -206,14 +208,13 @@ exports.listLabCompletedOrders = function(req, res)
 };
 
 /**
- * Function will check to make sure the Register Code from the order exist on an order. 
+ * Function will check to make sure the Register Code from the order exists on a 'placed' order for the user. 
  * req.body will need to contain the 
- * register code, req.body.registerCode
+ * register code, req.body.registerCode, and the customer's id, req.body.userId
  */
 exports.checkRegisterCode = function(req, res) 
 {
-	console.log('test');
-	Order.findOne({registerCode: req.body.registerCode}).exec(function(err, orders) 
+	Order.findOne({user: req.body.user, status: 'shipped', registerCode: req.body.registerCode}).exec(function(err, orders) 
 	{
 
 		if(err) 
@@ -224,14 +225,25 @@ exports.checkRegisterCode = function(req, res)
 		}
 		else 
 		{
-			if(orders.length <= 0) {
+			if(orders == null) {
 				return res.send({
-					message: 'Register code does not exist in system.'
+					message: 'Matching order for this code does not exist in the system.'
 				});
 			}
 			else
 			{
 				orders = _.extend(orders, {status: 'registered'});
+				orders.save(function(err) {
+					if (err) {
+						return res.send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					} else {
+						return res.send({
+							message: 'Kit for Order ID ' + orders.orderId + ' has been registered.'
+						});
+					}
+				});
 			}
 		}
 	});
@@ -241,10 +253,11 @@ exports.checkRegisterCode = function(req, res)
  * Function to set status of orders to shipped
  * Function is only for Admins 
  * req.body.orderId will need to be the orderId of the the order
+ * req.body.item will need to be the name of the kit
  */
 exports.setShipped = function(req, res) 
 {
-	Order.findOne({orderId: req.body.orderId}).exec(function(err, orders){
+	Order.findOne({orderId: req.body.orderId, status: 'placed'}).exec(function(err, orders){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -253,27 +266,42 @@ exports.setShipped = function(req, res)
 		} 
 		else 
 		{
-			Item.findOne({name: req.body.item}).exec(function(err, items){
-				if (err) 
-				{
-					return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-					});
-				}
-				else if(orders.length <= 0) {
-					return res.send({
-						message: 'Order does not exist in system.'
-					});
-				}
-				else if(items.count <= 0) {
+			if(orders == null) {
+				return res.send({
+					message: 'Order does not exist in system.'
+				});
+			}
+			Item.findOne({name: req.body.item, count: { $gt: 0 }}).exec(function(err, items){
+				if(items == null) {
 					return res.send({
 						message: 'Not enough item in the inventory.'
 					});
 				}
 				else 
 				{
+					console.log(items);
 					orders = _.extend(orders, {status: 'shipped'});
-					Item.update({name: req.body.item}, {$inc: {count: -1}});
+					var req1 = 
+					{
+						body : { 
+								itemId: items.itemId, 
+								count: -1
+							}
+					};
+					var res1 = {};
+					inventory.updateCount(req1, res1);
+					console.log(items);
+					orders.save(function(err) {
+						if (err) {
+							return res.send({
+								message: errorHandler.getErrorMessage(err)
+							});
+						} else {
+							res.send({
+								message: 'Kit for Order ID ' + orders.orderId + ' has been shipped.'
+							});
+						}
+					});
 				}
 			});
 		}
@@ -320,7 +348,7 @@ exports.checkIsRegistered = function(req, res)
  */
 exports.shippingAddress = function(req, res) 
 {
-	Order.findOne({orderId: req.body.orderId}, {_id:0, 'orderId': 1, 'shipping':1}).exec(function(err, orderFound)
+	Order.findOne({orderId: req.body.orderId}, {_id:0, 'orderId': 1, 'shippingAddress':1}).exec(function(err, orderFound)
 	{
 		if(err)
 		{

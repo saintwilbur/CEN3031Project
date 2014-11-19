@@ -12,14 +12,25 @@ angular.module('customer').controller('NewOrderCtrl', ['$scope', '$rootScope', '
 			var send = 
 			{
 				user: $scope.authentication.user._id,
-				item: 'KitA'
-				/**
-				 *forms: 
-				 *{
-				 *	name: 'Sample Test',
-				 *	fieldTest: fieldArray
-				 *}
-				 */
+				item: 'KitA',
+				billing: {
+					cardHolderName: 'holderName',
+					cardNumber: '123456789',
+					address: {
+						streetNumber: '123',
+						streetName: 'street',
+						city: 'city',
+						state: 'Florida',
+						zipCode: 12345
+					}
+				},		
+				shippingAddress: {
+					streetNumber: '123',
+					streetName: 'street',
+					city: 'city',
+					state: 'Florida',
+					zipCode: 12345
+				}
 			};
 			$http.post('/order/new', send).success(function(response) {
 				$rootScope.$broadcast('refreshOrders');
