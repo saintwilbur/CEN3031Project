@@ -1,4 +1,3 @@
-
 'use strict';
 
 angular.module('customer').controller('RegisterKitController', ['$scope', '$rootScope', 'Authentication', '$http',

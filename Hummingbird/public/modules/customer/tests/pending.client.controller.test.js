@@ -60,6 +60,15 @@
 
 			// test scope value
 			expect(scope.orders).toBe('order');
+		}));
+		it('$scope.getPendingOrders should return the pending orders for user', inject(function(User) {
+			scope.authentication.user = new User({_id:'525cf20451979dea2c000001'});
+			$httpBackend.when('GET', '/order/pending').respond(200, 'order');
+
+			scope.getPendingOrders();
+			$httpBackend.flush();
+
+			// test scope value
 			expect(scope.error).toEqual(undefined);
 		}));
 

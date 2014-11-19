@@ -1,4 +1,4 @@
-2'use strict';
+'use strict';
 /* jshint ignore:start */
 angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'Authentication','$http', 
 	function($scope, $rootScope, Authentication, $http) {

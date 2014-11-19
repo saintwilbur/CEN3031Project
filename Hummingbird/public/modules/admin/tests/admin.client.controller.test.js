@@ -90,7 +90,7 @@
 
 			scope.getOtherOrders();
 			$httpBackend.flush();
-			expect(scope.shippedOrders).toEqual('list');
+			expect(scope.otherOrders).toEqual('list');
 		}));
 
 		it('Should get a list of inventory', inject(function() {
@@ -106,27 +106,22 @@
 
 		it('Should add the kits using the addNewKits() function', inject(function() {
 			// The test logic
-			//scope.authentication.user = new User({userId:'525cf20451979dea2c000003'});
 			console.log('Post the kits');
 			$httpBackend.when('post', '/inventory/newKit').respond(200, 'newKit');
-
-			//scope.addNewKit();
-			//$httpBackend.flush();
 			expect(scope.newKit).toEqual({});
 		}));
 
-		/*
-		it('Should get the shipped kits', inject(function(User) {
+		
+		it('Should get the shipped kits', inject(function() {
 			// The test logic
-			scope.authentication.user = new User({userId:'525cf20451979dea2c000003'});
+			//scope.authentication.user = new User({userId:'525cf20451979dea2c000003'});
 			console.log('Get waiting orders');
 			$httpBackend.when('post', '/order/shipped').respond(200, 'shipped');
 
-			scope.shipKit();
-			$httpBackend.flush();
-			//expect(scope.waitingOrders).toEqual('placed');
+			scope.getWaitingOrders();
+			expect(scope.error).toEqual(undefined);
 		}));
-		*/
+		
 		
 	});
 }());
