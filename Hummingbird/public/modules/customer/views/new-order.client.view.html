@@ -1,27 +1,25 @@
-<section data-ng-controller="NewOrderCtrl">
-	<div class = "well">
+<section data-ng-controller="NewOrderCtrl" data-ng-init = "getKits()">
 	<h2>New Order</h2>
-	<br>
+		<div class = "well">
+
 	<form name="sampleTest"class="form-horizontal" ng-submit="submitOrder()">
 		<fieldset>
-			<!-- Form Name -->
-			<legend>Sample Test</legend>
+			<legend>Test Kit Information</legend>
 
+				<!-- Select Basic -->
+			<div class="form-group">
+				<label class="col-md-2 control-label">Select a Test Kit</label>
+				<div class="col-md-2">
+					<select class="form-control" data-ng-model="formData.kitName">
+						<option ng-repeat="kit in availableKits" value="{{kit.name}}">{{kit.name}}</option>
+					</select>
+				</div>
+			</div>
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-2 control-label" for="textinput">Text Input</label>  
 				<div class="col-md-2">
 					<input id="textinput" name="textinput" data-ng-model="formData.field1" placeholder="placeholder" class="form-control input-md" type="text">
-				</div>
-			</div>
-			<!-- Select Basic -->
-			<div class="form-group">
-				<label class="col-md-2 control-label" for="selectbasic">Select Basic</label>
-				<div class="col-md-2">
-					<select id="selectbasic" name="selectbasic" class="form-control" data-ng-model="formData.field2">
-						<option value="1">Option one</option>
-						<option value="2">Option two</option>
-					</select>
 				</div>
 			</div>
 			<!-- Multiple Radios -->

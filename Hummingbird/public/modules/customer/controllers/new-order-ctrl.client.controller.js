@@ -5,14 +5,27 @@ angular.module('customer').controller('NewOrderCtrl', ['$scope', '$rootScope', '
 		
 		$scope.authentication = Authentication;
 
+		$scope.availableKits = [];
+		$scope.getKits = function()
+		{
+			$http.get('/inventory/listAll').success(function(response) 
+			{
+				$scope.availableKits=response;
+			}).error(function(response) 
+			{
+				$scope.error = response.message;
+					console.log(response.message);
+
+			}); 
+		};
+		$scope.formData = {};
 		$scope.submitOrder = function()
 		{
 			//var fieldArray = [$scope.formData.field1, $scope.formData.field2, $scope.formData.field3];
-
 			var send = 
 			{
 				user: $scope.authentication.user._id,
-				item: 'KitA',
+				item: $scope.formData.kitName,
 				billing: {
 					cardHolderName: 'holderName',
 					cardNumber: '123456789',
@@ -34,12 +47,12 @@ angular.module('customer').controller('NewOrderCtrl', ['$scope', '$rootScope', '
 			};
 			$http.post('/order/new', send).success(function(response) {
 				$rootScope.$broadcast('refreshOrders');
-				$scope.formData={};
-				$scope.item='';
-				 alert('Your Order has been submitted.');
+				alert('Your Order for a '+ send.item +' test kit has been submitted.');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
+			$scope.formData = {};
+			$scope.sampleTest.$setPristine();
 		};
 	}
 ]);

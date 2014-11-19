@@ -17,7 +17,7 @@ angular.module('customer').controller('PendingController', ['$scope', 'Authentic
 				$scope.error = response.message;
 			}); 
 		};
-			$scope.$on('refreshOrders', function (event) {
+		$scope.$on('refreshOrders', function (event) {
 			$scope.getPendingOrders();
 		});
 	}
