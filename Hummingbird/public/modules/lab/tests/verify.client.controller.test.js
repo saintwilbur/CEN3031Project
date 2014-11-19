@@ -59,9 +59,20 @@
 
 			// test scope value
 			expect(scope.results).toBe('result');
+		}));
+
+		it('$scope.getSubmittedResults check for undefined response value', inject(function(User) {
+			scope.authentication.user = new User({_id:'525cf20451979dea2c000001'});
+			$httpBackend.when('GET', '/result/verifierList').respond(200, 'result');
+
+			scope.getSubmittedResults();
+			$httpBackend.flush();
+
+			// test scope value
 			expect(scope.error).toEqual(undefined);
 		}));
-		
+
+
 		it('Should search order for user', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({_id:'525cf20451979dea2c000002'});
@@ -73,6 +84,17 @@
 			expect(scope.searchOrders).toEqual('verify');
 		}));
 
+		it('Should search order for user', inject(function(User) {
+			// The test logic
+			scope.authentication.user= new User({_id:'525cf20451979dea2c000002'});
+			
+			$httpBackend.when('GET', '/order/verify').respond(200, 'verify');
+
+			scope.searchOrders();
+			$httpBackend.flush();
+			expect(scope.error).toEqual(undefined);
+		}));
+
 		it('Should get the submitted results of the user', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
@@ -82,6 +104,16 @@
 			scope.getSubmittedResults();
 			$httpBackend.flush();
 			expect(scope.results).toEqual('verifierList');
+		}));
+		it('checking for errors in the submitted results', inject(function(User) {
+			// The test logic
+			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
+			console.log('Result Verifier List');
+			$httpBackend.when('GET', '/result/verifierList').respond(200, 'verifierList');
+
+			scope.getSubmittedResults();
+			$httpBackend.flush();
+			expect(scope.error).toEqual(undefined);
 		}));
 		it('Should get the acceptResult results', inject(function(User) {
 			// The test logic

@@ -51,14 +51,26 @@
 			}));
 		
 			
-			it('Should get some specific lab info', inject(function() {
+			it('Should get some specific lab info', inject(function(User) {
 				// The test logic
+				scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
 				console.log('Get the lab info');
 				$httpBackend.when('GET', '/users/labs').respond(200, 'labs');
 
 				scope.getLabs();
 				$httpBackend.flush();
 				expect(scope.labs).toEqual('labs');
+			}));
+
+			it('Checking for error in the get lab info', inject(function(User) {
+				// The test logic
+				scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
+				console.log('Get the lab info');
+				$httpBackend.when('GET', '/users/labs').respond(200, 'labs');
+
+				scope.getLabs();
+				$httpBackend.flush();
+				expect(scope.error).toEqual(undefined);
 			}));
 
 			it('Should get some specific customer info', inject(function() {
@@ -70,7 +82,27 @@
 			$httpBackend.flush();
 			expect(scope.customers).toEqual('customers');
 		}));
+		it('Checking for error in customers info', inject(function(User) {
+			// The test logic
+			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
+			console.log('Get the customer info');
+			$httpBackend.when('GET', '/users/customers').respond(200, 'customers');
+			//
+			scope.getCustomer();
+			$httpBackend.flush();
+			expect(scope.error).toEqual(undefined);
+		}));
 
+		it('Should get the waiting orders', inject(function(User) {
+			// The test logic
+			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
+			console.log('Get waiting orders');
+			$httpBackend.when('GET', '/order/placed').respond(200, 'placed');
+
+			scope.getWaitingOrders();
+			$httpBackend.flush();
+			expect(scope.error).toEqual(undefined);
+		}));
 		it('Should get the waiting orders', inject(function(User) {
 			// The test logic
 			console.log('Get waiting orders');
@@ -81,10 +113,9 @@
 			expect(scope.waitingOrders).toEqual('placed');
 		}));
 
-		
-
-		it('Should get the other orders', inject(function() {
+		it('Should get the other orders', inject(function(User) {
 			// The test logic
+			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
 			console.log('Get the other orders');
 			$httpBackend.when('GET', '/order/list').respond(200, 'list');
 
@@ -93,14 +124,36 @@
 			expect(scope.otherOrders).toEqual('list');
 		}));
 
-		it('Should get a list of inventory', inject(function() {
+		it('Checking for errors from the  other orders function', inject(function(User) {
 			// The test logic
+			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
+			console.log('Get the other orders');
+			$httpBackend.when('GET', '/order/list').respond(200, 'list');
+
+			scope.getOtherOrders();
+			$httpBackend.flush();
+			expect(scope.error).toEqual(undefined);
+		}));
+
+		it('Should get a list of inventory', inject(function(User) {
+			// The test logic
+			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
 			console.log('Get the other orders');
 			$httpBackend.when('GET', '/inventory/listAll').respond(200, 'listAll');
 
 			scope.getInventory();
 			$httpBackend.flush();
 			expect(scope.inventory).toEqual('listAll');
+		}));
+		it('Checking for error in the response for the list of inventory', inject(function(User) {
+			// The test logic
+			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
+			console.log('Get the other orders');
+			$httpBackend.when('GET', '/inventory/listAll').respond(200, 'listAll');
+
+			scope.getInventory();
+			$httpBackend.flush();
+			expect(scope.error).toEqual(undefined);
 		}));
 
 
@@ -112,7 +165,7 @@
 		}));
 
 		
-		it('Should get the shipped kits', inject(function() {
+		it('Checking for errors from the shipKit response function', inject(function() {
 			// The test logic
 			//scope.authentication.user = new User({userId:'525cf20451979dea2c000003'});
 			console.log('Get waiting orders');
