@@ -14,7 +14,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var user, facility, result, order;
+var user, order;
 
 /**
  * Unit tests
@@ -33,24 +33,7 @@ describe('Order Controller Unit Tests:', function() {
 			dateOfBirth: '1992-06-14',
 			gender: 'male'
 		});
-
-		facility = new Facility({
-			facilityId: '12345',
-			facilityName: 'UF',
-			location: {
-				streetNumber: '1864',
-				streetName: 'Stadium',
-				city: 'Gainesville',
-				state: 'Florida',
-				zipcode: '32608'
-			}
-		});
-
-		result = new Result({
-				user: user,
-				facility: facility
-		});				
-
+		
 		user.save();
 		done();
 	
