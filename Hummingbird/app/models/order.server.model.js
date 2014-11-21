@@ -70,8 +70,8 @@ var OrderSchema = new Schema({
 		required: 'Need Shipping address'
 	},
 	created: {
-		type: Date,
-		default: Date.now
+		type: String,
+		default: Date.prototype.toDateString(Date.now())
 	},
 	completed: {
 		type: Date
