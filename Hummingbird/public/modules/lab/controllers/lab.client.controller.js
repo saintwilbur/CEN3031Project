@@ -99,6 +99,17 @@ angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$htt
 				$scope.error = response.message;
 			});*/
 		};
+		$scope.registeredOrders = [];
+		$scope.getRegistered = function() 
+		{
+			$http.get('/order/listRegistered').success(function(response) 
+			{
+				$scope.registeredOrders=response;
+			}).error(function(response) 
+			{
+				$scope.error = response.message;
+			});
+		}; 
 	}
 ]);
 /* jshint ignore:end */

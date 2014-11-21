@@ -173,8 +173,6 @@ exports.listShipped = function(req, res)
 exports.listRegistered = function(req, res) 
 {
 	Order.find({status: 'registered'}).sort('-created').exec(function(err, order){
-		console.log('test');
-
 		if (err) 
 		{
 			return res.status(400).send({
