@@ -12,7 +12,9 @@ var _ = require('lodash'),
 	nodemailer = require('nodemailer'),
 	crypto = require('crypto'),
 	async = require('async'),
-	crypto = require('crypto');
+	crypto = require('crypto'),
+	mandrill = require('mandrill-api/mandrill'),
+	mandrill_client = new mandrill.Mandrill('y6EIYNIwNBbIaneTap-iXw');
 
 /**
  * Forgot for reset password (forgot POST)
@@ -66,22 +68,41 @@ exports.forgot = function(req, res, next) {
 		},
 		// If valid email, send reset email using service
 		function(emailHTML, user, done) {
-			var smtpTransport = nodemailer.createTransport(config.mailer.options);
+			//var smtpTransport = nodemailer.createTransport(config.mailer.options);
+			/*
 			var mailOptions = {
 				to: user.email,
 				from: config.mailer.from,
 				subject: 'Password Reset',
 				html: emailHTML
 			};
-			smtpTransport.sendMail(mailOptions, function(err) {
-				if (!err) {
-					res.send({
-						message: 'An email has been sent to ' + user.email + ' with further instructions.'
-					});
-				}
-
-				done(err);
-			});
+			*/
+			var message = {
+	    		'html': emailHTML,
+	    		'subject': 'Password Reset',
+	    		'from_email': 'sltalty@gmail.com',
+	    		'from_name': 'Customer Support',
+	    		'to': [{
+	            	'email': 'davidy114@hotmail.com',
+	            	'name': 'Recipient Name',
+	            	'type': 'to'
+	    		}],
+	    		'headers': {
+	        		'Reply-To': 'sltalty@gmail.com'
+	    		}
+	    	};			
+			var async = true;
+			var ip_pool = '587';
+			mandrill_client.messages.send({'message': message, 'async': async, 'ip_pool': ip_pool}, function(result) {
+				console.log(result);
+				res.send({
+					message: 'An email has been sent to ' + user.email + ' with further instructions.'
+				});
+				return;
+			}, function(e) {
+	    			// Mandrill returns the error as an object with name and message keys
+	    			console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+	    	});
 		}
 	], function(err) {
 		if (err) return next(err);
@@ -115,7 +136,6 @@ exports.reset = function(req, res, next) {
 	var message = null;
 
 	async.waterfall([
-
 		function(done) {
 			User.findOne({
 				resetPasswordToken: req.params.token,
