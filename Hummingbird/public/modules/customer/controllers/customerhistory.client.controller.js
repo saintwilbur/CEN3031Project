@@ -9,11 +9,12 @@ angular.module('customer').controller('CustomerHistoryController', ['$scope', 'A
     $scope.getHistory = function()
     {
       var send = {
-        user: $scope.authentication.user._id   
+        users: $scope.authentication.user._id   
       };
 
-      $http.get('/order/list',send).success(function(response) 
+      $http.get('/order/listorders',send).success(function(response) 
       {
+        console.log(send.users);
         $scope.orders=response;
         return $scope.orders;
       }).error(function(response) 

@@ -74,7 +74,7 @@ var OrderSchema = new Schema({
 		default: Date.prototype.toDateString(Date.now())
 	},
 	completed: {
-		type: Date
+		type: String
 	},
 	result: [{
 		type: Schema.ObjectId,

@@ -16,15 +16,15 @@ var core = require('../../app/controllers/core.server.controller.js');
 /**
  * Create a Result
  * controller will need to pass in 
- * userId (user submitting), orderId, verfiedBy (chosen userId), 
+ * userId (user submitting), orderId, verifiedBy (chosen userId), 
  * outcome (positive, negative), comment (from submitter)
  */
 exports.create = function(req, res) {
 	var result = new Result();
-	result.comments = req.body.comment;
-	result.result = req.body.outcome;
+	result.comments = req.body.comments;
+	result.result = req.body.result;
 	result.submittedBy = req.body.userId;
-	result.verifiedBy = req.body.verfiedBy;
+	result.verifiedBy = req.body.verifiedBy;
 	result.resultId = core.getId();
 	var size;
 	//order the result belongs to
@@ -166,7 +166,7 @@ exports.listPerLab = function(req, res) {
  * will return an array of result objects
  */
 exports.listCanVerify = function(req, res) {
-	Result.find({verifiedBy: req.body.userId, status: 'Submitted'}).sort('-created').exec(function(err, result){
+	Result.find({verifiedBy: req.body.userId, status: 'Submitted'}, {_id:0, 'resultId':1, 'created':1, }).sort('-created').exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -199,7 +199,7 @@ exports.submitResult = function(req, res) {
 };
 
 /*
- * Verifies the result
+ * Verifies(accepts) the result
  * controller needs to pass in 
  * userId, result_id, and verifierComment.
  * req.body.userId, req.body.result_id, req.body.verifierComment
@@ -207,7 +207,7 @@ exports.submitResult = function(req, res) {
 exports.verifyResult = function(req, res) {
 	var results = req.body.result_id;
 	var order = '';
-
+	var date = Date.prototype.toDateString(Date.now());
 	Result.findOne({_id: results}).sort('-created').exec(function(err, resultFound){
 		if (err) 
 		{
@@ -216,12 +216,12 @@ exports.verifyResult = function(req, res) {
 			});
 		} else 
 		{
-			resultFound = _.extend(resultFound, {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Verified'});
+			resultFound = _.extend(resultFound, {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Verified', completed: date});
 
 			if(req.user.userId != results.submittedBy)
 			{
 				order = Order.findOnd({result: results});
-				order =_.extend(order, {status: 'Completed'});
+				order =_.extend(order, {status: 'Completed', completed: date});
 				resultFound.save(function(err) {
 					if (err) {
 						return res.send({
@@ -261,7 +261,7 @@ exports.getResultData = function(req, res)
 			});
 		} else 
 		{
-			res.jsonp(result);
+			res.jsonp(req.body.resultId);
 		}
 	});
 };
@@ -273,7 +273,7 @@ exports.getResultData = function(req, res)
  */
 exports.getOrderInfo = function(req, res) 
 {
-	var results = req.body.results;
+	var results = req.body.resultId;
 
 	Order.findOne({result: req.body.resultId}, {_id:0, 'orderId':1, 'fields':1, 'created':1}).exec(function(err, orderItem) {
 		if(err) 
@@ -306,7 +306,7 @@ exports.rejectResult = function(req, res) {
 			});
 		} else 
 		{
-			resultFound[0] = _.extend(resultFound[0], {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Rejected', completed: Date.now});
+			resultFound[0] = _.extend(resultFound[0], {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Rejected', completed: Date.prototype.toDateString(Date.now())});
 			if(req.user.userId != results.submittedBy)
 			{
 				resultFound[0].save(function(err) {
@@ -341,7 +341,7 @@ exports.rejectResult = function(req, res) {
 exports.rejectedList = function(req, res) {
 	var labsId = req.body.labId;
 
-	Result.findOne({submittedBy: labsId, status: 'Rejected'}, {_id:0, 'resultId':1, 'result':1, 'comments':1, 'verifiersComments':1, 'completed':1}).exec(function(err, results)
+	Result.find({submittedBy: labsId, status: 'Rejected'}, {_id:0, 'resultId':1, 'result':1, 'comments':1, 'verifiersComments':1, 'completed':1}).exec(function(err, results)
 	{
 		if (err) 
 		{

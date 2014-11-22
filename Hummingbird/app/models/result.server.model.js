@@ -45,11 +45,11 @@ var ResultSchema = new Schema({
 		type: String
 	},
 	created: {
-		type: Date,
-		default: Date.now
+		type: String,
+		default: Date.prototype.toDateString(Date.now())
 	},
 	completed: {
-		type: Date
+		type: String
 	},
 	status: {
 		type: [{

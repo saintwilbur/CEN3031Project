@@ -73,7 +73,7 @@ exports.read = function(req, res)
 exports.update = function(req, res) {
 	var order = req.body.order;
 	if (req.body.orderStatus === 'completed') {		
-		order = _.extend(order, {status: req.body.orderStatus, completed: Date.now()});
+		order = _.extend(order, {status: req.body.orderStatus, completed: Date.prototype.toDateString(Date.now())});
 	} else {
 		order = _.extend(order, {status: req.body.orderStatus});
 	}
@@ -100,10 +100,11 @@ exports.delete = function(req, res) {
 };
 
 /**
- * List of Orders
+ * List of Orders for customer
  */
-exports.list = function(req, res) {
-	Order.find({ }).sort('-created').exec(function(err, order){
+exports.customerList = function(req, res) 
+{
+	Order.find({user: req.user}, {_id:0, 'fields':1, 'created':1, 'item':1, 'shippingAddress':1, 'status':1, 'result':1}).sort('-created').exec(function(err, order){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -115,6 +116,25 @@ exports.list = function(req, res) {
 		}
 	});
 };
+
+/**
+ * List of Orders for admin
+ */
+exports.adminList = function(req, res) 
+{
+	Order.find({}).sort('-created').exec(function(err, order){
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(order);
+		}
+	});
+};
+
 
 //list user's placed order
 exports.listPlacedForUser = function(req, res) 
@@ -375,4 +395,9 @@ exports.shippingAddress = function(req, res)
 			res.jsonp(orderFound);
 		}
 	});
+};
+
+exports.verifyList = function(req, res)
+{
+
 };

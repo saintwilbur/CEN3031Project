@@ -15,8 +15,8 @@ var validateLocalStrategyProperty = function(property) {
  */
 var MessagingSchema = new Schema({
 	created: {
-		type: Date,
-		default: Date.now
+		type: String,
+		default: Date.prototype.toDateString(Date.now())
 	},
 	firstName: {
 		type: String,

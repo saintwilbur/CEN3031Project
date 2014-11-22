@@ -100,8 +100,8 @@ var UserSchema = new Schema({
 		type: Date
 	},
 	created: {
-		type: Date,
-		default: Date.now
+		type: String,
+		default: Date.prototype.toDateString(Date.now())
 	},
 	/* For reset password */
 	resetPasswordToken: {
