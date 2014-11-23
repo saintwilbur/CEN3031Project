@@ -18,10 +18,14 @@ angular.module('customer').controller('NewOrderCtrl', ['$scope', '$rootScope', '
 
 			}); 
 		};
-		$scope.formData = {};
+		$scope.formData = {};;
+		$scope.formData.kitName = 'undefined'
 		$scope.submitOrder = function()
 		{
-			//var fieldArray = [$scope.formData.field1, $scope.formData.field2, $scope.formData.field3];
+			if($scope.formData.kitName=='undefined')
+			{
+				return;
+			};
 			var send = 
 			{
 				item: $scope.formData.kitName,
@@ -45,8 +49,7 @@ angular.module('customer').controller('NewOrderCtrl', ['$scope', '$rootScope', '
 				}
 			};
 			$http.post('/order/new', send).success(function(response) {
-				alert('Your Order for a '+ send.item +' test kit has been submitted.');
-				console.log(response);
+				alert('Your Order for a '+ response.item +' test kit has been submitted.');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});

@@ -1,0 +1,21 @@
+<section data-ng-controller="VerifyController" >
+	<div class="modal-body">
+		<h4>Order Information</h4>
+			<ul>
+				<li>Order ID: {{currentOrderInfo.orderId}}</li>
+				<li>Kit type: {{currentOrderInfo.item}}</li>
+				<li>Placed Date: {{currentOrderInfo.created}}</li>
+				<li>Field1:</li>
+			</ul>
+		<h4>Result Information</h4>
+			<ul>
+				<li>Submitted By: {{currentResultInfo.submittedBy}}</li>
+				<li>Submitted Date: {{currentResultInfo.created}}</li>
+				<li>Positive/Negative: {{currentResultInfo.result}} </li>
+				<li>Submitter Comments: {{currentResultInfo.comments}} </li>
+			</ul>
+	</div>
+	<div class="modal-footer">
+	    <button class="btn btn-info" ng-click="$emit('closeModal')">Close</button>
+	</div>
+</section>

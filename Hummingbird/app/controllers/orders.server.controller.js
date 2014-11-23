@@ -323,7 +323,10 @@ exports.setShipped = function(req, res)
 								count: -1
 							}
 					};
-					var res1 = {};
+					var res1 = 
+					{
+						send: function(){}
+					};
 					inventory.updateCount(req1, res1);
 					console.log(items);
 					orders.save(function(err) {

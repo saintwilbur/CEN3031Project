@@ -72,7 +72,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 				item: $scope.waitingOrders[index].item
 			};
 			
-			$http.post('/orders/shipped', send).success(function(response) 
+			$http.post('/order/shipped', send).success(function(response) 
 			{
 				alert(response.message);
 				$scope.getWaitingOrders();
