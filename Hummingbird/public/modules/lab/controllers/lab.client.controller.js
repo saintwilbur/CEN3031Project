@@ -57,7 +57,7 @@ angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$htt
 			
 			$http.get('/order/labCompletedOrders').success(function(response) 
 			{
-				completedOrders = response;
+				$scope.completedOrders = response;
 			}).error(function(response) 
 			{
 				$scope.error = response.message;

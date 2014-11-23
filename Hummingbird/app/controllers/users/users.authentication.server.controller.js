@@ -81,7 +81,7 @@ exports.signin = function(req, res, next) {
 			res.status(400).send(info);
 		} else {
 			// Check if role matches path
-			if (!(req.body.path.lastIndexOf('/'+user.roles+'/',0)===0))
+			if (req.body.path.lastIndexOf('/'+user.roles+'/',0)!=0)
 			{
 				res.status(400).send({message: 'Unauthorized user'});
 			}

@@ -29,10 +29,10 @@
 										</thead>
 										<tbody>
 											<tr ng-repeat="result in results | filter:query">
-												<td>{{result._id}}</td>
+												<td>{{result.resultId}}</td>
 												<td>{{result.created}}</td>
 												<td>								
-												<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
+												<a href class="navbar-btn" ng-controller="ModalController" ng-click="getVerifyViewInfo($index); open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
 												</td>
 												<td>											
 													<button type="button" class="btn btn-xs btn-primary" ng-click="acceptResult(results[$index], 'placeholder text')"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Accept</button>	

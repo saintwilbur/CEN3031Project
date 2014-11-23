@@ -11,7 +11,7 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 				{orderId: '24y4h5fa', date: 'dateHere' }*/
 			];
 
-			$scope.orders = [{orderId: '2231', date: '231341'},{orderId: '4598', date: '120931'}];
+			$scope.orders = [];
 
 			$scope.searchOrders = [];
 			//getOrders to verify  
@@ -36,6 +36,11 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 				{
 					$scope.error = response.message;
 				}); 
+			};
+			$scope.currentVerifyInfo = {};
+			$scope.getVerifyViewInfo = function(index)
+			{
+				console.log($scope.results);
 			};
 
 			$scope.acceptResult = function(resultObj, verifierComment)
@@ -99,22 +104,7 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 			{
 				$scope.getPendingOrders();
 			});
-		/*	$scope.searchOrder = function()
-			{
-				//var fieldArray = [$scope.formData.field1, $scope.formData.field2, $scope.formData.field3];
-
-				var search = 
-				{
-					ID: $scope.search
-				};
-				$http.post('/order/verify', search).success(function(response) {
-					$rootScope.$broadcast('refreshOrders');
-					$scope.search={};
-				}).error(function(response) {
-					$scope.error = response.message;
-				});
-			};
-			*/
+			
   	}
 ]);
 
