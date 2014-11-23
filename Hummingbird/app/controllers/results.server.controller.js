@@ -9,6 +9,8 @@ var mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Result = mongoose.model('Result'),
 	errorHandler = require('./errors'),
+	mandrill = require('mandrill-api/mandrill'),
+	mandrill_client = new mandrill.Mandrill('y6EIYNIwNBbIaneTap-iXw'),
     _ = require('lodash');
 
 var core = require('../../app/controllers/core.server.controller.js');
@@ -242,6 +244,9 @@ exports.verifyResult = function(req, res) {
 				});
 			}
 			//send email
+			User.findOne({userId: req.user.userId}).exec(function(err, user){
+
+			});
 			//res.jsonp(results);
 		}
 	});

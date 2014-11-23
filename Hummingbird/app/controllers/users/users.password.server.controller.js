@@ -9,7 +9,7 @@ var _ = require('lodash'),
 	passport = require('passport'),
 	User = mongoose.model('User'),
 	config = require('../../../config/config'),
-	nodemailer = require('nodemailer'),
+	//nodemailer = require('nodemailer'),
 	crypto = require('crypto'),
 	async = require('async'),
 	crypto = require('crypto'),
@@ -83,7 +83,7 @@ exports.forgot = function(req, res, next) {
 	    		'from_email': 'sltalty@gmail.com',
 	    		'from_name': 'Customer Support',
 	    		'to': [{
-	            	'email': 'davidy114@hotmail.com',
+	            	'email': user.email,
 	            	'name': 'Recipient Name',
 	            	'type': 'to'
 	    		}],
@@ -195,7 +195,7 @@ exports.reset = function(req, res, next) {
 	    		'from_email': 'sltalty@gmail.com',
 	    		'from_name': 'Customer Support',
 	    		'to': [{
-	            	'email': 'davidy114@hotmail.com',
+	            	'email': user.email,
 	            	'name': 'Recipient Name',
 	            	'type': 'to'
 	    		}],
