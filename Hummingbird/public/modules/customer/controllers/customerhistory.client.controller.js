@@ -3,7 +3,7 @@
 angular.module('customer').controller('CustomerHistoryController', ['$scope', 'Authentication', '$http', 'User',
   function($scope, Authentication, $http, User) {
     $scope.authentication = Authentication;
-    $scope.orders = [];
+    $scope.orderHistory = [];
     //getHistory();  
 
     $scope.getHistory = function()
@@ -14,9 +14,9 @@ angular.module('customer').controller('CustomerHistoryController', ['$scope', 'A
 
       $http.get('/order/listorders',send).success(function(response) 
       {
-        console.log(send.users);
-        $scope.orders=response;
-        return $scope.orders;
+        console.log(response);
+        $scope.orderHistory=response;
+        return $scope.orderHistory;
       }).error(function(response) 
       {
         $scope.error = response.message;

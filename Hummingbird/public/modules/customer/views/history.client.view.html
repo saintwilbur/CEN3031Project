@@ -5,22 +5,22 @@
 			<table class="table table-hover table-condensed table-bordered">
 			    <thead>
 			        <tr>
-						<th class="col-md-3">ID</th>
-						<th class="col-md-3">Test Type</th>
-						<th class="col-md-3">Date</th>
-						<th class="col-md-3">Result</th>
-						<th class="col-md-3">location</th>
-						<th class="col-md-3">View</th>
+						<th class="col-md-2">ID</th>
+						<th class="col-md-2">Test Type</th>
+						<th class="col-md-2">Date</th>
+						<th class="col-md-2">Location</th>
+						<th class="col-md-2">View</th>
+						<th class="col-md-2">Result</th>
 			        </tr>
 			    </thead>
 			    <tbody>
-			        <tr ng-repeat="order in orders">
+			        <tr ng-repeat="order in orderHistory">
 						<td>{{order.orderId}}</td>
 						<td>{{order.item}}</td>
 						<td>{{order.created}}</td>
-						<td>{{order.result}}</td>
 						<td>{{order.tracking}}</td>
-						<td>{{order.View}}</td>						
+						<td>{{order.View}}</td>		
+						<td>{{order.result}}</td>				
 			        </tr>
 			    </tbody>
 			    </table>
