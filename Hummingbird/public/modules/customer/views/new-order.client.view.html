@@ -1,3 +1,5 @@
+
+<!--
 <section data-ng-controller="NewOrderCtrl" data-ng-init = "getKits()">
 	<h2>New Order</h2>
 		<div class = "well">
@@ -6,7 +8,7 @@
 		<fieldset>
 			<legend>Test Kit Information</legend>
 
-				<!-- Select Basic -->
+				<!-- Select Basic 
 			<div class="form-group">
 				<label class="col-md-2 control-label">Select a Test Kit</label>
 				<div class="col-md-2">
@@ -15,14 +17,14 @@
 					</select>
 				</div>
 			</div>
-			<!-- Text input-->
+			<!-- Text input-
 			<div class="form-group">
 				<label class="col-md-2 control-label" for="textinput">Text Input</label>  
 				<div class="col-md-2">
 					<input id="textinput" name="textinput" data-ng-model="formData.field1" placeholder="placeholder" class="form-control input-md" type="text">
 				</div>
 			</div>
-			<!-- Multiple Radios -->
+			<!-- Multiple Radios 
 			<div class="form-group">
 				<label class="col-md-2 control-label" for="radios">Multiple Radios</label>
 				<div class="col-md-2">
@@ -40,24 +42,24 @@
 					</div>
 				</div>
 			</div>
-						<!-- Form Name -->
-			<legend>Billing Information</legend>
-			<!-- Text input-->
+						<!-- Form Name 
+			<legend>Shipping Information</legend>
+			<!-- Text input
 			<div class="form-group">
-				<label class="col-md-2 control-label" for="textinput">Card Holder Name</label>  
+				<label class="col-md-2 control-label" for="textinput">First name</label>  
 				<div class="col-md-2">
 					<input id="textinput" name="textinput" placeholder="Card Holder Name" class="form-control input-md" type="text" data-ng-model="billing.field1" >
 				</div>
 			</div>
 
-			<!-- Text input-->
+			<!-- Text input--
 			<div class="form-group">
-				<label class="col-md-2 control-label" for="textinput ">Card Number</label>  
+				<label class="col-md-2 control-label" for="textinput ">last Name</label>  
 				<div class="col-md-3">
 					<input id="textinput" name="textinput1" placeholder="Card Number" class="form-control input-md" type="text" data-ng-model="billing.field2">
 				</div>
 			</div>
-			<!-- Text input-->
+			<!-- Text input--
 			<div class="form-group">
 				<label class="col-md-2 control-label" for="textinput">Address</label>  
 				<div class="col-md-4">
@@ -65,7 +67,68 @@
 					<input id="textinput" name="textinput3" placeholder="Address Line 2" class="form-control input-md" type="text" data-ng-model="billing.field5">
 				</div>
 			</div>
-			<!-- Button -->
+
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="textinput ">City</label>  
+				<div class="col-md-3">
+					<input id="textinput" name="textinput1" placeholder="GAINESVILLE" class="form-control input-md" type="text" data-ng-model="billing.field2">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="textinput "> State </label>  
+				<div class="col-md-3">
+					<input id="textinput" name="textinput1" placeholder="FLORIDA" class="form-control input-md" type="text" data-ng-model="billing.field2">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="textinput ">Zip code</label>  
+				<div class="col-md-3">
+					<input id="textinput" name="textinput1" placeholder="33437" class="form-control input-md" type="text" data-ng-model="billing.field2">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="textinput "> Country </label>  
+				<div class="col-md-3">
+					<input id="textinput" name="textinput1" placeholder="USA" class="form-control input-md" type="text" data-ng-model="billing.field2">
+				</div>
+			</div>
+
+			<legend>Shipping Method</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="radios">Select Method</label>
+				<div class="col-md-2">
+					<div class="radio">
+						<label for="radios-0">
+							<input name="radios" id="radios-0" value="1" checked="checked" type="radio" data-ng-model="formData.field3" >
+							Standard (5-8 days)
+						</label>
+					</div>
+					<div class="radio">
+						<label for="radios-1">
+							<input name="radios" id="radios-1" value="2" type="radio" data-ng-model="formData.field3">
+							express(2-3 days)
+						</label>
+					</div>
+				</div>
+			</div>
+			<legend>Your Contact Info</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="textinput "> Email</label>  
+				<div class="col-md-3">
+					<input id="textinput" name="textinput1" placeholder="jayshreekrishna@yahoo.com" class="form-control input-md" type="text" data-ng-model="billing.field2">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label" for="textinput "> Phone number </label>  
+				<div class="col-md-3">
+					<input id="textinput" name="textinput1" placeholder="561-XXX-XXXX" class="form-control input-md" type="text" data-ng-model="billing.field2">
+				</div>
+			</div>
+			<BR>
+			<!-- Button --
 			<div class="form-group">
 				<label class="col-md-2 control-label" for="singlebutton"></label>
 				<div class="col-md-2">
@@ -76,3 +139,4 @@
 	</form>
 </div>
 </section>
+
