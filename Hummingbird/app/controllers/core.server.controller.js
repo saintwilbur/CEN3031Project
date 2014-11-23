@@ -11,7 +11,7 @@ exports.index = function(req, res) {
 
 exports.getId = function() {
 	var d = new Date().getTime();
-	var id = 'xxxx-xxxx-xxxx-xxxx-xxxx'.replace(/[x]/g, 
+	var id = 'xxxx-xxxx-xxxx-xxxx'.replace(/[x]/g, 
 		function(c) {
 			var r = (d + Math.random()*16)%16 | 0;
 			d = Math.floor(d/16);
