@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint eqeqeq:false, eqnull:true*/
 /**
  * Module dependencies.
  */
@@ -71,7 +71,7 @@ exports.signup = function(req, res) {
 		});
 	
 };
-
+/*jshint ignore:start*/
 /**
  * Signin after passport authentication
  */
@@ -81,7 +81,7 @@ exports.signin = function(req, res, next) {
 			res.status(400).send(info);
 		} else {
 			// Check if role matches path
-			if (req.body.path.lastIndexOf('/'+user.roles+'/',0)!=0)
+			if (req.body.path.lastIndexOf('/'+user.roles+'/',0) != 0)
 			{
 				res.status(400).send({message: 'Unauthorized user'});
 			}
@@ -103,7 +103,7 @@ exports.signin = function(req, res, next) {
 		}
 	})(req, res, next);
 };
-
+/*jshint ignore:end*/
 /**
  * Signout
  */

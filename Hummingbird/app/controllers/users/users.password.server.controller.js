@@ -189,17 +189,32 @@ exports.reset = function(req, res, next) {
 		},
 		// If valid email, send reset email using service
 		function(emailHTML, user, done) {
-			var smtpTransport = nodemailer.createTransport(config.mailer.options);
-			var mailOptions = {
-				to: user.email,
-				from: config.mailer.from,
-				subject: 'Your password has been changed',
-				html: emailHTML
-			};
-			
-			smtpTransport.sendMail(mailOptions, function(err) {
-				done(err, 'done');
-			});
+			var message = {
+	    		'html': emailHTML,
+	    		'subject': 'Password Reset',
+	    		'from_email': 'sltalty@gmail.com',
+	    		'from_name': 'Customer Support',
+	    		'to': [{
+	            	'email': 'davidy114@hotmail.com',
+	            	'name': 'Recipient Name',
+	            	'type': 'to'
+	    		}],
+	    		'headers': {
+	        		'Reply-To': 'sltalty@gmail.com'
+	    		}
+	    	};			
+			var async = true;
+			var ip_pool = '587';
+			mandrill_client.messages.send({'message': message, 'async': async, 'ip_pool': ip_pool}, function(result) {
+				console.log(result);
+				res.send({
+					message: 'An email has been sent to ' + user.email + ' with further instructions.'
+				});
+				return;
+			}, function(e) {
+	    			// Mandrill returns the error as an object with name and message keys
+	    			console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+	    	});
 		}
 	], function(err) {
 		if (err) return next(err);

@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint eqeqeq:false*/
 angular.module('customer').controller('NewOrderCtrl', ['$scope', '$rootScope', 'Authentication', '$http',
 	function($scope,$rootScope, Authentication, $http) {
 		
@@ -18,14 +18,14 @@ angular.module('customer').controller('NewOrderCtrl', ['$scope', '$rootScope', '
 
 			}); 
 		};
-		$scope.formData = {};;
-		$scope.formData.kitName = 'undefined'
+		$scope.formData = {};
+		$scope.formData.kitName = 'undefined';
 		$scope.submitOrder = function()
 		{
 			if($scope.formData.kitName=='undefined')
 			{
 				return;
-			};
+			}
 			var send = 
 			{
 				item: $scope.formData.kitName,
