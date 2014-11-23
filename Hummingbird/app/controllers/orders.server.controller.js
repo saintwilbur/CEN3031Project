@@ -140,7 +140,7 @@ exports.adminList = function(req, res)
 //list user's placed order
 exports.listPlacedForUser = function(req, res) 
 {
-	Order.find({status: 'placed', user: req.user}).sort('-created').exec(function(err, order){
+	Order.find({status: 'Placed', user: req.user}).sort('-created').exec(function(err, order){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -157,7 +157,7 @@ exports.listPlacedForUser = function(req, res)
  */
 exports.listPlaced = function(req, res) 
 {
-	Order.find({status: 'placed'}).sort('-created').exec(function(err, order){
+	Order.find({status: 'Placed'}).sort('-created').exec(function(err, order){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -175,7 +175,7 @@ exports.listPlaced = function(req, res)
  */
 exports.listShipped = function(req, res) 
 {
-	Order.find({status: 'shipped'}).sort('-created').exec(function(err, order){
+	Order.find({status: 'Shipped'}).sort('-created').exec(function(err, order){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -193,7 +193,7 @@ exports.listShipped = function(req, res)
  */
 exports.listRegistered = function(req, res) 
 {
-	Order.find({status: 'registered'}).sort('-created').exec(function(err, order){
+	Order.find({status: 'Registered'}).sort('-created').exec(function(err, order){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -213,7 +213,7 @@ exports.listRegistered = function(req, res)
  */
 exports.listAllButPlaced = function(req, res) 
 {
-	Order.find({'status': {$ne:'placed'}}).sort('-created').exec(function(err, order){
+	Order.find({'status': {$ne:'Placed'}}).sort('-created').exec(function(err, order){
 		if (err) 
 		{
 			return res.status(400).send({
