@@ -12,7 +12,7 @@ var validateStatus = function(property) {
 	}
 	var valid = true;
 	for(var i=0; i<property.length; i++) {
-		if(!(property[i] === 'placed' || property[i] === 'shipped' || property[i] === 'registered' || property[i] === 'recieved' || property[i] === 'Completed')) {
+		if(!(property[i] === 'Placed' || property[i] === 'Shipped' || property[i] === 'Registered' || property[i] === 'Received' || property[i] === 'Completed')) {
 			valid = false;
 			break;
 		}
@@ -39,10 +39,10 @@ var OrderSchema = new Schema({
 	status: {
 		type: [{
 			type: String,
-			enum: ['placed', 'shipped', 'registered', 'recieved', 'Completed']
+			enum: ['Placed', 'Shipped', 'Registered', 'Received', 'Completed']
 		}],
 		trim: true,
-		default: 'placed',
+		default: 'Placed',
 		validate: [validateStatus, 'wrong status']
 	},
 	billing: {

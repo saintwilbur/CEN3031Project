@@ -77,7 +77,7 @@ exports.create = function(req, res) {
 							else 
 							{
 								resultOrder.result.push(result);
-								resultOrder.status = 'recieved';
+								resultOrder.status = 'received';
 								resultOrder.save(function(err) {
 									if (err) {
 										return res.send({
@@ -166,7 +166,7 @@ exports.listPerLab = function(req, res) {
  * will return an array of result objects
  */
 exports.listCanVerify = function(req, res) {
-	Result.find({verifiedBy: req.body.userId, status: 'Submitted'}, {_id:0, 'resultId':1, 'created':1, }).sort('-created').exec(function(err, result){
+	Result.find({verifiedBy: req.body.userId, status: 'Submitted'}, {_id:0, 'resultId':1, 'created':1, 'submittedBy':1}).sort('-created').exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({

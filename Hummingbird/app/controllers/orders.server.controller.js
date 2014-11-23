@@ -73,7 +73,7 @@ exports.read = function(req, res)
  */
 exports.update = function(req, res) {
 	var order = req.body.order;
-	if (req.body.orderStatus === 'completed') {		
+	if (req.body.orderStatus === 'Completed') {		
 		order = _.extend(order, {status: req.body.orderStatus, completed: Date.prototype.toDateString(Date.now())});
 	} else {
 		order = _.extend(order, {status: req.body.orderStatus});
@@ -249,7 +249,7 @@ exports.listLabCompletedOrders = function(req, res)
  */
 exports.checkRegisterCode = function(req, res) 
 {
-	Order.findOne({status: 'shipped', registerCode: req.body.registerCode}).exec(function(err, orders) 
+	Order.findOne({status: 'Shipped', registerCode: req.body.registerCode}).exec(function(err, orders) 
 	{
 
 		if(err) 
@@ -267,7 +267,7 @@ exports.checkRegisterCode = function(req, res)
 			}
 			else
 			{
-				orders = _.extend(orders, {user: req.body.user, status: 'registered'});
+				orders = _.extend(orders, {user: req.body.user, status: 'Registered'});
 				orders.save(function(err) {
 					if (err) {
 						return res.send({
@@ -292,7 +292,7 @@ exports.checkRegisterCode = function(req, res)
  */
 exports.setShipped = function(req, res) 
 {
-	Order.findOne({orderId: req.body.orderId, status: 'placed'}).exec(function(err, orders){
+	Order.findOne({orderId: req.body.orderId, status: 'Placed'}).exec(function(err, orders){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -315,7 +315,7 @@ exports.setShipped = function(req, res)
 				else 
 				{
 					console.log(items);
-					orders = _.extend(orders, {status: 'shipped'});
+					orders = _.extend(orders, {status: 'Shipped'});
 					var req1 = 
 					{
 						body : { 
@@ -365,7 +365,7 @@ exports.checkIsRegistered = function(req, res)
 		}
 		else
 		{
-			if(orders.status == 'registered'){
+			if(orders.status == 'Registered'){
 				result = 'Valid order id';
 			}
 			else {
