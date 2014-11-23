@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 	//order the result belongs to
 	var resultOrder;
 	//Check if the order ID exists
-	Order.find({orderId: req.body.orderId, status: 'registered'}).exec(function(err, orderId){
+	Order.find({orderId: req.body.orderId, status: 'Registered'}).exec(function(err, orderId){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -77,7 +77,7 @@ exports.create = function(req, res) {
 							else 
 							{
 								resultOrder.result.push(result);
-								resultOrder.status = 'received';
+								resultOrder.status = 'Received';
 								resultOrder.save(function(err) {
 									if (err) {
 										return res.send({
@@ -165,8 +165,9 @@ exports.listPerLab = function(req, res) {
  * Controller will need to pass in the userId
  * will return an array of result objects
  */
-exports.listCanVerify = function(req, res) {
-	Result.find({verifiedBy: req.body.userId, status: 'Submitted'}, {_id:0, 'resultId':1, 'created':1, 'submittedBy':1}).sort('-created').exec(function(err, result){
+exports.listCanVerify = function(req, res) 
+{
+	Result.find({verifiedBy: req.user.userId, status: 'Submitted'}, {_id:0, 'resultId':1, 'created':1, 'submittedBy':1}).sort('-created').exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -182,7 +183,8 @@ exports.listCanVerify = function(req, res) {
 /*
  * Submits the result
  */
-exports.submitResult = function(req, res) {
+exports.submitResult = function(req, res) 
+{
 	var results = req.body;
 
 	results = _.extend(results, {submittedBy: req.user.userId, result: req.result, status: 'Submitted'});
