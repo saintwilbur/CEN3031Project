@@ -32,7 +32,7 @@
 												<td>{{result.resultId}}</td>
 												<td>{{result.created}}</td>
 												<td>								
-												<a href class="navbar-btn" ng-controller="ModalController" ng-click="getVerifyViewInfo($index); open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
+												<a href class="navbar-btn" ng-controller="ModalController" ng-click="getVerifyViewInfo($index); open('md','/modules/lab/views/verify-info.client.view.html')">View</a>							
 												</td>
 												<td>											
 													<button type="button" class="btn btn-xs btn-primary" ng-click="acceptResult(results[$index], 'placeholder text')"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Accept</button>	
@@ -43,8 +43,8 @@
 										</tbody>
 									</table>
 								</div>
-								<div ng-hide = "orders.length !== 0">
-									<p>No orders for verification. </p>
+								<div ng-hide = "results.length !== 0">
+									<p>No results for verification. </p>
 								</div>
 							</div>			
                         <!-- /.panel-body -->

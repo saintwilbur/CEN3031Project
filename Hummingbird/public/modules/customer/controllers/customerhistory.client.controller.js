@@ -21,10 +21,7 @@ angular.module('customer').controller('CustomerHistoryController', ['$scope', 'A
       {
         $scope.error = response.message;
       });
-      /* Refresh Current Page */
-      $scope.$on('refreshOrders', function (event) {
-      $scope.getHistory();
-    }); 
+
     };
   }
 ]);

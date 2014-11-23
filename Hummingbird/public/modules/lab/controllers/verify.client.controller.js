@@ -37,10 +37,18 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 					$scope.error = response.message;
 				}); 
 			};
-			$scope.currentVerifyInfo = {};
+			$scope.currentOrderInfo = {};
+			$scope.currentResultInfo = {};
 			$scope.getVerifyViewInfo = function(index)
 			{
-				console.log($scope.results);
+				$scope.currentOrderInfo =
+				{
+
+				};
+				$scope.currentResultInfo =
+				{
+
+				};
 			};
 
 			$scope.acceptResult = function(resultObj, verifierComment)

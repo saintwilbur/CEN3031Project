@@ -52,6 +52,7 @@ exports.create = function(req, res)
 		}
 		else 
 		{
+			console.log(order);
 			res.jsonp(order);
 		}
 	});
@@ -248,7 +249,7 @@ exports.listLabCompletedOrders = function(req, res)
  */
 exports.checkRegisterCode = function(req, res) 
 {
-	Order.findOne({user: req.body.user, status: 'shipped', registerCode: req.body.registerCode}).exec(function(err, orders) 
+	Order.findOne({status: 'shipped', registerCode: req.body.registerCode}).exec(function(err, orders) 
 	{
 
 		if(err) 
@@ -266,7 +267,7 @@ exports.checkRegisterCode = function(req, res)
 			}
 			else
 			{
-				orders = _.extend(orders, {status: 'registered'});
+				orders = _.extend(orders, {user: req.body.user, status: 'registered'});
 				orders.save(function(err) {
 					if (err) {
 						return res.send({

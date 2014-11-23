@@ -19,6 +19,7 @@ angular.module('customer').controller('RegisterKitController', ['$scope', '$root
 				alert(response.message);
 				$scope.registerField = 'Enter Register Code';
 				$scope.registerKit.$setPristine();
+				$scope.$emit('closeModal');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});

@@ -24,7 +24,6 @@ angular.module('customer').controller('NewOrderCtrl', ['$scope', '$rootScope', '
 			//var fieldArray = [$scope.formData.field1, $scope.formData.field2, $scope.formData.field3];
 			var send = 
 			{
-				user: $scope.authentication.user._id,
 				item: $scope.formData.kitName,
 				billing: {
 					cardHolderName: 'holderName',
@@ -46,13 +45,18 @@ angular.module('customer').controller('NewOrderCtrl', ['$scope', '$rootScope', '
 				}
 			};
 			$http.post('/order/new', send).success(function(response) {
-				$rootScope.$broadcast('refreshOrders');
 				alert('Your Order for a '+ send.item +' test kit has been submitted.');
+				console.log(response);
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
+			$scope.closeOrderForm();
+		};
+		$scope.closeOrderForm = function()
+		{
 			$scope.formData = {};
 			$scope.sampleTest.$setPristine();
+			$scope.$emit('closeModal');
 		};
 	}
 ]);

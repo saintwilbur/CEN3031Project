@@ -16,36 +16,12 @@
 											<thead>
 												<tr>
 													<th class="col-md-2">Order Id</th>
-													<th class="col-md-4">Date</th>
+													<th class="col-md-3">Date</th>
 													<th class="col-md-4">Verifier</th>
-													<th class="col-md-2">Complete Order Info</th>
+													<th class="col-md-3">Complete Order Info</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>34225480949</td>
-													<td>2014-11-01T12:19:54.128Z</td>					
-													<td>1ow60dc0-bc117-b1k5la9</td>
-													<td>								
-													<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
-													</td>
-												</tr>
-												<tr>
-													<td>9471754093</td>
-													<td>2014-11-03T11:33:54.118Z</td>					
-													<td>49a05c0-bc159-19df8a9</td>
-													<td>								
-													<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
-													</td>
-												</tr>
-												<tr>
-													<td>85721189148</td>
-													<td>2014-10-13T09:11:14.120Z</td>					
-													<td>39a16gc0-dz257-ba9t8a9</td>
-													<td>								
-													<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
-													</td>
-												</tr>
 												<tr ng-repeat="order in completedOrders | filter:query">
 													<td>{{order.orderId}}</td>
 													<td>{{order.date}}</td>					
@@ -57,6 +33,9 @@
 											</tbody>
 										</table>
 									</div>
+									<div ng-hide = "completedOrders.length !== 0">
+									<p>No results for verification. </p>
+								</div>
 							</div>
 						</div>			
                         <!-- /.panel-body -->
