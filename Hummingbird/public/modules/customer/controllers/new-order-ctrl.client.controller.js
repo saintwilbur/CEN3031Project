@@ -1,5 +1,5 @@
 'use strict';
-/*jshint eqeqeq:false*/
+/*jshint eqeqeq:false, eqnull:true*/
 angular.module('customer').controller('NewOrderCtrl', ['$scope', '$rootScope', 'Authentication', '$http',
 	function($scope,$rootScope, Authentication, $http) {
 		
