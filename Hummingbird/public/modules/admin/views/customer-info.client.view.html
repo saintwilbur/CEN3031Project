@@ -21,6 +21,9 @@
 										<tr>
 											<th class="col-md-5">Customer ID</th>
 											<th class="col-md-4">Name</th>
+											<th class="col-md-4">username</th>
+											<th class="col-md-4">       email</th>
+											<th class="col-md-4">Date of Birth</th>
 											<th class="col-md-3">Created</th>
 										</tr>
 									</thead>
@@ -28,6 +31,9 @@
 								<tr ng-repeat="customer in customers | filter:query">
 									<td>{{customer.userId}}</td>
 									<td>{{customer.displayName}}</td>
+									<td>{{customer.username}}</td>
+									<td>{{customer.email}}</td>
+									<td>{{customer.dateOfBirth}}</td>
 									<td>{{customer.created}}</td>
 								</tr>
 							</tbody>

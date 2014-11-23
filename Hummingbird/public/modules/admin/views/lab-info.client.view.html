@@ -21,6 +21,9 @@
 									<tr>
 										<th class="col-md-5">Lab ID</th>
 										<th class="col-md-4">Name</th>
+										<th class="col-md-4">username</th>
+										<th class="col-md-4">email</th>
+										<th class="col-md-4">Date of Birth</th>
 										<th class="col-md-3">Created</th>
 									</tr>
 								</thead>
@@ -28,6 +31,9 @@
 									<tr ng-repeat="lab in labs | filter:query">
 										<td>{{lab.userId}}</td>
 										<td>{{lab.displayName}}</td>
+										<td>{{lab.username}}</td>
+										<td>{{lab.email}}</td>
+										<td>{{lab.dateOfBirth}}</td>
 										<td>{{lab.created}}</td>
 									</tr>
 								</tbody>
