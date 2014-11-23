@@ -56,6 +56,9 @@ exports.updateCount = function(req, res) {
 			newCount = Number(newCount) + Number(item.count);
 			item = _.extend(item, {count: newCount});
 			item.save(item);
+			return res.send({
+				message: req.body.count + ' kits have been added to inventory item ' + item.name + '.'
+			});
 		}
 	});
 };

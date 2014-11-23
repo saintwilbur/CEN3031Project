@@ -106,7 +106,6 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		var kitSelect = {};
 		$scope.increaseKitCount = function()
 		{
-			console.log($scope.kitSelect);
 
 			var send = 
 			{
@@ -115,13 +114,14 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 			};
 			$http.post('/inventory/increment',send).success(function(response) 
 			{
-				alert('New kits have been added.');
+				alert(response.message);
 
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
 			}); 
-			$scope.newKit = {};
+			
+			$scope.kitSelect = {};
 			$scope.changeKitAmount.$setPristine(); 
 			$scope.getInventory();
 		};
