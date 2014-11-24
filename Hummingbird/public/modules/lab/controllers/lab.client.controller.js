@@ -86,7 +86,6 @@ angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$htt
 			{
 				$scope.error = response.message;
 			});*/
-			$rootScope.$broadcast('Rejected Count Update', [3]);	
 		}();
 
 		$scope.getResultInfo = function()
@@ -109,6 +108,32 @@ angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$htt
 			{
 				$scope.error = response.message;
 			});
+		};
+
+		$scope.notifications = [];
+		$scope.getNotifications = function()
+		{
+			var notificationCount = [];
+			$http.get('/results/submitterRejectedList').success(function(response)
+			{
+				$scope.notifications=response;
+				notificationCount = [response.length];
+				$rootScope.$broadcast('Rejected Count Update', notificationCount);	
+			}).error(function(response)
+			{
+				$scope.error = response.message;
+			});
+
+
+		/*	for(var i = 0; i++; i < $scope.notifications.length) {
+			console.log($scope.notificationCount);
+			console.log($scope.notifications);
+				if($scope.notifications[i].status == 'Rejected') {
+					notificationCount++;
+				}
+				else
+					$scope.notifications.remove(i);
+			} */
 		}; 
 	}
 ]);

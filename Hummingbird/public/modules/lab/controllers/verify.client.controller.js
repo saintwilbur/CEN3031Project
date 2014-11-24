@@ -86,9 +86,6 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 				$scope.getPendingOrders();
 			});
 				
-
-
-
 			$scope.rejectResult = function(resultObj, verifierComment)
 			{
 				var send = 
@@ -97,6 +94,7 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 					results: resultObj,
 					verifierComment: verifierComment
 				};
+				console.log(send);
 				$http.post( '/result/reject', send).success(function(response) 
 				{
 					

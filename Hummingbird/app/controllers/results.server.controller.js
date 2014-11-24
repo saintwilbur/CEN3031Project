@@ -304,8 +304,7 @@ exports.rejectResult = function(req, res) {
 	
 	var results = req.body.results;
 	
-
-	Result.find({_id: results._id}).sort('-created').exec(function(err, resultFound){
+	Result.findOne({resultId: results.resultId, status: 'Submitted'}).sort('-created').exec(function(err, resultFound){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -313,16 +312,26 @@ exports.rejectResult = function(req, res) {
 			});
 		} else 
 		{
-			resultFound[0] = _.extend(resultFound[0], {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Rejected', completed: Date.prototype.toDateString(Date.now())});
-			if(req.user.userId != results.submittedBy)
-			{
-				resultFound[0].save(function(err) {
+			if(resultFound == null) {
+				return res.send({
+					message: 'Result cannot be found'
+				});
+			}
+			// Need verifiersComments to be input. HardCoded now. 
+			resultFound = _.extend(resultFound, {verifiersComments: 'Comments not connected', status: 'Rejected'});
+			
+			if(req.user.userId == resultFound.verifiedBy)
+			{	
+				resultFound.save(function(err) {
+					console.log(results);
+					console.log(resultFound);
 					if (err) {
 						return res.send({
 							message: errorHandler.getErrorMessage(err)
 						});
 					} else {
-						res.jsonp(resultFound[0]);
+						console.log('hello');
+						res.jsonp(resultFound);
 					}
 				});	
 			}
@@ -340,15 +349,10 @@ exports.rejectResult = function(req, res) {
 
 /* rejectedList() will return a list of rejected results 
  * of the passed in lab user. 
- * Controller will need to pass in the userId of the lab.
- * req.body.userId
- * The list of results will contain the resultId, result, 
- * comments, and the date completed.
+ * The list of results will contain the resultID, the verifierComment, and the Date verified
  */
 exports.rejectedList = function(req, res) {
-	var labsId = req.body.labId;
-
-	Result.find({submittedBy: labsId, status: 'Rejected'}, {_id:0, 'resultId':1, 'result':1, 'comments':1, 'verifiersComments':1, 'completed':1}).exec(function(err, results)
+	Result.find({status: 'Rejected'}).sort('-created').exec(function(err, results)
 	{
 		if (err) 
 		{
@@ -362,9 +366,6 @@ exports.rejectedList = function(req, res) {
 	});
 
 };
-
-
-
 
 exports.test = function(req, res) {
 	var tests = 'test';

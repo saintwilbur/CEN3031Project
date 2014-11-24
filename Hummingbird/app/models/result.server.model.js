@@ -45,8 +45,8 @@ var ResultSchema = new Schema({
 		type: String
 	},
 	created: {
-		type: String,
-		default: Date.prototype.toDateString(Date.now())
+		type: Date,
+		default: Date.now()
 	},
 	completed: {
 		type: String
@@ -56,6 +56,7 @@ var ResultSchema = new Schema({
 			type: String,
 			enum: ['Submitted', 'Verified', 'Rejected', 'Completed']
 		}],
+		trim: true,
 		default: 'Submitted',
 		validate: [validateStatus, 'wrong status']
 	},
