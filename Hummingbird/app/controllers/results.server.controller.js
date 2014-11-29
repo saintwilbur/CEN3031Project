@@ -41,7 +41,7 @@ exports.create = function(req, res) {
 			});
 		} else 
 		{
-			if(resultOrder.length<=0)
+			if(resultOrder == null)
 			{
 				return res.send({
 					message: 'Order does not exist or is not registered in system.'
@@ -180,7 +180,7 @@ exports.listPerLab = function(req, res) {
  */
 exports.listCanVerify = function(req, res) 
 {
-	Result.find({verifiedBy: req.user.userId, status: 'Submitted'}, {_id:0, 'resultId':1, 'created':1, 'submittedBy':1}).sort('-created').exec(function(err, result){
+	Result.find({verifiedBy: req.user.userId, status: 'Submitted'}, {_id:1, 'resultId':1, 'created':1, 'submittedBy':1}).sort('-created').exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -220,10 +220,11 @@ exports.submitResult = function(req, res)
  * req.body.userId, req.body.result_id, req.body.verifierComment
  */
 exports.verifyResult = function(req, res) {
-	var results = req.body.result_id;
+	var result_id = req.body.result_id;
 	var order = '';
 	var date = Date.prototype.toDateString(Date.now());
-	Result.findOne({_id: results}).sort('-created').exec(function(err, resultFound){
+
+	Result.findOne({_id: result_id}).sort('-created').exec(function(err, resultFound){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -232,28 +233,50 @@ exports.verifyResult = function(req, res) {
 		} else 
 		{
 			resultFound = _.extend(resultFound, {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Verified', completed: date});
-
-			if(req.user.userId != results.submittedBy)
-			{
-				order = Order.findOnd({result: results});
-				order =_.extend(order, {status: 'Completed', completed: date});
-				resultFound.save(function(err) {
-					if (err) {
-						return res.send({
-							message: errorHandler.getErrorMessage(err)
-						});
-					} else {
-						res.jsonp(resultFound);
-					}
-				});	
-			}
-			else
-			{
-				return res.send(
+			resultFound.save(function(err) {
+				if (err) {
+					return res.send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} 
+				else 
 				{
-					message: 'Submitter cannot be verifier!'
-				});
-			}
+						if(req.user._id != resultFound.submittedBy)
+						{
+							Order.findOne({result: resultFound._id}).exec(function(err, orderFound){
+								if (err) 
+								{
+									return res.status(400).send({
+										message: errorHandler.getErrorMessage(err)
+									});
+								} 
+								else 
+								{
+									orderFound =_.extend(orderFound, {status: 'Completed', completed: Date.now()});
+									orderFound.save(function(err) {
+										if (err) {
+											return res.send({
+												message: errorHandler.getErrorMessage(err)
+											});
+										} else {
+											return res.send(
+											{
+												message: 'Order ' + orderFound.orderId + ' has been completed.'
+											});
+										}
+									});	
+								}
+							});
+						}
+						else
+						{
+							return res.send(
+							{
+								message: 'Submitter cannot be verifier!'
+							});
+						}
+				}
+			});	
 			//send email
 			User.findOne({userId: req.user.userId}).exec(function(err, user){
 
@@ -271,7 +294,7 @@ exports.verifyResult = function(req, res) {
 
 exports.getResultData = function(req, res)
 {
-	Result.findOne({resultId: req.body.resultId}, {'result':1, _id:0}).exec(function(err, result){
+	Result.findOne({_id: req.body._id}, {'result':1, _id:0}).exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -279,7 +302,8 @@ exports.getResultData = function(req, res)
 			});
 		} else 
 		{
-			res.jsonp(req.body.resultId);
+			console.log(result);
+			res.jsonp(result);
 		}
 	});
 };

@@ -105,7 +105,7 @@ exports.delete = function(req, res) {
  */
 exports.customerList = function(req, res) 
 {
-	Order.find({user: req.user}, {_id:0, 'fields':1, 'created':1, 'item':1, 'shippingAddress':1, 'status':1, 'result':1}).sort('-created').exec(function(err, order){
+	Order.find({user: req.user}, {_id:1, 'fields':1, 'created':1, 'item':1, 'shippingAddress':1, 'status':1, 'result':1}).sort('-created').exec(function(err, order){
 		if (err) 
 		{
 			return res.status(400).send({

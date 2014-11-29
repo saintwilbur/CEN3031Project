@@ -54,10 +54,11 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 
 			$scope.acceptResult = function(resultObj, verifierComment)
 			{
+				console.log(resultObj)
 				var send = 
 				{
 					userId: $scope.authentication.user.userId,
-					results: resultObj,
+					result_id: resultObj._id,
 					verifierComment: verifierComment
 				};
 				$http.post( '/result/verify', send).success(function(response) 
@@ -74,7 +75,7 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 					{
 						$scope.error = response.message;
 					});*/
-					alert('Order Completed');
+					alert(response.message);
 					$scope.getSubmittedResults();
 				}).error(function(response) 
 				{

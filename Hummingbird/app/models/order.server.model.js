@@ -74,7 +74,7 @@ var OrderSchema = new Schema({
 		default: Date.now()
 	},
 	completed: {
-		type: String
+		type: Date
 	},
 	result: [{
 		type: Schema.ObjectId,
