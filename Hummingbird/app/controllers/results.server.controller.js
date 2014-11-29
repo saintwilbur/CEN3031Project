@@ -22,17 +22,18 @@ var core = require('../../app/controllers/core.server.controller.js');
  * outcome (positive, negative), comment (from submitter)
  */
 exports.create = function(req, res) {
-	var result = new Result();
-	result.comments = req.body.comments;
-	result.result = req.body.result;
-	result.submittedBy = req.body.userId;
-	result.verifiedBy = req.body.verifiedBy;
-	result.resultId = core.getId();
+	var resultInfo = {};
+	resultInfo.comments = req.body.comments;
+	resultInfo.result = req.body.result;
+	resultInfo.submittedBy = req.body.userId;
+	resultInfo.verifiedBy = req.body.verifiedBy;
+	resultInfo.resultId = core.getId();
+	var result = new Result(resultInfo);
 	var size;
 	//order the result belongs to
 	var resultOrder;
 	//Check if the order ID exists
-	Order.find({orderId: req.body.orderId, status: 'Registered'}).exec(function(err, orderId){
+	Order.findOne({orderId: req.body.orderId,  $or: [ { status: 'Registered' }, { status: 'Received' } ]}).exec(function(err, resultOrder){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -40,16 +41,14 @@ exports.create = function(req, res) {
 			});
 		} else 
 		{
-
-			if(orderId.length<=0)
+			if(resultOrder.length<=0)
 			{
 				return res.send({
 					message: 'Order does not exist or is not registered in system.'
 				});
 			}
-			size = orderId[0].result.length; 
-			resultOrder = orderId[0];
-			result.user = resultOrder.user;
+			size = resultOrder.result.length; 
+			result = _.extend(result, {user: resultOrder.user, status: 'Submitted'});
 
 			//Check if the verifier ID matches user ID
 			User.find({userId: req.body.verifiedBy, roles: 'lab'}).exec(function(err, verifierId){
@@ -67,40 +66,52 @@ exports.create = function(req, res) {
 						});
 					}
 					//Check if there is no result or the result has been rejected
-					if (size === 0 || resultOrder.result[size-1].status == 'Rejected') {
-						result.save(function(err) {
-							if (err) 
-							{
-								return res.send(
-								{
-									message: errorHandler.getErrorMessage(err)
-								});
-							}
-							else 
-							{
-								resultOrder.result.push(result);
-								resultOrder.status = 'Received';
-								resultOrder.save(function(err) {
-									if (err) {
-										return res.send({
-											message: errorHandler.getErrorMessage(err)
-										});
-									} else {
-										return res.send({
-											message: 'Result submitted and waiting for verification.'
-										});
-									}
-								});
-													
-							}
-						});
-					}
-					else {
-						return res.send(
+					Result.findOne({_id: resultOrder.result[size-1]}).sort('-created').exec(function(err, resultFound){
+						if (err) 
 						{
-							message: 'This order already has a result that is waiting to be verified.'
-						});
-					}	
+							return res.status(400).send({
+								message: errorHandler.getErrorMessage(err)
+							});
+						} else 
+						{
+							//check if  no results submitted or latest Result is rejected
+							if(size === 0 || resultFound.status == 'Rejected')
+							{
+								result.save(function(err) {
+										if (err) 
+										{
+											return res.send(
+											{
+												message: errorHandler.getErrorMessage(err)
+											});
+										}
+										else 
+										{	
+											resultOrder.result.push(result._id);
+											resultOrder = _.extend(resultOrder, {status: 'Received'});
+											resultOrder.save(function(err) {
+												if (err) {
+													return res.send({
+														message: errorHandler.getErrorMessage(err)
+													});
+												} else {
+													return res.send({
+														message: 'Result submitted and waiting for verification.'
+													});
+												}
+											});
+																
+										}
+								});
+							}
+							else
+							{
+								return res.send({
+									message: 'Result has already been submitted and is waiting for verification.'
+								});
+							}
+						}
+					});
 				}
 			});
 		}
@@ -323,15 +334,14 @@ exports.rejectResult = function(req, res) {
 			if(req.user.userId == resultFound.verifiedBy)
 			{	
 				resultFound.save(function(err) {
-					console.log(results);
-					console.log(resultFound);
 					if (err) {
 						return res.send({
 							message: errorHandler.getErrorMessage(err)
 						});
 					} else {
-						console.log('hello');
-						res.jsonp(resultFound);
+						return res.send({
+							message: 'Result rejected; order Incomplete. Results need to be reviewed.'
+						});
 					}
 				});	
 			}

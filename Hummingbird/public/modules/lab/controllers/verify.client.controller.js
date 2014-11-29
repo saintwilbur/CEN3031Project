@@ -30,6 +30,7 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 			{
 				$http.get('/result/verifierList',{userId: $scope.authentication.user.userId}).success(function(response) 
 				{
+					console.log(response);
 					$scope.results=response;
 
 				}).error(function(response) 
@@ -98,7 +99,7 @@ angular.module('lab').controller('VerifyController', ['$scope', '$rootScope', 'A
 				$http.post( '/result/reject', send).success(function(response) 
 				{
 					
-					alert('Order Incomplete. Result needs to be reviewed by Submitter.');
+					alert(response.message);
 					$scope.getSubmittedResults();
 				}).error(function(response) 
 				{
