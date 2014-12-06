@@ -279,7 +279,15 @@ exports.verifyResult = function(req, res) {
 			});	
 			//send email
 			User.findOne({userId: req.user.userId}).exec(function(err, user){
+				if (err) 
+				{
+					return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+					});
+				} else 
+				{
 
+				}
 			});
 			//res.jsonp(results);
 		}
