@@ -22,27 +22,25 @@ angular.module('customer').controller('CustomerHistoryController', ['$scope', 'A
       {
         $scope.error = response.message;
       });
-
-      console.log($scope.orderHistory);
     };
 
     var getResultInfo = function(order, result_id)
     {
+
       var orderInfo = {};
       var send  = 
       {
         _id: result_id
       };
-      console.log(order);
-      $http.get('/result/outcome', send).success(function(response) 
+      $http.post('/result/outcome',send).success(function(response) 
       {
         orderInfo = {
             orderId: order.orderId,
+            item: order.item,
             created: order.created,
             status: order.status,
-            result: response
+            result: response.result
         };
-        console.log(response);
         $scope.orderHistory.push(orderInfo);
       }).error(function(response) 
       {
@@ -52,3 +50,4 @@ angular.module('customer').controller('CustomerHistoryController', ['$scope', 'A
     };
   }
 ]);
+

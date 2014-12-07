@@ -13,7 +13,7 @@ module.exports = function(app) {
 	//app.route('/result/submit').post(results.submitResult);
 	app.route('/result/verify').post(results.verifyResult);
 	app.route('/result/reject').post(results.rejectResult);
-	app.route('/result/outcome').get(results.getResultData);
+	app.route('/result/outcome').post(results.getResultData);
 	app.route('/result/getOrderInfo').get(results.getOrderInfo);
 	app.route('/results/submitterRejectedList').get(results.rejectedList);
 	
