@@ -107,7 +107,6 @@ describe('Result Controller Unit Tests:', function() {
 			
 			var res = {
 				jsonp: function(object) {
-					console.log(object)
 					object[0].submittedBy.should.not.equal('23456');
 				}
 			};

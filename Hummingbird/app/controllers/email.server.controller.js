@@ -76,9 +76,6 @@ exports.resultMail = function(req, res, next) {
 			var ip_pool = '587';
 			mandrill_client.messages.send({'message': message, 'async': async, 'ip_pool': ip_pool}, function(result) {
 				console.log(result);
-				res.send({
-					message: 'An email has been sent to ' + user.email + ' with further instructions.'
-				});
 				return;
 			}, function(e) {
 	    			// Mandrill returns the error as an object with name and message keys
