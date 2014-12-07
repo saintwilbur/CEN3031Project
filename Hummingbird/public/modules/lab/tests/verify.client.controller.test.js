@@ -52,18 +52,18 @@
 
 		it('$scope.getSubmittedResults should get the submitted results for the lab worker', inject(function(User) {
 			scope.authentication.user = new User({_id:'525cf20451979dea2c000001'});
-			$httpBackend.when('GET', '/result/verifierList').respond(200, 'result');
+			$httpBackend.when('GET', '/result/verifierList').respond(200, 'Result');
 
 			scope.getSubmittedResults();
 			$httpBackend.flush();
 
 			// test scope value
-			expect(scope.results).toBe('result');
+			expect(scope.results).toBe('Result');
 		}));
 
 		it('$scope.getSubmittedResults check for undefined response value', inject(function(User) {
 			scope.authentication.user = new User({_id:'525cf20451979dea2c000001'});
-			$httpBackend.when('GET', '/result/verifierList').respond(200, 'result');
+			$httpBackend.when('GET', '/result/verifierList').respond(200, 'Result');
 
 			scope.getSubmittedResults();
 			$httpBackend.flush();
@@ -99,17 +99,17 @@
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
 			console.log('Result Verifier List');
-			$httpBackend.when('GET', '/result/verifierList').respond(200, 'verifierList');
+			$httpBackend.when('GET', '/result/verifierList').respond(200, 'Verifier list');
 
 			scope.getSubmittedResults();
 			$httpBackend.flush();
-			expect(scope.results).toEqual('verifierList');
+			expect(scope.results).toEqual('Verifier list');
 		}));
 		it('checking for errors in the submitted results', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
 			console.log('Result Verifier List');
-			$httpBackend.when('GET', '/result/verifierList').respond(200, 'verifierList');
+			$httpBackend.when('GET', '/result/verifierList').respond(200, 'Verifier list');
 
 			scope.getSubmittedResults();
 			$httpBackend.flush();
@@ -120,7 +120,7 @@
 			scope.authentication.user= new User({_id:'525cf20451979dea2c000004'});
 
 			$httpBackend.when('POST', '/result/verify').respond(200, 'result');
-			$httpBackend.when('GET', '/result/verifierList').respond(200, 'verifierList');
+			$httpBackend.when('GET', '/result/verifierList').respond(200, 'Verifier list');
 
 			scope.acceptResult();
 			$httpBackend.flush();

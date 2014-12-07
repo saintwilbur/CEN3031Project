@@ -13,7 +13,8 @@ var mongoose = require('mongoose'),
 	mandrill_client = new mandrill.Mandrill('y6EIYNIwNBbIaneTap-iXw'),
     _ = require('lodash');
 
-var core = require('../../app/controllers/core.server.controller.js');
+var core = require('../../app/controllers/core.server.controller.js'),
+	email = require('../../app/controllers/email.server.controller.js');
 
 /**
  * Create a Result
@@ -278,53 +279,7 @@ exports.verifyResult = function(req, res) {
 				}
 			});	
 			//send email
-			User.findOne({userId: req.user.userId}).exec(function(err, user){
-				if (err) 
-				{
-					return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-					});
-				} else 
-				{
-					function(user, done) {
-						res.render('templates/complete-result-email', {
-							name: user.displayName,
-							appName: config.app.title
-							url: 'localhost:3000/customer/'
-						}, function(err, emailHTML) {
-							done(err, emailHTML, user);
-						});
-					},
-					function(emailHTML, user, done) {
-						var message = {
-	    					'html': emailHTML,
-	    					'subject': 'Test Complete',
-	    					'from_email': 'sltalty@gmail.com',
-	    					'from_name': 'Customer Support',
-	    					'to': [{
-	            				'email': user.email,
-	            				'name': 'Recipient Name',
-	            				'type': 'to'
-	    					}],
-	    					'headers': {
-	        					'Reply-To': 'sltalty@gmail.com'
-	    					}
-	    				};			
-						var async = true;
-						var ip_pool = '587';
-						mandrill_client.messages.send({'message': message, 'async': async, 'ip_pool': ip_pool}, function(result) {
-							console.log(result);
-							res.send({
-								message: 'An email has been sent to ' + user.email + ' with further instructions.'
-							});
-							return;
-						}, function(e) {
-	    					// Mandrill returns the error as an object with name and message keys
-	    					console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
-	    				});
-					}
-				}
-			});
+			email.resultMail(req, res);
 			//res.jsonp(results);
 		}
 	});

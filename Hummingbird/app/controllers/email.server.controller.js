@@ -4,7 +4,14 @@
  * Module dependencies.
  */
 var _ = require('lodash'),
+	errorHandler = require('./errors'),
 	mongoose = require('mongoose'),
+	passport = require('passport'),
+	User = mongoose.model('User'),
+	config = require('../../config/config'),
+	//nodemailer = require('nodemailer'),
+	async = require('async'),
+	crypto = require('crypto'),
 	mandrill = require('mandrill-api/mandrill'),
 	mandrill_client = new mandrill.Mandrill('y6EIYNIwNBbIaneTap-iXw');
 /**
@@ -12,88 +19,73 @@ var _ = require('lodash'),
  */
 exports.emailNotification = function(req, res) {
 	var message = {
-	    "html": "<p>Example HTML content</p>",
-	    "text": "Example text content",
-	    "subject": "Example subject",
-	    "from_email": "sltalty@gmail.com",
-	    "from_name": "Example Name",
-	    "to": [{
-	            "email": "davidy114@hotmail.com",
-	            "name": "Recipient Name",
-	            "type": "to"
-	    }],
-	    "headers": {
-	        "Reply-To": "sltalty@gmail.com"
-	    }/*,
-	    "important": false,
-	    "track_opens": null,
-	    "track_clicks": null,
-	    "auto_text": null,
-	    "auto_html": null,
-	    "inline_css": null,
-	    "url_strip_qs": null,
-	    "preserve_recipients": null,
-	    "view_content_link": null,
-	    "bcc_address": "sltclss@gmail.com",
-	    "tracking_domain": null,
-	    "signing_domain": null,
-	    "return_path_domain": null,
-	    "merge": true,
-	    "merge_language": "mailchimp",
-	    "global_merge_vars": [{
-	            "name": "merge1",
-	            "content": "merge1 content"
-	    }],
-	    "merge_vars": [{
-	            "rcpt": "sltclss@gmail.com",
-	            "vars": [{
-	                    "name": "merge2",
-	                    "content": "merge2 content"
-	            }]
-	    }],
-	    "tags": [
-	        "password-resets"
-	    ],
-	    "subaccount": "customer-123",
-	    "google_analytics_domains": [
-	        "example.com"
-	    ],
-	    "google_analytics_campaign": "sltalty@gmail.com",
-	    "metadata": {
-	        "website": "www.example.com"
-	    },
-	    "recipient_metadata": [{
-	            "rcpt": "sltclss@gmail.com",
-	            "values": {
-	                "user_id": 123456
-	            }
-	    }],
-	    "attachments": [{
-	            "type": "text/plain",
-	            "name": "myfile.txt",
-	            "content": "ZXhhbXBsZSBmaWxl"
-	    }],
-	    "images": [{
-	            "type": "image/png",
-	            "name": "IMAGECID",
-	            "content": "ZXhhbXBsZSBmaWxl"
-	    }]*/
+		//Email content	    
 	};
 	var async = true;
 	var ip_pool = "587";
 	mandrill_client.messages.send({"message": message, "async": async, "ip_pool": ip_pool}, function(result) {
 	    console.log(result);
-	    /*
-	    [{
-	        "email": "recipient.email@example.com",
-	        "status": "sent",
-	        "reject_reason": "hard-bounce",
-	        "_id": "abc123abc123abc123abc123abc123"
-	    }]
-	    */
 	    return;
 	}, function(e) {
 	    // Mandrill returns the error as an object with name and message keys
 	    console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+	});
+};
+
+exports.resultMail = function(req, res, next) {
+	// Init Variables
+	var message = null;
+
+	async.waterfall([
+		function(done) {
+			User.findOne({userId: req.user.userId}).exec(function(err, user){
+				if (err) 
+				{
+					return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+					});
+				}
+			}); 
+		},
+		function(user, done) {
+			res.render('templates/complete-result-email', {
+				name: user.displayName,
+				appName: config.app.title,
+				url: 'localhost:3000/customer/'
+			}, function(err, emailHTML) {
+				done(err, emailHTML, user);
+			});
+		},
+		// If valid email, send email using service
+		function(emailHTML, user, done) {
+			var message = {
+	    		'html': emailHTML,
+	    		'subject': 'Test Complete',
+	    		'from_email': 'sltalty@gmail.com',
+	    		'from_name': 'Customer Support',
+	    		'to': [{
+	            	'email': user.email,
+	            	'name': 'Recipient Name',
+	            	'type': 'to'
+	    		}],
+	    		'headers': {
+	        		'Reply-To': 'sltalty@gmail.com'
+	    		}
+	    	};			
+			var async = true;
+			var ip_pool = '587';
+			mandrill_client.messages.send({'message': message, 'async': async, 'ip_pool': ip_pool}, function(result) {
+				console.log(result);
+				res.send({
+					message: 'An email has been sent to ' + user.email + ' with further instructions.'
+				});
+				return;
+			}, function(e) {
+	    			// Mandrill returns the error as an object with name and message keys
+	    			console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+	    	});
+		}
+	], function(err) {
+		if (err) return next(err);
 	});
 };
