@@ -298,7 +298,7 @@ exports.verifyResult = function(req, res) {
 					function(emailHTML, user, done) {
 						var message = {
 	    					'html': emailHTML,
-	    					'subject': 'Password Reset',
+	    					'subject': 'Test Complete',
 	    					'from_email': 'sltalty@gmail.com',
 	    					'from_name': 'Customer Support',
 	    					'to': [{
