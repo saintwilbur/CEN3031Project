@@ -166,12 +166,7 @@
 			expect(scope.increaseKitCount()).toBe(false);
 		}));
 		it('Should decrement inventory with a negative input', inject(function(User) {
-			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-
-	/*		scope.kitSelect.itemId = 'KitA';
-			scope.kitSelect.amount = '-1';
-			scope.increaseKitCount(); */
 			var send = 
 			{
 				itemId: 'KitA',
@@ -203,8 +198,26 @@
 			$httpBackend.when('post', '/inventory/newKit').respond(200, 'newKit');
 			expect(scope.newKit).toEqual({});
 		}));
+		it('Should get not be able to add a kit with a decimal input', inject(function(User) {
+			// The test logic
+			scope.newKit.name = 'KitA';
+			scope.newKit.initialAmount = '1.5';
 
-		
+			console.log('Cannot add new kit with a decimal input');
+			//AdminController.when(increaseKitCount()).respond(200, send);
+
+			expect(scope.addNewKit()).toBe(false);
+		}));
+		it('Should get not be able to add a kit with not a number input', inject(function(User) {
+			// The test logic
+			scope.newKit.name = 'KitA';
+			scope.newKit.initialAmount = 'test';
+
+			console.log('Cannot add new kit with a text input');
+			//AdminController.when(increaseKitCount()).respond(200, send);
+
+			expect(scope.addNewKit()).toBe(false);
+		}));
 		it('Checking for errors from the shipKit response function', inject(function() {
 			// The test logic
 			//scope.authentication.user = new User({userId:'525cf20451979dea2c000003'});

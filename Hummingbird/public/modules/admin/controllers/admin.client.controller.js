@@ -109,7 +109,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		{
 			//Check to see if amount entered is an integer
 			$scope.increaseKitSuccess;
-			if(!isNaN($scope.kitSelect.amount) && ($scope.kitSelect.amount%1 == 0)) {
+			if(!isNaN($scope.kitSelect.amount) && ($scope.kitSelect.amount%1 === 0)) {
 				console.log('is an Integer');
 				var send = 
 				{
@@ -131,9 +131,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 				$scope.increaseKitSuccess = false;
 			}
 			$scope.kitSelect = {};
-			if($scope.changeKitAmount$setPristine !== undefined) {
-				$scope.changeKitAmount.$setPristine(); 
-			}
+
 			$scope.getInventory();
 			return $scope.increaseKitSuccess;
 		};
@@ -160,17 +158,27 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 				name: $scope.newKit.name,
 				count: $scope.newKit.initalAmount
 			};
+		$scope.addKitSuccess;
+
+		if(!isNaN($scope.kitSelect.initialAmount) && ($scope.kitSelect.initialAmount%1 === 0)) {
+
 			$http.post('/inventory/newKit', send).success(function(response) 
 			{
 				alert(send.name + ' has been created.');
-			
+				$scope.addKitSuccess = true;
+
 			}).error(function(response) 
 			{
 				$scope.error = response.message;
-			}); 
+			});
+		}
+			else {
+				alert('Please enter in a number.');
+				$scope.addKitSuccess = false;
+			}			
 			$scope.newKit = {};
-			$scope.addToInventory.$setPristine();
 			$scope.getInventory();
+			return $scope.addKitSuccess;
 		};
 		/* jshint ignore:end */
 	}
