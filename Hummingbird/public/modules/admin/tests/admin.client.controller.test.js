@@ -145,6 +145,46 @@
 			$httpBackend.flush();
 			expect(scope.inventory).toEqual('listAll');
 		}));
+		it('Should get not be able to increment inventory with a String', inject(function(User) {
+			// The test logic
+			scope.kitSelect.itemId = 'KitA';
+			scope.kitSelect.amount = 'test';
+
+			console.log('Cannot increment inventory with a String');
+			//AdminController.when(increaseKitCount()).respond(200, send);
+
+			expect(scope.increaseKitCount()).toBe(false);
+		}));
+		it('Should get not be able to increment inventory with a decimial input', inject(function(User) {
+			// The test logic
+			scope.kitSelect.itemId = 'KitA';
+			scope.kitSelect.amount = '1.5';
+
+			console.log('Cannot increment inventory with a decimal input');
+			//AdminController.when(increaseKitCount()).respond(200, send);
+
+			expect(scope.increaseKitCount()).toBe(false);
+		}));
+		it('Should decrement inventory with a negative input', inject(function(User) {
+			// The test logic
+			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
+
+	/*		scope.kitSelect.itemId = 'KitA';
+			scope.kitSelect.amount = '-1';
+			scope.increaseKitCount(); */
+			var send = 
+			{
+				itemId: 'KitA',
+				count: '-1'
+			};
+			$httpBackend.when('post', '/inventory/increment').respond(200, send);
+
+		//	$httpBackend.when('POST', '/inventory/listAll').respond(200, 'listAll');
+
+			console.log('Should decrement inventory with a negative input');
+	
+			expect(scope.count).toEqual(scope.count--)
+		}));				
 		it('Checking for error in the response for the list of inventory', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});

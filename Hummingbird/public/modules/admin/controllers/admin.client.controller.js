@@ -103,27 +103,39 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		 * inventory.client.view.html
 		 */
 		
-		var kitSelect = {};
+		$scope.kitSelect = {};
+		$scope.changeKitAmount = {};
 		$scope.increaseKitCount = function()
 		{
+			//Check to see if amount entered is an integer
+			$scope.increaseKitSuccess;
+			if(!isNaN($scope.kitSelect.amount) && ($scope.kitSelect.amount%1 == 0)) {
+				console.log('is an Integer');
+				var send = 
+				{
+					itemId: $scope.kitSelect.itemId,
+					count: $scope.kitSelect.amount
+				};	
+				$http.post('/inventory/increment',send).success(function(response) 
+				{
+					alert(response.message);
 
-			var send = 
-			{
-				itemId: $scope.kitSelect.itemId,
-				count: $scope.kitSelect.amount
-			};
-			$http.post('/inventory/increment',send).success(function(response) 
-			{
-				alert(response.message);
-
-			}).error(function(response) 
-			{
-				$scope.error = response.message;
-			}); 
-			
+				}).error(function(response) 
+				{
+					$scope.error = response.message;
+				});
+				$scope.increaseKitSuccess = true;
+			}
+			else {
+				alert('Please enter in a number.');
+				$scope.increaseKitSuccess = false;
+			}
 			$scope.kitSelect = {};
-			$scope.changeKitAmount.$setPristine(); 
+			if($scope.changeKitAmount$setPristine !== undefined) {
+				$scope.changeKitAmount.$setPristine(); 
+			}
 			$scope.getInventory();
+			return $scope.increaseKitSuccess;
 		};
 
 		$scope.inventory = [];
