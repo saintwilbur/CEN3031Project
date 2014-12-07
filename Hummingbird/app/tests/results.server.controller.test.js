@@ -21,7 +21,7 @@ var user, user2, result, result2;
 describe('Result Controller Unit Tests:', function() {
 	beforeEach(function(done) {
 		user = new User({
-			userId: '12345',
+			userId: '54321',
 			firstName: 'Full',
 			lastName: 'Name',
 			displayName: 'Full Name',
@@ -79,7 +79,6 @@ describe('Result Controller Unit Tests:', function() {
 				jsonp: function(object) {
 					object[0].result.should.equal('positive');
 					object[0].submittedBy.should.equal('12345');
-					//object[0].user.should.equal(result.user);
 				}
 			};
 
@@ -103,14 +102,13 @@ describe('Result Controller Unit Tests:', function() {
 
 		it('result.listCanVerify() should return correct list of results', function(done) {
 			var req = {
-				body: {
-					userId: '23456'
-				}
+				user: user2				
 			};
 			
 			var res = {
 				jsonp: function(object) {
-					object[0].verifiedBy.should.equal('23456');
+					console.log(object)
+					object[0].submittedBy.should.not.equal('23456');
 				}
 			};
 

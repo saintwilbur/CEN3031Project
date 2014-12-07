@@ -75,7 +75,7 @@ describe('Result Model Unit Tests:', function() {
 		});
 
 		it('should encounter an error with wrong type of data', function(done) {
-			result.completed = 'Today';
+			result.created = 'Today';
 			return result.save(function(err) {
 				should.exist(err);
 				done();

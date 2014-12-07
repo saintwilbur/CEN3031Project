@@ -55,7 +55,7 @@ describe('Order Model Unit Tests:', function() {
 				orderId: '12345',
 				user: user,
 				item: 'General',
-				status: 'placed',
+				status: 'Placed',
 				result: result,
 				field1: 'Test',
 				billing: {

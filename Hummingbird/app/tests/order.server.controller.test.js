@@ -22,7 +22,7 @@ var user, order;
 describe('Order Controller Unit Tests:', function() {
 	beforeEach(function(done) {
 		user = new User({
-			userId: '12345',
+			userId: '54321',
 			firstName: 'Full',
 			lastName: 'Name',
 			displayName: 'Full Name',
