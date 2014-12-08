@@ -54,7 +54,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 
 	    };
 
-
+	    $scope.credentials = {};
 		$scope.signin = function() {
 			$scope.credentials.path = $location.path();
 			$http.post('/auth/signin', $scope.credentials).success(function(response) {
