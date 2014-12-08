@@ -35,7 +35,6 @@ exports.emailNotification = function(req, res) {
 exports.resultMail = function(req, res, next) {
 	// Init Variables
 	var message = null;
-	console.log('ACTIVATE');
 	async.waterfall([
 		function(done) {
 			User.findOne({userId: req.user.userId}).exec(function(err, user){
@@ -47,8 +46,7 @@ exports.resultMail = function(req, res, next) {
 				} else {
 					done(err, user);
 				}
-			}); 
-			console.log('check1');
+			});
 		},
 		function(user, done) {
 			res.render('templates/complete-result-email', {
@@ -56,16 +54,11 @@ exports.resultMail = function(req, res, next) {
 				appName: config.app.title,
 				url: 'localhost:3000/customer/'
 			}, function(err, emailHTML) {
-				console.log('ERROR HERE');
 				done(err, emailHTML, user);
 			});
-						console.log('check2');
-
 		},
 		// If valid email, send email using service
-		function(emailHTML, user, done) {
-						console.log('check3');
-
+		function(emailHTML, user, done) {			
 			var message = {
 	    		'html': emailHTML,
 	    		'subject': 'Test Complete',
@@ -83,10 +76,7 @@ exports.resultMail = function(req, res, next) {
 			var async = true;
 			var ip_pool = '587';
 			mandrill_client.messages.send({'message': message, 'async': async, 'ip_pool': ip_pool}, function(result) {
-				console.log(result);
-			/*	res.send({
-					message: 'An email has been sent to ' + user.email + ' with further instructions.'
-				});*/
+				console.log(result);			
 				return;
 			}, function(e) {
 	    			// Mandrill returns the error as an object with name and message keys
