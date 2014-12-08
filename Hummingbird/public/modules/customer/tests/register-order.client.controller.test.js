@@ -45,9 +45,11 @@
 			$location = _$location_;
 
 			// Initialize the Register order controller.
+			/*
 			RegisterOrderController = $controller('RegisterOrderController', {
 				$scope: scope
 			});
+			*/
 		}));
 
 		it('Should do some controller test', inject(function() {
