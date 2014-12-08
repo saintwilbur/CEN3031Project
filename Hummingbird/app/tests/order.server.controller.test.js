@@ -100,8 +100,7 @@ describe('Order Controller Unit Tests:', function() {
 			var res = {				
 				jsonp: function(object) {
 				},
-				send: function(message) {
-					//message.should.equal('Need Billing Information');
+				send: function(message) {					
 				}
 			};
 			orders.create(req, res);

@@ -98,7 +98,7 @@
 		it('Should get the submitted results of the user', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-			console.log('Result Verifier List');
+			console.log('Result verifier list');
 			$httpBackend.when('GET', '/result/verifierList').respond(200, 'Verifier list');
 
 			scope.getSubmittedResults();
@@ -108,7 +108,7 @@
 		it('checking for errors in the submitted results', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-			console.log('Result Verifier List');
+			console.log('Result verifier list');
 			$httpBackend.when('GET', '/result/verifierList').respond(200, 'Verifier list');
 
 			scope.getSubmittedResults();
