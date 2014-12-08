@@ -117,18 +117,18 @@
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
 			console.log('Get the other orders');
-			$httpBackend.when('GET', '/order/list').respond(200, 'list');
+			$httpBackend.when('GET', '/order/listAll').respond(200, 'listAll');
 
 			scope.getOtherOrders();
 			$httpBackend.flush();
-			expect(scope.otherOrders).toEqual('list');
+			expect(scope.otherOrders).toEqual('listAll');
 		}));
 
 		it('Checking for errors from the  other orders function', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
 			console.log('Get the other orders');
-			$httpBackend.when('GET', '/order/list').respond(200, 'list');
+			$httpBackend.when('GET', '/order/listAll').respond(200, 'listAll');
 
 			scope.getOtherOrders();
 			$httpBackend.flush();
