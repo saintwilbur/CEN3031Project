@@ -174,11 +174,11 @@
 			};
 			$httpBackend.when('post', '/inventory/increment').respond(200, send);
 
-		//	$httpBackend.when('POST', '/inventory/listAll').respond(200, 'listAll');
+		    //$httpBackend.when('POST', '/inventory/listAll').respond(200, 'listAll');
 
-			console.log('Should decrement inventory with a negative input');
+			console.log('Should not decrement inventory with a negative input');
 	
-			expect(scope.count).toEqual(scope.count--)
+			expect(scope.increaseKitCount()).toBe(false);
 		}));				
 		it('Checking for error in the response for the list of inventory', inject(function(User) {
 			// The test logic

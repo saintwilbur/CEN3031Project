@@ -8,6 +8,7 @@ var _ = require('lodash'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
 	User = mongoose.model('User'),
+	Order = mongoose.model('Order'),
 	config = require('../../config/config'),
 	//nodemailer = require('nodemailer'),
 	async = require('async'),
@@ -37,15 +38,24 @@ exports.resultMail = function(req, res, next) {
 	var message = null;
 	async.waterfall([
 		function(done) {
-			User.findOne({userId: req.user.userId}).exec(function(err, user){
+			Order.findOne({result: req.body.result_id}).exec(function(err, order){
 				if (err) 
 				{
 					return res.status(400).send({
 					message: errorHandler.getErrorMessage(err)
 					});
 				} else {
-					done(err, user);
-				}
+					User.findOne({userId: order.user.userId}).exec(function(err, user){
+						if (err) 
+						{
+							return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+							});
+						} else {
+							done(err, user);
+						}
+					});
+				}			
 			});
 		},
 		function(user, done) {

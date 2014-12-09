@@ -108,7 +108,7 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		$scope.increaseKitCount = function()
 		{
 			//Check to see if amount entered is an integer
-			$scope.increaseKitSuccess;
+			$scope.increaseKitSuccess = {};
 			if(!isNaN($scope.kitSelect.amount) && ($scope.kitSelect.amount%1 === 0)) {
 				console.log('is an Integer');
 				var send = 

@@ -122,9 +122,8 @@
 			$httpBackend.when('POST', '/result/verify').respond(200, 'result');
 			$httpBackend.when('GET', '/result/verifierList').respond(200, 'Verifier list');
 
-			scope.acceptResult();
+			scope.getSubmittedResults();
 			$httpBackend.flush();
-			
 		}));
 		
 	});
