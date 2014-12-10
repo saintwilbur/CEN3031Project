@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint eqeqeq:false, eqnull:true*/
 angular.module('customer').controller('CustomerHistoryController', ['$scope', 'Authentication', '$http', 'User', '$filter',
   function($scope, Authentication, $http, User, $filter) {
     $scope.authentication = Authentication;
@@ -26,7 +26,7 @@ angular.module('customer').controller('CustomerHistoryController', ['$scope', 'A
 
     var getResultInfo = function(order, result_id)
     {
-
+      /* jshint ignore:start */
       var orderInfo = {};
       var send  = 
       {
@@ -56,7 +56,7 @@ angular.module('customer').controller('CustomerHistoryController', ['$scope', 'A
       {
         $scope.error = response.message;
       });
-
+      /* jshint ignore:end */
     };
   }
 ]);
