@@ -43,11 +43,11 @@ angular.module('customer').controller('CustomerHistoryController', ['$scope', 'A
             result: response.result,
             comments: '"' +response.comments + '"'
         };
-        if(order.completed == undefined)
+        if(order.completed === undefined)
         {
           orderInfo.completed = 'In Progress';
-        };
-        if(response.comments == undefined)
+        }
+        if(response.comments === undefined)
         {
           orderInfo.comments = 'None';
         }

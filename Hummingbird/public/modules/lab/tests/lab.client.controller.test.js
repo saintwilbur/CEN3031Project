@@ -77,7 +77,7 @@
 			expect(scope.error).toEqual(undefined);
 		}));
 
-	    it('Function completedOrder should get all the completedOrder ', inject(function(User) {
+	    it('Function completedOrder should not get all the completedOrder ', inject(function(User) {
 			scope.authentication.user = new User({userId:'525cf20451979dea2c111112'});
 			$httpBackend.when('GET', '/order/labCompletedOrders').respond(200, 'labCompletedOrders');
 			scope.completedOrderList();
@@ -86,7 +86,7 @@
 		}));
 
 
-	    it('Function getRegistered should get the registration details ', inject(function(User) {
+	    it('Function getRegistered should not get the registration details ', inject(function(User) {
 			scope.authentication.user = new User({userId:'525cf20451979dea2c111112'});
 			$httpBackend.when('GET', '/order/listRegistered').respond(200, 'verifiers');
 			scope.getRegistered();
@@ -94,7 +94,7 @@
 			expect(scope.error).toEqual(undefined);
 		}));
 
-	   	it('Function getRegistered should get the registration details ', inject(function(User) {
+	   	it('Function getRegistered should not get the registration details ', inject(function(User) {
 			scope.authentication.user = new User({userId:'525cf20451979dea2c111112'});
 			$httpBackend.when('GET', '/results/submitterRejectedList').respond(200, 'submitterRejectedList');
 			scope.getNotifications();

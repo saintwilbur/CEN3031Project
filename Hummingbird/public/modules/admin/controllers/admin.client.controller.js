@@ -153,15 +153,15 @@ angular.module('admin').controller('AdminController',['$scope', '$http','Authent
 		$scope.newKit = {};
 		$scope.addNewKit = function()
 		{
+		$scope.addKitSuccess;
+		console.log($scope.newKit.initialAmount);
+
+		if(!isNaN($scope.newKit.initialAmount) && ($scope.newKit.initialAmount%1 === 0)) {
 			var send = 
 			{
 				name: $scope.newKit.name,
 				count: $scope.newKit.initalAmount
 			};
-		$scope.addKitSuccess;
-
-		if(!isNaN($scope.kitSelect.initialAmount) && ($scope.kitSelect.initialAmount%1 === 0)) {
-
 			$http.post('/inventory/newKit', send).success(function(response) 
 			{
 				alert(send.name + ' has been created.');
