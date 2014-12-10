@@ -106,7 +106,7 @@ exports.delete = function(req, res) {
 exports.customerList = function(req, res) 
 {
 	console.log('Called:');
-	Order.find({user: req.user}, {_id:1, 'orderId': 1,'fields':1, 'created':1, 'item':1, 'shippingAddress':1, 'status':1, 'result':1}).sort('-created').exec(function(err, order){
+	Order.find({user: req.user}, {_id:1, 'orderId': 1,'fields': 1, 'created': 1, 'completed': 1, 'item': 1, 'shippingAddress': 1, 'status': 1, 'result': 1}).sort('-created').exec(function(err, order){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -230,7 +230,7 @@ exports.listAllButPlaced = function(req, res)
 //lists labTech's completed orders
 exports.listLabCompletedOrders = function(req, res) 
 {
-	Order.find({ result: { $elemMatch: { submittedBy: req.body.userId } } }).sort('-created').exec(function(err, orders){
+	Order.find({ status: 'Completed'}).sort('-created').exec(function(err, orders){
 		if (err) 
 		{
 			return res.status(400).send({

@@ -49,7 +49,7 @@ var ResultSchema = new Schema({
 		default: Date.now()
 	},
 	completed: {
-		type: String
+		type: Date
 	},
 	status: {
 		type: [{

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('customer').controller('CustomerHistoryController', ['$scope', 'Authentication', '$http', 'User',
-  function($scope, Authentication, $http, User) {
+angular.module('customer').controller('CustomerHistoryController', ['$scope', 'Authentication', '$http', 'User', '$filter',
+  function($scope, Authentication, $http, User, $filter) {
     $scope.authentication = Authentication;
     $scope.orderHistory = [];
     //getHistory();  
@@ -37,10 +37,16 @@ angular.module('customer').controller('CustomerHistoryController', ['$scope', 'A
         orderInfo = {
             orderId: order.orderId,
             item: order.item,
-            created: order.created,
+            created:  $filter('date')(order.created, 'yyyy-MM-dd HH:mm'),
+            completed:  $filter('date')(order.completed, 'yyyy-MM-dd HH:mm'),
             status: order.status,
-            result: response.result
+            result: response.result,
+            comments: '"' +response.comments + '"'
         };
+        if(response.comments == undefined)
+        {
+          orderInfo.comments = 'None';
+        }
         $scope.orderHistory.push(orderInfo);
       }).error(function(response) 
       {

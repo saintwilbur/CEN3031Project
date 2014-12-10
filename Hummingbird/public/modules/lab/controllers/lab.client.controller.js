@@ -1,8 +1,8 @@
 /* jshint ignore:start */
 'use strict';
 
-angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$http', 'Authentication',
-	function($scope, $rootScope, $http, Authentication) {
+angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$http', 'Authentication', '$filter',
+	function($scope, $rootScope, $http, Authentication, $filter) {
 		$scope.authentication = Authentication;
 
 		/**
@@ -55,14 +55,36 @@ angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$htt
 		$scope.completedOrderList = function()
 		{
 			
-			$http.get('/order/labCompletedOrders').success(function(response) 
+			$http.get('/order/labCompletedOrders').then(function(response) 
 			{
-				$scope.completedOrders = response;
-			}).error(function(response) 
-			{
-				$scope.error = response.message;
+				$scope.completedOrders = response.data;
+				for(var i = 0; i<$scope.completedOrders.length; i++)
+				{
+					$scope.completedOrders[i].completed =  $filter('date')($scope.completedOrders[i].completed, 'yyyy-MM-dd HH:mm');
+
+				}
+				for(var i = 0; i<$scope.completedOrders.length; i++)
+				{
+					setVerifierView(i);
+				}
 			});
-		}();
+		};
+		var setVerifierView = function (index)
+		{
+			var send = 
+					{
+					 	result_id: $scope.completedOrders[index].result[$scope.completedOrders[index].result.length-1]
+					 };
+
+					$http.post('/result/verifier', send).success(function(response) 
+					{
+						//$scope.completedOrders[i].verifier = verifier;
+						$scope.completedOrders[index].verifier = response.verifiedBy;
+					}).error(function(verifier) 
+					{
+						$scope.error = verifier.message;
+					});
+		};
 
 		$scope.getOrderInfo = function(orderID)
 		{

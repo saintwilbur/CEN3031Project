@@ -293,7 +293,7 @@ exports.verifyResult = function(req, res) {
 
 exports.getResultData = function(req, res)
 {
-	Result.findOne({_id: req.body._id}, {'result':1, _id:0}).exec(function(err, result){
+	Result.findOne({_id: req.body._id}, {'result': 1, 'comments': 1, 'status': 1, _id: 0}).exec(function(err, result){
 		if (err) 
 		{
 			return res.status(400).send({
@@ -301,7 +301,6 @@ exports.getResultData = function(req, res)
 			});
 		} else 
 		{
-			console.log(result);
 			res.jsonp(result);
 		}
 	});
@@ -316,7 +315,7 @@ exports.getOrderInfo = function(req, res)
 {
 	var results = req.body.resultId;
 
-	Order.findOne({result: req.body.resultId}, {_id:0, 'orderId':1, 'fields':1, 'created':1}).exec(function(err, orderItem) {
+	Order.findOne({result: req.body.resultId}, {_id: 0, 'orderId': 1, 'fields': 1, 'created': 1}).exec(function(err, orderItem) {
 		if(err) 
 		{
 			return res.status(400).send({
@@ -400,6 +399,26 @@ exports.rejectedList = function(req, res) {
 
 };
 
+/**
+ * Function will return the verifier of the result
+ * Controller will need to pass in the resultId
+ * will return a userId
+ */
+exports.getVerifier = function(req, res) 
+{
+
+	Result.findOne({_id: req.body.result_id}, {_id: 0, 'verifiedBy':1}).sort('-created').exec(function(err, userId){
+		if (err) 
+		{
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else 
+		{
+			res.jsonp(userId);
+		}
+	});
+};
 exports.test = function(req, res) {
 	var tests = 'test';
 	res.jsonp(tests);

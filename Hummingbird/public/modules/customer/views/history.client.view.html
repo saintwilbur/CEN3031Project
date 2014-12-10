@@ -7,10 +7,11 @@
 			        <tr>
 						<th class="col-md-2">ID</th>
 						<th class="col-md-2">Test Type</th>
-						<th class="col-md-2">Date</th>
+						<th class="col-md-2">Date Created</th>
+						<th class="col-md-2">Date Completed</th>
 						<th class="col-md-2">Status</th>
-						<th class="col-md-2">View</th>
 						<th class="col-md-2">Result</th>
+						<th class="col-md-3">Comments</th>
 			        </tr>
 			    </thead>
 			    <tbody>
@@ -18,9 +19,10 @@
 						<td>{{order.orderId}}</td>
 						<td>{{order.item}}</td>
 						<td>{{order.created}}</td>
+						<td>{{order.completed}}</td>
 						<td>{{order.status[0]}}</td>
-						<td>{{order.View}}</td>		
-						<td>{{order.result}}</td>				
+						<td>{{order.result}}</td>		
+						<td>{{order.comments}}</td>				
 			        </tr>
 			    </tbody>
 			    </table>

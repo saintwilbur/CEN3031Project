@@ -1,4 +1,4 @@
-<section data-ng-controller="VerifyController" data-ng-init="completedOrderList()">
+<section data-ng-controller="LabController" data-ng-init="completedOrderList()">
 	<div class="page-header">
                   <h2>View Completed Orders</h2>
     </div>
@@ -17,15 +17,15 @@
 												<tr>
 													<th class="col-md-2">Order Id</th>
 													<th class="col-md-3">Date</th>
-													<th class="col-md-4">Verifier</th>
+													<th class="col-md-3">Verifier</th>
 													<th class="col-md-3">Complete Order Info</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr ng-repeat="order in completedOrders | filter:query">
 													<td>{{order.orderId}}</td>
-													<td>{{order.date}}</td>					
-													<td>{{order.verifier}}</td>
+													<td>{{order.completed}}</td>
+													<td>{{order.verifier}}</td>					
 													<td>								
 													<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
 													</td>
