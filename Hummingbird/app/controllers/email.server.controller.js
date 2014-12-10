@@ -45,7 +45,7 @@ exports.resultMail = function(req, res, next) {
 					message: errorHandler.getErrorMessage(err)
 					});
 				} else {
-					User.findOne({userId: order.user.userId}).exec(function(err, user){
+					User.findOne({_id: order.user}).exec(function(err, user){
 						if (err) 
 						{
 							return res.status(400).send({

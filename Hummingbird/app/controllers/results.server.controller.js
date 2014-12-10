@@ -232,8 +232,9 @@ exports.verifyResult = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else 
-		{
-			resultFound = _.extend(resultFound, {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Verified', completed: date});
+		{																
+
+			resultFound = _.extend(resultFound, {verifiedBy: req.user.userId, verifiersComments: req.body.verifierComment, status: 'Verified'});
 			resultFound.save(function(err) {
 				if (err) {
 					return res.send({
@@ -241,9 +242,10 @@ exports.verifyResult = function(req, res) {
 					});
 				} 
 				else 
-				{
+				{																
 						if(req.user._id != resultFound.submittedBy)
 						{
+
 							Order.findOne({result: resultFound._id}).exec(function(err, orderFound){
 								if (err) 
 								{
@@ -260,6 +262,8 @@ exports.verifyResult = function(req, res) {
 												message: errorHandler.getErrorMessage(err)
 											});
 										} else {
+														email.resultMail(req, res);
+
 											return res.send(
 											{
 												message: 'Order ' + orderFound.orderId + ' has been completed.'
@@ -279,7 +283,6 @@ exports.verifyResult = function(req, res) {
 				}
 			});	
 			//send email
-			email.resultMail(req, res);
 			//res.jsonp(results);
 		}
 	});
