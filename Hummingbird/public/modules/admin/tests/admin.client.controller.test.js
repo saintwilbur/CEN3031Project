@@ -54,7 +54,6 @@
 			it('Should get some specific lab info', inject(function(User) {
 				// The test logic
 				scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-				console.log('Get the lab info');
 				$httpBackend.when('GET', '/users/labs').respond(200, 'labs');
 
 				scope.getLabs();
@@ -65,7 +64,6 @@
 			it('Checking for error in the get lab info', inject(function(User) {
 				// The test logic
 				scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-				console.log('Get the lab info');
 				$httpBackend.when('GET', '/users/labs').respond(200, 'labs');
 
 				scope.getLabs();
@@ -75,7 +73,6 @@
 
 			it('Should get some specific customer info', inject(function() {
 			// The test logic
-			console.log('Get the customer info');
 			$httpBackend.when('GET', '/users/customers').respond(200, 'customers');
 			//
 			scope.getCustomer();
@@ -85,7 +82,6 @@
 		it('Checking for error in customers info', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-			console.log('Get the customer info');
 			$httpBackend.when('GET', '/users/customers').respond(200, 'customers');
 			//
 			scope.getCustomer();
@@ -96,7 +92,6 @@
 		it('Should get the waiting orders', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-			console.log('Get waiting orders');
 			$httpBackend.when('GET', '/order/placed').respond(200, 'placed');
 
 			scope.getWaitingOrders();
@@ -105,7 +100,6 @@
 		}));
 		it('Should get the waiting orders', inject(function(User) {
 			// The test logic
-			console.log('Get waiting orders');
 			$httpBackend.when('GET', '/order/placed').respond(200, 'placed');
 
 			scope.getWaitingOrders();
@@ -116,7 +110,6 @@
 		it('Should get the other orders', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-			console.log('Get the other orders');
 			$httpBackend.when('GET', '/order/listAll').respond(200, 'listAll');
 
 			scope.getOtherOrders();
@@ -127,7 +120,6 @@
 		it('Checking for errors from the  other orders function', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-			console.log('Get the other orders');
 			$httpBackend.when('GET', '/order/listAll').respond(200, 'listAll');
 
 			scope.getOtherOrders();
@@ -138,7 +130,6 @@
 		it('Should get a list of inventory', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-			console.log('Get the other orders');
 			$httpBackend.when('GET', '/inventory/listAll').respond(200, 'listAll');
 
 			scope.getInventory();
@@ -150,7 +141,6 @@
 			scope.kitSelect.itemId = 'KitA';
 			scope.kitSelect.amount = 'test';
 
-			console.log('Cannot increment inventory with a String');
 			//AdminController.when(increaseKitCount()).respond(200, send);
 
 			expect(scope.increaseKitCount()).toBe(false);
@@ -160,7 +150,6 @@
 			scope.kitSelect.itemId = 'KitA';
 			scope.kitSelect.amount = '1.5';
 
-			console.log('Cannot increment inventory with a decimal input');
 			//AdminController.when(increaseKitCount()).respond(200, send);
 
 			expect(scope.increaseKitCount()).toBe(false);
@@ -175,15 +164,12 @@
 			$httpBackend.when('post', '/inventory/increment').respond(200, send);
 
 		    //$httpBackend.when('POST', '/inventory/listAll').respond(200, 'listAll');
-
-			console.log('Should not decrement inventory with a negative input');
 	
 			expect(scope.increaseKitCount()).toBe(false);
 		}));				
 		it('Checking for error in the response for the list of inventory', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({userId:'525cf20451979dea2c000003'});
-			console.log('Get the other orders');
 			$httpBackend.when('GET', '/inventory/listAll').respond(200, 'listAll');
 
 			scope.getInventory();
@@ -194,7 +180,6 @@
 
 		it('Should add the kits using the addNewKits() function', inject(function() {
 			// The test logic
-			console.log('Post the kits');
 			$httpBackend.when('post', '/inventory/newKit').respond(200, 'newKit');
 			expect(scope.newKit).toEqual({});
 		}));
@@ -203,7 +188,6 @@
 			scope.newKit.name = 'KitA';
 			scope.newKit.initialAmount = '1.5';
 
-			console.log('Cannot add new kit with a decimal input');
 			//AdminController.when(increaseKitCount()).respond(200, send);
 
 			expect(scope.addNewKit()).toBe(false);
@@ -212,8 +196,6 @@
 			// The test logic
 			scope.newKit.name = 'KitA';
 			scope.newKit.initialAmount = 'test';
-
-			console.log('Cannot add new kit with a text input');
 			//AdminController.when(increaseKitCount()).respond(200, send);
 
 			expect(scope.addNewKit()).toBe(false);
@@ -221,7 +203,6 @@
 		it('Checking for errors from the shipKit response function', inject(function() {
 			// The test logic
 			//scope.authentication.user = new User({userId:'525cf20451979dea2c000003'});
-			console.log('Get waiting orders');
 			$httpBackend.when('post', '/order/shipped').respond(200, 'shipped');
 
 			scope.getWaitingOrders();
