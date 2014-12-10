@@ -18,7 +18,9 @@
 													<th class="col-md-2">Order Id</th>
 													<th class="col-md-3">Date</th>
 													<th class="col-md-3">Verifier</th>
-													<th class="col-md-3">Complete Order Info</th>
+													<th class="col-md-2">Result</th>
+													<th class="col-md-2">Comments</th>
+
 												</tr>
 											</thead>
 											<tbody>
@@ -26,14 +28,15 @@
 													<td>{{order.orderId}}</td>
 													<td>{{order.completed}}</td>
 													<td>{{order.verifier}}</td>					
-													<td>								
-													<a href class="navbar-btn" ng-controller="ModalController" ng-click="open('md','/modules/lab/views/view-info.client.view.html')">View</a>							
+													<td>{{order.resultView}}								
+													<!--<a href class="navbar-btn" ng-controller="ModalController" ng-click="getCompletedOrderInfo(order.orderId); open('md','/modules/lab/views/verify-info.client.view.html')">View</a>-->							
 													</td>
+													<td>{{order.comments}}</td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
-									<div ng-hide = "completedOrders.length !== 0">
+									<div ng-hide = "orderHistory.length !== 0">
 									<p>No results for verification. </p>
 								</div>
 							</div>

@@ -72,29 +72,55 @@ angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$htt
 		var setVerifierView = function (index)
 		{
 			var send = 
-					{
-					 	result_id: $scope.completedOrders[index].result[$scope.completedOrders[index].result.length-1]
-					 };
+			{
+			 	result_id: $scope.completedOrders[index].result[$scope.completedOrders[index].result.length-1]
+			 };
 
 					$http.post('/result/verifier', send).success(function(response) 
 					{
-						//$scope.completedOrders[i].verifier = verifier;
 						$scope.completedOrders[index].verifier = response.verifiedBy;
+						$scope.completedOrders[index].resultView = response.result;
+						$scope.completedOrders[index].comments = '"' + response.comments + '"';
+						if(response.comments == undefined)
+				        {
+				          $scope.completedOrders[index].comments = 'None';
+				        }
 					}).error(function(verifier) 
 					{
 						$scope.error = verifier.message;
 					});
 		};
 
-		$scope.getOrderInfo = function(orderID)
+		$scope.completedOrderInfo = {};
+		$scope.getCompletedOrderInfo = function(orderId)
 		{
-			/*$http.get('RETURN OrderInfo METHOD',{orderID}).success(function(response) 
+			var index = 0;
+			for( var i = 0; i<$scope.completedOrders.length; i++)
 			{
-				return response;
-			}).error(function(response) 
+				if($scope.completedOrders[i].orderId == orderId)
+				{
+					index = i;
+				}
+			}
+			var send = 
 			{
-				$scope.error = response.message;
-			});*/
+				_id: $scope.completedOrders[index].result[$scope.completedOrders[index].result.length-1]
+			};
+			$http.post('/result/outcome',send).then(function(response) 
+			{
+				$scope.completedOrderInfo = 
+				{
+					kit: $scope.completedOrders[index].item,
+					orderId: $scope.completedOrders[index].orderId,
+					orderCreated: $scope.completedOrders[index].created,
+					submittedBy: response.submittedBy,
+					resultCreated: response.data.created,
+					result: response.data.result,
+					comments: response.data.comments
+				};
+			});
+			console.log($scope.completedOrderInfo);
+
 		};
 
 		//lab-notifications view

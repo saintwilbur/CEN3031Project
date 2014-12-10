@@ -1,18 +1,18 @@
-<section data-ng-controller="VerifyController" >
+<section data-ng-controller="LabController" data-ng-init = "setIndex()">
 	<div class="modal-body">
 		<h4>Order Information</h4>
 			<ul>
-				<li>Order ID: {{currentOrderInfo.orderId}}</li>
-				<li>Kit type: {{currentOrderInfo.item}}</li>
-				<li>Placed Date: {{currentOrderInfo.created}}</li>
-				<li>Field1:</li>
+				<li>Order ID: {{completedOrderInfo.orderId}}</li>
+				<li>Kit type: {{completedOrderInfo.kit}}</li>
+				<li>Placed Date: {{completedOrderInfo.orderCreated}}</li>
 			</ul>
 		<h4>Result Information</h4>
 			<ul>
-				<li>Submitted By: {{currentResultInfo.submittedBy}}</li>
-				<li>Submitted Date: {{currentResultInfo.created}}</li>
-				<li>Positive/Negative: {{currentResultInfo.result}} </li>
-				<li>Submitter Comments: {{currentResultInfo.comments}} </li>
+				<li>Submitted By: {{completedOrderInfo.submittedBy}}</li>
+				<li>Submitted Date: {{completedOrderInfo.resultCreated}}</li>
+				<li>Positive/Negative: {{completedOrderInfo.result}} </li>
+				<li>Submitter Comments: {{completedOrderInfo.comments}} </li>
+				{{ink}}
 			</ul>
 	</div>
 	<div class="modal-footer">
