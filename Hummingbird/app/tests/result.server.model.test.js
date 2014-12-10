@@ -46,9 +46,10 @@ describe('Result Model Unit Tests:', function() {
 		
 		result = new Result ({
 			user:user,
-			result: 'positive',
+			result: 'Positive',
 			submittedBy: '12',
-			verifiedBy: '456'
+			verifiedBy: '456',
+			comments: 'Test'
 		});
 
 		result.save();
