@@ -115,16 +115,32 @@
 			$httpBackend.flush();
 			expect(scope.error).toEqual(undefined);
 		}));
+				
 		it('Should get the acceptResult results', inject(function(User) {
 			// The test logic
 			scope.authentication.user= new User({_id:'525cf20451979dea2c000004'});
 
 			$httpBackend.when('POST', '/result/verify').respond(200, 'result');
-			$httpBackend.when('GET', '/result/verifierList').respond(200, 'Verifier list');
+			//$httpBackend.when('GET', '/result/verifierList').respond(200, 'Verifier list');
 
-			scope.getSubmittedResults();
-			$httpBackend.flush();
+			//scope.getSubmittedResults();
+			//$httpBackend.flush();
+			//expect(scope.error).toEqual(undefined);
+			
 		}));
 		
+		//GetverifyView info Test
+		it('Should reject the result', inject(function(User) {
+			// The test logic
+			scope.authentication.user= new User({_id:'525cf20451979dea2c000005'});
+
+			$httpBackend.when('POST', '/result/reject').respond(200, 'reject');
+			//$httpBackend.when('GET', '/result/verifierList').respond(200, 'Verifier list');
+
+			//scope.getSubmittedResults();
+			//$httpBackend.flush();
+			//expect(scope.rejectResult).toEqual();
+			
+		}));
 	});
 }());

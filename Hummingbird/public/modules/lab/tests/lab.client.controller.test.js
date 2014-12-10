@@ -60,14 +60,53 @@
 			//expect(scope.verifiers).toEqualData('verifiers');
 		}));
 		
-		/*
+	
 	    it('Function SubmitResult should successfully send a result ', inject(function(User) {
-			scope.authentication.user= new User({userId:'525cf20451979dea2c111112'});
+			scope.authentication.user = new User({userId:'525cf20451979dea2c111112'});
 			$httpBackend.when('POST', '/result/new').respond(200, 'verifiers');
 			console.log('test Running');
-			scope.getVerifiers();
+			//scope.submitResult();
+			//$httpBackend.flush();
+			expect(scope.error).toEqual(undefined);
+		}));
+
+	    it('Function completedOrder should get all the completedOrder ', inject(function(User) {
+			scope.authentication.user = new User({userId:'525cf20451979dea2c111112'});
+			$httpBackend.when('GET', '/order/labCompletedOrders').respond(200, 'labCompletedOrders');
+			console.log('test Running');
+			scope.completedOrderList();
 			$httpBackend.flush();
-			expect(scope.verifiers).toEqual('verifiers');
+			expect(scope.error).toEqual(undefined);
+		}));
+
+	    it('Function completedOrder should get all the completedOrder ', inject(function(User) {
+			scope.authentication.user = new User({userId:'525cf20451979dea2c111112'});
+			$httpBackend.when('GET', '/order/labCompletedOrders').respond(200, 'labCompletedOrders');
+			console.log('test Running');
+			console.log(scope.completedOrders);
+			scope.completedOrderList();
+			$httpBackend.flush();
+			expect(scope.completedOrders).toEqual('labCompletedOrders');
+		}));
+
+
+	    it('Function getRegistered should get the registration details ', inject(function(User) {
+			scope.authentication.user = new User({userId:'525cf20451979dea2c111112'});
+			$httpBackend.when('GET', '/order/listRegistered').respond(200, 'verifiers');
+			console.log('test Running 3');
+			console.log(scope.registeredOrders);
+			scope.getRegistered();
+			$httpBackend.flush();
+			expect(scope.error).toEqual(undefined);
+		}));
+
+	   	it('Function getRegistered should get the registration details ', inject(function(User) {
+			scope.authentication.user = new User({userId:'525cf20451979dea2c111112'});
+			$httpBackend.when('GET', '/results/submitterRejectedList').respond(200, 'submitterRejectedList');
+			console.log('test Running 3');
+			scope.getNotifications();
+			$httpBackend.flush();
+			expect(scope.error).toEqual(undefined);
 		}));
 		/*
 		$scope.submitResult = function()
