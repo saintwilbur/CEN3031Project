@@ -71,6 +71,7 @@ angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$htt
 		};
 		var setVerifierView = function (index)
 		{
+			if($scope.completedOrders.result !== undefined) {
 			var send = 
 			{
 			 	result_id: $scope.completedOrders[index].result[$scope.completedOrders[index].result.length-1]
@@ -89,6 +90,10 @@ angular.module('lab').controller('LabController', ['$scope', '$rootScope', '$htt
 					{
 						$scope.error = verifier.message;
 					});
+				}
+			else {
+				//alert('no Completed Orders');
+			}
 		};
 
 		$scope.completedOrderInfo = {};
