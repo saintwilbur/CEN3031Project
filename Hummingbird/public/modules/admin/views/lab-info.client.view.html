@@ -1,0 +1,53 @@
+<section data-ng-controller="AdminController" data-ng-init="getLabs()">
+	<br>
+	<div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                   		Lab Technician Information
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+	                <div class="row">
+						<div class="col-sm-4">
+					        <label>Search:</label><input type="search" class="form-control" ng-model="query" placeholder="Lab Technician ID">	<br>
+						</div>		
+						
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<table class="table table-hover table-condensed table-striped">
+								<thead>
+									<tr>
+										<th class="col-md-5">Lab ID</th>
+										<th class="col-md-4">Name</th>
+										<th class="col-md-4">username</th>
+										<th class="col-md-4">email</th>
+										<th class="col-md-4">Date of Birth</th>
+										<th class="col-md-3">Created</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="lab in labs | filter:query">
+										<td>{{lab.userId}}</td>
+										<td>{{lab.displayName}}</td>
+										<td>{{lab.username}}</td>
+										<td>{{lab.email}}</td>
+										<td>{{lab.dateOfBirth}}</td>
+										<td>{{lab.created}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div ng-hide = "labs.length !== 0">
+							<p>No Lab info </p>
+						</div>
+					</div>			
+        <!-- /.panel-body -->
+    			</div>
+        <!-- /.panel -->
+   			</div>
+    <!-- /.col-lg-12 -->
+		</div>
+	</div>
+</section>

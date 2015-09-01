@@ -1,0 +1,116 @@
+<section data-ng-controller="NewOrderCtrl" data-ng-init = "getKits()">
+    <div class="modal-header">
+       <h2>New Order</h2>
+    </div>
+    <div class="modal-body">
+  <form name="sampleTest"class="form-horizontal">
+    <fieldset>
+      <legend>Test Kit Information</legend>
+
+        <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label">Select a Test Kit</label>
+        <div class="col-md-4">
+          <select class="form-control" data-ng-model="formData.kitName">
+            <option ng-repeat="kit in availableKits" value="{{kit.name}}">{{kit.name}}</option>
+          </select>
+        </div>
+      </div>
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">Text Input</label>  
+        <div class="col-md-4">
+          <input id="textinput" name="textinput" data-ng-model="formData.field1" placeholder=" " class="form-control input-md" type="text">
+        </div>
+      </div>
+      <!-- Multiple Radios -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="radios">Multiple Radios</label>
+        <div class="col-md-4">
+          <div class="radio">
+            <label for="radios-0">
+              <input name="radios" id="radios-0" value="1" checked="checked" type="radio" data-ng-model="formData.field3" >
+              Option one
+            </label>
+          </div>
+          <div class="radio">
+            <label for="radios-1">
+              <input name="radios" id="radios-1" value="2" type="radio" data-ng-model="formData.field3">
+              Option two
+            </label>
+          </div>
+        </div>
+      </div>
+            <!-- Form Name -->
+      <legend>Shipping Information</legend>
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">First Name</label>  
+        <div class="col-md-4">
+          <input id="textinput" name="textinput" placeholder=" " class="form-control input-md" type="text" data-ng-model="shipping.fName" >
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput ">Last Name</label>  
+        <div class="col-md-4">
+          <input id="textinput" name="textinput1" placeholder=" " class="form-control input-md" type="text" data-ng-model="shipping.lname">
+        </div>
+      </div>
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">Address</label>  
+        <div class="col-md-4">
+          <input id="textinput" name="textinput2" placeholder=" " class="form-control input-md" type="text" data-ng-model="shipping.addressLine1"><br>
+          <input id="textinput" name="textinput3" placeholder=" " class="form-control input-md" type="text" data-ng-model="shipping.addressLine2">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput ">City</label>  
+        <div class="col-md-4">
+          <input id="textinput" name="textinput1" placeholder=" " class="form-control input-md" type="text" data-ng-model="shipping.city">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput ">State</label>  
+        <div class="col-md-4">
+          <input id="textinput" name="textinput1" placeholder=" " class="form-control input-md" type="text" data-ng-model="shipping.state">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput ">Zip Code</label>  
+        <div class="col-md-4">
+          <input id="textinput" name="textinput1" placeholder=" " class="form-control input-md" type="text" data-ng-model="shipping.zipcode">
+        </div>
+      </div>
+
+      <legend>Your Contact Info</legend>
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput ">Email</label>  
+        <div class="col-md-6">
+          <input id="textinput" name="textinput1" placeholder=" " class="form-control input-md" type="text" data-ng-model="billing.field2">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput ">Phone Number</label>  
+        <div class="col-md-4">
+          <input id="textinput" name="textinput1" placeholder=" " class="form-control input-md" type="text" data-ng-model="billing.field2">
+        </div>
+      </div>
+      <BR>
+      <!-- Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="singlebutton"></label>
+        <div class="col-md-4">
+          <button  type="submit" id="singlebutton" ng-click="submitOrder()" class="btn btn-success">Submit</button>
+          <button class="btn btn-warning" ng-click="closeOrderForm()">Cancel</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+</section>

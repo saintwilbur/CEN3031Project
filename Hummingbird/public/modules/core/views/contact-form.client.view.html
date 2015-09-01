@@ -1,0 +1,36 @@
+<section data-ng-controller="ContactController">
+	        <form role="form" ng-submit="sendContact()">
+            <div class="modal-header">
+                <h3 class="modal-title">Contact Us</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-xs-4">
+                    <label for="firstName">First Name</label>
+                    <input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="mail.firstName" placeholder="First Name">
+                </div>
+                <div class="form-group col-xs-4">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" required id="lastName" name="lastName" class="form-control" data-ng-model="mail.lastName" placeholder="Last Name">
+                </div>  
+                <div class="form-group col-xs-4">
+                    <label for="email">Email</label>
+                    <input type="email" required id="email" name="email" class="form-control" data-ng-model="mail.email" placeholder="j.doe@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="emailSubject">Subject</label>
+                    <input type="text" required id="emailSubject" name="emailSubject" class="form-control" data-ng-model="mail.subject" placeholder="Email Subject">
+                </div> selecting
+                <div class="form-group">
+                    <label for="emailContent">Content</label>
+                    <textarea class="form-control" required rows="5" data-ng-model="mail.body" placeholder="Enter your message here."></textarea> 
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button class="btn btn-warning" ng-click="cancelContact()">Cancel</button>
+            </div>
+        </form>
+        
+
+
+</section>

@@ -1,0 +1,17 @@
+.DS_Store
+.nodemonignore
+.sass-cache/
+npm-debug.log
+node_modules/
+!public/lib
+public/lib/*
+!public/lib/bootstrap
+public/lib/bootstrap/*
+!public/lib/bootrstrap/dist
+public/lib/bootstrap/dist/*
+!public/lib/bootstrap/dist/css
+public/lib/bootsrap/dist/css/*
+!public/lib/boostrap/dist/css/bootstrap.css
+app/tests/coverage/
+.bower-*/
+.idea/

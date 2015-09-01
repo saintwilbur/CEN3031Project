@@ -1,0 +1,32 @@
+<section data-ng-controller="LabNavController">
+  <div class="wrapper" >
+        <div class="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                  
+                        ID: <span data-ng-bind="authentication.user.userId"></span>
+
+                </li>
+                <li  ng-repeat="link in navLinks">
+                    <a href="" ng-click="changeCurrent($index)" ng-class="link.open"><i class="fa fa-fw fa-dashboard"></i><span ng-class="link.icon"></span> {{link.title}}<span  ng-bind-html="link.html"></a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div class="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                          <div ng-include="currentLink.content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+</section>

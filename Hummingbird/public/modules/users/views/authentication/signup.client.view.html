@@ -1,0 +1,64 @@
+<section class="row" data-ng-controller="AuthenticationController">
+	<h3 class="col-md-12 text-center">Create Account</h3>
+	<div class="col-xs-offset-2 col-xs-10 col-md-offset-3 col-md-5">
+		<form name="userForm" data-ng-submit="signup()" class="signin form-horizontal" novalidate autocomplete="off">
+			<fieldset>
+				<div class="form-group">
+					<label for="firstName">First Name</label>
+					<input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="credentials.firstName" placeholder="First Name">
+				</div>
+				<div class="form-group">
+					<label for="lastName">Last Name</label>
+					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="credentials.lastName" placeholder="Last Name">
+				</div>
+				<!-- *************************************************************************** -->
+				<div ng-controller="DatePickerController">
+			   	<!--<pre><em>{{dt| date:'fullDate' }}</em></pre> -->
+			   	   	<div class = "form-group">
+					    <label>Date of Birth</label>
+					    <p class="input-group">
+				            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="credentials.dateOfBirth" is-open="opened" min-date="'1900-06-22'" max-date="dt" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+				            <span class="input-group-btn">
+				            	<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+				            </span>
+			            </p>
+					     
+					</div>
+				</div>
+			<div class="form-group">
+			   <label for="gender">Gender </label></br>
+			   <input type="radio" name="male" ng-model="credentials.gender" value="male" required> M 
+			   <input type="radio" name="female" ng-model="credentials.gender" value="female" required>F
+			</div>
+			  <!-- </form> -->
+		
+			<!-- *************************************************************************** -->
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<label for="username">Username</label>
+				<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
+			</div>
+			<!--	<div class="form-group">
+					<label for="retypePassword">Retype Password</label>
+					<input type="password" id="retypePassword" name="retypePassword" class="form-control" data-ng-model="credentials.retypePassword" placeholder="Re-Type Password">
+				</div>!-->
+				</fieldset>
+				<!-- ***************************************************************************** -->
+				<div class="text-center form-group">
+					<button type="submit" class="btn btn-large btn-primary">Sign up</button>&nbsp; or&nbsp;
+					<a href="/#!/signin" class="show-signup">Sign in</a>
+				</div>
+				<div data-ng-show="error" class="text-center text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+		</form>
+	</div>
+
+</section>

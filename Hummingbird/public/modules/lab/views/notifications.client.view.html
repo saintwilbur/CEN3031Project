@@ -1,0 +1,31 @@
+<section ng-controller="LabController" data-ng-init="getNotifications()">
+	 <div class="page-header">
+	 	<h2>Notifications for Rejected Result</h2>
+     </div>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-hover table-condensed table-striped">
+				<thead>
+					<tr>
+						<br>
+							<th class="col-md-4"><h4><b>Result ID</h4></b></th>
+							<th class="col-md-4"><h4><b>Comment</h4></b></th>
+							<th class="col-md-4"><h4><b>Updated</h4></b></th>
+
+						</tr>
+					</thead>
+				<tbody>
+					<tr ng-repeat="result in notifications">
+						<td>{{result.resultId}}</td>
+						<td>{{result.verifiersComments}}</td>
+						<td>{{result.created}}</td>
+   					</tr>
+					</tbody>
+				</table>
+		</div>
+	</div>   
+	<div ng-hide = "orders.length !== 0">
+		<p>No orders for verification. </p>
+		<a href="#" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> </a>
+	</div>
+</section>

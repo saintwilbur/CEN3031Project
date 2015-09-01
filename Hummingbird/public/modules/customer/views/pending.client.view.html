@@ -1,0 +1,33 @@
+<section ng-controller="PendingController" data-ng-init="getPendingOrders()">
+		<h2>Pending Orders</h2>
+		<div class = "well">
+		<div ng-show = "orders.length !== 0">
+			<div class="row">
+				<div class="col-md-11">
+					<table class="table table-hover table-condensed table-bordered">
+						<thead>
+							<tr>
+								<th class="col-md-3">ID</th>
+								<th class="col-md-3">Test Type</th>
+								<th class="col-md-3">Location</th>
+								<th class="col-md-3">Created</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="order in orders">
+								<td>{{order.orderId}}</td>
+								<td>{{order.item}}</td>
+								<td>{{order.tracking}}</td>
+								<td>{{order.created}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div ng-hide = "orders.length !== 0">
+			<p>No pending orders.</p>
+		</div>
+	</div>
+</section>
+

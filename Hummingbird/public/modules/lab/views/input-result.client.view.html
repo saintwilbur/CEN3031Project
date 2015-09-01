@@ -1,0 +1,80 @@
+<section ng-controller="LabController" data-ng-init="getVerifiers()">
+                <!--Form_1: input Result-->
+                <div class="page-header">
+                    <h2>Input New Result</h2>
+                </div>
+                <div class="col-lg-12">
+                    <div class="well">
+        
+                          <!-- Order ID-->
+                        <form data-ng-submit="submitResult()" name="inputResult">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <style>label{color:}</style>
+                                            <label> Order ID </label>
+                                            <input class="form-control" data-ng-model="formData.orderId" required>
+                                         
+                                      <br>
+                                        <div class="form-group">
+                                          <style>label{color: black}</style>
+                                            <label> Test Result </label>                                    
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" ng-model="formData.result" value="Positive" required>Positive
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" ng-model="formData.result" value="Negative" required>Negative
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" ng-model="formData.result" value="Inconclusive" required>Inconclusive
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        </div>
+                                </div>
+                             
+                                <!--verifier ID -->
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">
+                                  <style>label{color:black}</style>
+                                    <label>Verifier ID</label>
+                                    
+                                            <div class="form-group">
+                                                
+                                                <select class="form-control" data-ng-model="formData.verifiedBy" required>
+                                                    <option ng-repeat="verifier in verifiers" value="{{verifier.userId}}">{{verifier.displayName}}</option>
+                                                           
+                                                </select>
+                                            </div>
+                                          
+                                            
+                                            <style>label{color:black}</style>
+                                             <label>Comments</label>
+                                            <textarea class="form-control" rows="3" data-ng-model="formData.comments"></textarea>
+                                            
+                                            
+                                        
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                    </div>
+                                        
+                    </form><br>  
+                </div>
+                <!-- /.col-lg-12 -->    
+                <button type="submit" class="btn btn-primary" ng-click="submitResult()">
+                    <span class="glyphicon glyphicon-user"></span>&nbsp;Submit
+                </button> 
+                &nbsp; &nbsp;
+                <button type="submit" class="btn btn-warning" ng-click="resetResult()">
+                    <span class="glyphicon glyphicon-refresh"></span>&nbsp;Reset
+                </button>     
+
+
+</section>

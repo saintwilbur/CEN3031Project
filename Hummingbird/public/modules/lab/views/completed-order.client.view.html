@@ -1,0 +1,51 @@
+<section data-ng-controller="LabController" data-ng-init="completedOrderList()">
+	<div class="page-header">
+                  <h2>View Completed Orders</h2>
+    </div>
+    <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            My Completed Orders
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                        		<div class="row">
+									<div class="col-md-12">
+										<table class="table table-hover table-condensed table-striped">
+											<thead>
+												<tr>
+													<th class="col-md-2">Order Id</th>
+													<th class="col-md-3">Date</th>
+													<th class="col-md-3">Verifier</th>
+													<th class="col-md-2">Result</th>
+													<th class="col-md-2">Comments</th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="order in completedOrders | filter:query">
+													<td>{{order.orderId}}</td>
+													<td>{{order.completed}}</td>
+													<td>{{order.verifier}}</td>					
+													<td>{{order.resultView}}								
+													<!--<a href class="navbar-btn" ng-controller="ModalController" ng-click="getCompletedOrderInfo(order.orderId); open('md','/modules/lab/views/verify-info.client.view.html')">View</a>-->							
+													</td>
+													<td>{{order.comments}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div ng-hide = "orderHistory.length !== 0">
+									<p>No results for verification. </p>
+								</div>
+							</div>
+						</div>			
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+</section>

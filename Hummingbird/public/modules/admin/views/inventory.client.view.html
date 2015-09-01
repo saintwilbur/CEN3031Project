@@ -1,0 +1,77 @@
+<section data-ng-controller="AdminController" data-ng-init="getInventory()">
+	<div class="page-header">
+		<h3>Inventory</h3>
+    </div>
+    <div class="row">
+    	 <div class="col-lg-12">
+    	 	                    <h4 >Create Kit</h4>
+                        		<form  name="addToInventory"class="form-inline" role="form">
+									<div class="form-group">
+									    <label >New Kit</label>
+									    <input type="text" class="form-control"  placeholder="Name" data-ng-model="newKit.itemId">
+									</div>
+									<div class="form-group">
+									    <label >Quantity</label>
+									    <input type="text" class="form-control" placeholder="Number" data-ng-model="newKit.amount">
+									</div>
+									
+									<button type="submit" class="btn btn-default" ng-click = "addNewKit()">submit</button>
+								</form>
+							</br>
+                        	<h4>Increase Kit Amount</h4>
+                        	<form  name="changeKitAmount"class="form-inline" role="form">
+									<div class="form-group">
+									<label>Select Kit</label>
+									
+										<select class="form-control" data-ng-model="kitSelect.itemId">
+											<option ng-repeat="kit in inventory" value="{{kit.itemId}}">{{kit.name}}</option>
+										</select>
+									
+								</div>
+									<div class="form-group">
+									    <label >Quantity</label>
+									    <input type="text" name ="kitSelectAmount" class="form-control" placeholder="Number" data-ng-model="kitSelect.amount">
+									</div>
+									
+									<button type="button" class="btn btn-default" ng-click = "increaseKitCount()">submit</button>
+							</form>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Current Inventory
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table table-hover table-condensed table-striped">
+									<thead>
+										<tr>
+											<th class="col-md-4">Kit</th>
+											<th class="col-md-3">Quantity</th>
+										</tr>
+										</thead>
+									<tbody>
+										<tr ng-repeat="kit in inventory">
+											<td>{{kit.name}}</td>
+											<td>{{kit.count}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<div ng-hide = "inventory.length !== 0">
+										<p>No kits registered in inventory. </p>
+								</div>
+							</div>
+						</div>			
+                        <!-- /.panel-body -->
+                </div>
+                    <!-- /.panel -->
+            </div>
+                <!-- /.col-lg-12 -->
+        </div>
+    </div>
+</section>
